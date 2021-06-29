@@ -47,3 +47,4 @@ orderServiceImpl의 코드중 일부인 이 코드는 마치 로미오 역할(�
 - AppConfig는 생성한 객체 인스턴스의 참조(래퍼런스)를 "생성자를 통해서 주입(연결)" 해준다.
 - AppConfig는 공연 기획자 역할을 한다.
 - `OrderServiceImpl`가 의존관계 부여나 객체 생성에는 관심을 끄고, 기능을 실행하는 책임만 지니면 되게 해주는 것이 AppConfig이다.
+
