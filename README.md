@@ -328,3 +328,5 @@
     - 그러므로 Spring은 항상 무상태(stateless)로 설계 해야 한다.
     - 위에 상황을 해결하기 위해서는 orderService의 price값을 전역변수를 사용하지 말고, 주문이 들어가는순간 반환(return)값으로 price를 던져주는 방식으로 해야한다. 즉, order를 진행한다음에 나중에 조회를 못하도록 해야 한다. (따로 price값을 계속 유지시키면 안됨)
     
+## Configuration과 싱글톤
+- `@Configuration` 은 싱글톤을 위해서 존재하는 것이다.
