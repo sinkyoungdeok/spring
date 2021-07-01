@@ -498,3 +498,39 @@
 - 예를 들어 `DiscountPolicy`의 하위 타입인 `FixDiscountPolicy`, `RateDiscountPolicy` 둘다 스프링 빈으로 선언하고 `@Autowired`를 사용하면 `NoUniqueBeanDefinitionException`오류가 발생한다.
     - 이때 하위 타입으로 지정할 수 도 있지만, 하위 타입으로 지정하는 것은 DIP를 위배하고 유연성이 떨어진다. 그리고 이름만 다르고, 완전히 똑같은 타입의 스프링 빈이 2개 있을 때 해결이 안된다. 스프링 빈을 수동 등록해서 문제를 해결해도 되지만, 의존 관계 자동 주입에서 해결하는 여러 방법이 존재한다.
     
+## 조회 대상 빈이 2개 이상일 때 해결 방법
+- @Autowuired 필드 명 매칭
+- @Quilifier -> @Quilifier끼리 매칭 -> 빈 이름 매칭
+- @Primary 사용
+
+## 빈 2 해결 - @Autowired 필드명 매칭 
+- `@Autowired`는 타입 매칭을 시도하고, 이때 여러 빈이 있으면 필드 이름(파라미터 이름)으로 빈 이름을 추가 매칭한다.
+    - ex) @Autowired private DiscountPolicy discountPolicy -> @Autowired private DiscountPolicy rateDiscountPolicy 
+    - 필드 명이 `rateDiscountPolicy`이므로 정상 주입된다.
+    - "필드 명 매칭은 먼저 타입 매칭을 시도하고 그 결과에 여러 빈이 있을 때 추가로 동작하는 기능이다."
+- `@Autowired` 매칭 정리
+    1. 타입 매칭
+    2. 타입 매칭의 결과가 2개 이상일 때 필드(파라미터) 명으로 빈 이름 매칭
+
+## 빈 2 해결 - @Quilifier 사용
+- `@Quilifier`는 추가 구분자를 붙여주는 방법이다. 주입시 추가적인 방법을 제공하는 것이지 빈 이름을 변경하는 것은 아니다.
+- `@Quilifier`로 주입 할 때 `@Quilifier("mainDiscountPolicy")`를 못찾으면 어떻게 될까? 그러면 mainDiscountPolicy라는 이름의 스프링 빈을 추가로 찾는다. 하지만 경험상 `@Qualifier`는 `@Qualifier`를 찾는 용도로만 사용하는게 명확하고 좋다.
+- 직접 빈 등록시에도 @Qualifier를 동일하게 사용할 수 있다.
+- `@Quilifier 정리`
+    1. `@Quilifier`끼리 매칭
+    2. 빈 이름 매칭
+    3. `NoSuchBeanDefinitionException` 예외 발생
+
+## 빈 2 해결 - @Primary 사용
+- `@Primary`는 우선순위를 정하는 방법이다. @Autowired 시에 여러 빈 매칭되면 `@Primary`가 우선권을 가진다. 
+
+## "@Primary, @Qualifier 활용"
+- 코드에서 자주 사용하는 메인 데이터베이스의 커넥션을 획득하는 스프링 빈이 있고, 코드에서 특별한 기능으로 가끔 사용하는 서브 데이터베이스의 커넥션을 획득하는 스프링 빈이 있다고 생각 해보자.
+- 메인 데이터베이스의 커넥션을 획득하는 스프링빈은 `@Primary`를 적용해서 조회하는 곳에서 `@Qualifier`지정 없이 편리하게 조회하고, 서브 데이터베이스 커넥션 빈을 획득 할 때는 `@Qualifier`를 지정해서 명시적으로 획득 하는 방식으로 사용하면
+코드를 깔끔하게 유지할 수 있다.
+- 물론 이때 메인 데이터 베이스의 스프링 빈을 등록할 때 `@Qualifier`를 지정해주는 것은 상관 없다.
+- "우선순위"
+    - `@Primary`는 기본값 처럼 동작하는 것이고, `@Quilifier`는 매우 상세하게 동작한다. 이런 경우 어떤 것이 우선권을 가져갈까? 스프링은 자동보다는 수동이, 넓은 범위의 선택권 보다는 좁은 범위의 선택권이 우선 순위가 높다. 따라서 여기서도 `@Quilifier`가 우선권이 높다.
+
+
+
