@@ -812,3 +812,11 @@
 - request scope의 MyLogger 덕분에 이런 부분을 파라미터로 넘기지 않고, MyLogger의 멤버변수에 저장해서 코드와 계층을 깔끔하게 유지할 수 있다.
 - request scope의 객체를 스프링 애플리케이션 실행 시점에 의존관계 주입으로 하려고하면 에러가 생긴다. 이 빈은 실제 고객의 요청이 와야 생성 할 수 있기 떄문에 Provider가 필요하다.
 
+## request 스코프와 Provider
+- 앞서 request 스코프의 에러 해결 방안의 첫번쨰는 앞서 배운 Provider를 사용하는 것이다. 
+- `ObjectProvider` 덕분에 `ObjectProvider.getObject()`를 호출하는
+시점까지 request scope 빈의 생성을 지연 할 수 있다.
+- `ObjectProvider.getObject()` 를 호출하는 시점에는 HTTP 요청이 진행중이므로 request scope 빈의 생성이 정상 처리 된다.
+- `ObjectProvider.getObject()` 를 `LogDemoController`, `LogDemoService`에서 각각 한번씩 따로 호출해도
+같은 HTTP 요청이면 같은 스프링 빈이 반환된다! -> 직접 이걸 구분하려면 엄청 힘들다.
+- 이 정도에서 끝내면 될 것 같지만, 개발자의 코드 몇자를 더 줄이려는 욕심은 끝이 없다.
