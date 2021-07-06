@@ -298,9 +298,10 @@
   - HttpservletRequest, HttpservletResponse를 사용할 때 가장 중요한 점은 이 객체들이
   HTTP 요청 메시지, HTTP 응답 메시지를 편리하게 사용하도록 도와주는 객체라는 점이다. 따라서
   이 기능에 대해서 깊이있는 이해를 하려면 "HTTP 스펙이 제공하는 요청, 응답 메시지 자체를 이해" 해야 한다.
-
-
+    
 ## C. HttpServletRequest - 기본 사용법
+- 참고: 로컬에서 테스트하면 IPv6 정보가 나오는데, IPv4 정보를 보고 싶으면 다음 옵션을 VM options에 넣어주면 된다. (`-Djava.net.preferIPv4Stack=true`)
+
 ## D. HTTP 요청 데이터 - 개요
 ## E. HTTP 요청 데이터 - GET 쿼리 파라미터
 ## F. HTTP 요청 데이터 - POST HTML Form
