@@ -334,8 +334,26 @@ ex) 검색, 필터, 페이징 등에서 많이 사용하는 방식
   `request.getParameterValues()`를 사용해야 한다.
   - 참고로 이렇게 중복일 때 `request.getParameter()`를 사용하면 `request.getParameterValues()`의 첫 번째 값을 반환한다.
   
-
 ## F. HTTP 요청 데이터 - POST HTML Form
+- 이번에는 HTML의 Form을 사용해서 클라이언트에서 서버로 데이터를 전송해보자.
+주로 회원 가입, 상품 주문 등에서 사용하는 방식이다.
+- 특징
+  - content-type: `application/x-www-form-urlencoded`
+  - 메시지 바디에 쿼리 파라미터 형식으로 데이터를 전달한다. `username=hello&age=20`
+  
+- `request.gtParameter()`는 GET URL 쿼리 파라미터 형식도 지원하고, POST HTML Form 형식도 둘 다 지원한다.
+- 참고
+  - content-type은 HTTP 메시지 바디의 데이터 형식을 지정한다.
+  - GET URL 쿼리 파라미터 형식으로 클라이언트에서 서버로 데이터를 전달할 때는 HTTP 메시지 바디를 사용하지 않기 떄문에 content-type이 없다.
+  - POST HTML Form 형식 으로 데이터를 전달하면 HTTP 메시디 바디에 해당 데이터를 포함해서 보내기 떄문에 바디에 포함된 데이터가 어떤 형식인지
+  content-type을 꼭 지정해야 한다. 이렇게 폼으로 데이터를 전송하는 방식을 `application/x-www-form-urlencoded`라 한다.
+- Postman을 사용한 테스트
+  - 이런 간단한 테스트에 HTML form을 만들기는 귀찮다. 이때는 Postman을 사용하면 된다.
+- Postman 테스트 주의사항
+  - POST 전송시
+    - Body -> `x-www-form-urlencoded` 선택
+    - Headers에서 content-type: `application/x-www-form-urlencoded`로 지정된 부분 꼭 확인
+  
 ## G. HTTP 요청 데이터 - API 메시지 바디 - 단순 텍스트
 ## H. HTTP 요청 데이터 - JSON
 ## I. HttpServletResponse - 기본 사용법
