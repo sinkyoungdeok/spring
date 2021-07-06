@@ -1,0 +1,8 @@
+hello/core/member/MemberServiceTest.java
+ hello.core.member.MemberServiceTest
+hello/core/CoreApplicationTests.java
+ hello.core.CoreApplicationTests
+hello/core/order/OrderServiceTest.java
+ hello.core.order.OrderServiceTest
+hello/core/discount/RateDiscountPolicyTest.java
+ hello.core.discount.RateDiscountPolicyTest
