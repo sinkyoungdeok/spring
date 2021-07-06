@@ -249,7 +249,7 @@
   - 최선의 선택, 단 성능은 프리마커, 벨로시티가 더 빠름
 
 # 2. 서블릿
-## Hello 서블릿
+## A. Hello 서블릿
 - 참고: 서블릿은 톰캣 같은 웹 애플리케이션 서버를 직접 설치하고, 그 위에 서블릿 코드를 클래스 파일로
 빌드해서 올린 다음, 톰캣 서버를 실행하면 된다. 하지만 이 과정은 매우 번거롭기떄문에 스프링 부트로 진행.
 스프링부트는 톰캣 서버를 내장하고 있으므로, 톰캣 서버 설치 없이 편리하게 서블릿 코드를 실행할 수 있다.
@@ -265,19 +265,18 @@
 - application.properties에 logging.level.org.apache.coyote.http11=debug를 추가하면 됨
 - 참고: 운영서버에 이렇게 모든 요청 정보를 다 남기면 성능저하가 발생할 수 있다. 개발 단계에서만 적용하자.
 
+## B. HttpServletRequest - 개요
 
+###
+### 
 
-
-
-
-## HttpServletRequest - 개요
-## HttpServletRequest - 기본 사용법
-## HTTP 요청 데이터 - 개요
-## HTTP 요청 데이터 - GET 쿼리 파라미터
-## HTTP 요청 데이터 - POST HTML Form
-## HTTP 요청 데이터 - API 메시지 바디 - 단순 텍스트
-## HTTP 요청 데이터 - JSON
-## HttpServletResponse - 기본 사용법
-## HTTP 응답 데이터 - 단순 텍스트, HTML
-## HTTP 응답 데이터 - API JSON
-## 정리
+## C. HttpServletRequest - 기본 사용법
+## D. HTTP 요청 데이터 - 개요
+## E. HTTP 요청 데이터 - GET 쿼리 파라미터
+## F. HTTP 요청 데이터 - POST HTML Form
+## G. HTTP 요청 데이터 - API 메시지 바디 - 단순 텍스트
+## H. HTTP 요청 데이터 - JSON
+## I. HttpServletResponse - 기본 사용법
+## J. HTTP 응답 데이터 - 단순 텍스트, HTML
+## K. HTTP 응답 데이터 - API JSON
+## L. 정리
