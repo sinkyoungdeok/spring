@@ -383,10 +383,16 @@ ex) 검색, 필터, 페이징 등에서 많이 사용하는 방식
   스프링 부트로 Spring MVC를 선택하면 기본으로 Jackson 라이브러리 (`ObjectMapper`)를 함께 제공한다.
   - HTML form 데이터도 메시지 바디를 통해 전송되므로 직접 읽을 수 있다. 하지만 편리한 파라미터 조회 기능
     (`request.getParameter(...)`)을 이미 제공하기 때문에 파라미터 조회 기능을 사용하면 된다.
-
-  
-
+    
 ## I. HttpServletResponse - 기본 사용법
+### HttpServletResponse 역핧
+- HTTP 응답 메시지 생성
+  - HTTP 응답코드 지정
+  - 헤더 생성
+  - 바디 생성
+- 편의 기능 제공
+  - Content-Type, 쿠키, Redirect
+
 ## J. HTTP 응답 데이터 - 단순 텍스트, HTML
 ## K. HTTP 응답 데이터 - API JSON
 ## L. 정리
