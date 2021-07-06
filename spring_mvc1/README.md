@@ -355,6 +355,21 @@ ex) 검색, 필터, 페이징 등에서 많이 사용하는 방식
     - Headers에서 content-type: `application/x-www-form-urlencoded`로 지정된 부분 꼭 확인
   
 ## G. HTTP 요청 데이터 - API 메시지 바디 - 단순 텍스트
+- HTTP message body에 데이터를 직접 담아서 요청
+  - HTTP API에서 주로 사용, JSON, XML, TEXT
+  - 데이터 형식은 주로 JSON 사용
+  - POST, PUT, PATCH
+- 먼저 가장 단순한 텍스트 메시지를 HTTP 메시지 바디에 담아서 전송하고, 읽어보자.
+- HTTP 메시지 바디의 데이터를 InputStream을 사용해서 직접 읽을 수 있다.
+- 참고
+  - inputStream은 byte 코드를 반환한다. byte코드를 우리가 읽을 수 있는 문자(String)로 보려면 문자표(Charset)를 지정해주어야 한다.
+  여기서는 UTF_8 Charset을 지정해주었다.
+- 문자전송
+  - POST http://localhost:8080/request-body-string
+  - content-type: text/plain
+  - message body: `hello`
+  - 결과: `messageBody = hello`
+
 ## H. HTTP 요청 데이터 - JSON
 ## I. HttpServletResponse - 기본 사용법
 ## J. HTTP 응답 데이터 - 단순 텍스트, HTML
