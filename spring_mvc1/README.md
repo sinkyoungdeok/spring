@@ -615,4 +615,5 @@ ModelView 객체를 생성하고 반환해야 하는 부분이 조금은 번거�
 어떠한 것이든 해당하는 종류의 어댑터만 있으면 다 처리할 수 있기 때문이다.
 
 ## G. 유연한 컨트롤러2 - v5
+- `FrontControllerServletV5`에 `ControllerV4` 기능 추가
 ## 정리
