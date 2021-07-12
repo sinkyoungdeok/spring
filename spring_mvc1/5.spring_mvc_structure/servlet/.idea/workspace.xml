@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="445703ac-8c5e-45c8-bd61-fb89cc148b56" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/servlet/web/springmvc/v1/SpringMemberFormControllerV1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/servlet/web/springmvc/v1/SpringMemberSaveControllerV1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hello/servlet/web/springmvc/v2/SpringMemberControllerV2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
     </list>
@@ -86,13 +85,15 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -117,7 +118,8 @@
       <workItem from="1625934549148" duration="4274000" />
       <workItem from="1626000853812" duration="19000" />
       <workItem from="1626000946964" duration="1360000" />
-      <workItem from="1626063429512" duration="3941000" />
+      <workItem from="1626063429512" duration="4782000" />
+      <workItem from="1626073026686" duration="307000" />
     </task>
     <servers />
   </component>
