@@ -829,4 +829,20 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
   - 컨트롤러 클래스를 통합하는 것을 넘어서 조합도 가능하다.
   - 다음 코드는 "/springmvc/v2/members"라는 부분에 중복이 있다.
 ## 스프링 MVC - 실용적인 방식
+- MVC 프레임 워크 만들기에서 v3은 ModelView를 개발자가 직접 생성해서 반환했기 때문에, 불편햇던 기억이 날 것이다. 물론 v4를 만들면서 실용적으로 개선한 기억도 날 것이다.
+- 스프링 MVC는 개발자가 편리하게 개발할 수 있돌고 수 많은 편의 기능을 제공한다.
+- 실무에서는 여기에서 사용한 방법을 위주로 사용한다.
+- Model 파라미터
+  - save(), members()를 보면 Model을 파라미터로 받는 것을 확인할 수 있다. 스프링 MVC도 이런 편의 기능을 제공한다.
+- ViewName 직접 반환
+  - 뷰의 논리이름을 반환할 수 있다.
+- @RequestParam 사용
+  - 스프링은 HTTP 요청 파라미터를 `@RequestParam`으로 받을 수 있다.
+  - `@RequestParam("username")`은 `request.getParameter("username")`와 거의 같은 코드라 생각하면 된다.
+  물론 GET 쿼리파라미터, POST Form 방식을 모두 지원한다.
+- @RequestMapping -> @GetMapping, @PostMapping
+  - `@RequestMapping`은 URL만 매칭하는 것이 아니라, HTTP Method도 함께 구분할 수 있다.
+  예를 들어서 URL이 `/new-form`이고, HTTP Method가 GET인 경우를 모두 만족하는 매핑을 하려면 method= RequestMethod.GET을 넣어주면 된다.
+  - 위에것을 `@GetMapping`, `@PostMapping`으로 더 편리하게 상욯라 수 있다.
+  참고로 Get, Post, Put, Delete, Patch 모두 애노테이션이 준비되어 있다.
 ## 정리
