@@ -845,3 +845,20 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
   예를 들어서 URL이 `/new-form`이고, HTTP Method가 GET인 경우를 모두 만족하는 매핑을 하려면 method= RequestMethod.GET을 넣어주면 된다.
   - 위에것을 `@GetMapping`, `@PostMapping`으로 더 편리하게 상욯라 수 있다.
   참고로 Get, Post, Put, Delete, Patch 모두 애노테이션이 준비되어 있다.
+    
+# 6. 스프링 MVC - 기본 기능
+## A. 프로젝트 생성
+## B. 로깅 간단히 알아보기
+## C. 요청 매핑
+## D. 요청 매핑 - API 예시
+## E. HTTP 요청 - 기본, 헤더 조회
+## F. HTTP 요청 파라미터 - 쿼리 파라미터, HTML Form
+## G. HTTP 요청 파라미터 - @RequestParam
+## H. HTTP 요청 파라미터 - ModelAttribute
+## I. HTTP 요청 메시지 - 단순 텍스트
+## J. HTTP 요청 메시지 - JSON
+## K. 응답 - 정적 리소스, 뷰 템플릿
+## L. HTTP 응답 - HTTP API, 메시지 바디에 직접 입력
+## M. HTTP 메시지 컨버터
+## N. 요청 매핑 헨들러 어뎁터 구조
+## O. 정리
