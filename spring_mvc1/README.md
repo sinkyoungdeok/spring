@@ -944,6 +944,34 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
   - 회원 삭제: DELETE `/users/{userId}`
   
 ## E. HTTP 요청 - 기본, 헤더 조회
+- 애노테이션 기반의 스프링 컨트롤러는 다양한 파라미터를 지원한다.
+- 이번에는 HTTP 헤더 정보를 조회한느 방법을 알아보자.
+- 조회 가능한 헤더
+  - `HttpServletRequest`
+  - `HttpSErvletREsponse`
+  - `HttpMethod`: HTTP메서드를 조회한다.
+  - `Locale` : Locale 정보를 조회한다 ex) ko_KR
+  - `@RequestHeader MultiValueMap<String, String> headerMap`: 모든 HTTP 헤더를 MultiValueMap 형식으로 조회한다.
+  - `@RequestHeader("host") String host` 
+    - 특정 HTTP 헤더를 조회한다.
+    - 속성
+      - 필수 값 여부: `required`
+      - 기본 값 속성: `defaultValue`
+  - `@CookieVluae(value="myCookie", required=false) String cookie`
+    - 특정 쿠키를 조회한다.
+    - 속성
+      - 필수 값 여부: `required`
+      - 기본 값: `defaultValue`
+- `MultiValueMap`
+  - Map과 유사한데, 하나의 키에 여러 값을 받을 수 있다.
+  - HTTP header, HTTP 쿼리 파라미터와 같이하나의 키에 여러 값을 받을 때 사용 한다.
+    - keyA=value1&keyA=value2
+- 참고
+  - `@Controller`의 사용가능한 파라미터 목록
+    - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-arguments
+  - `@Controller`의 사용가능한 응답 값 목록
+    - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-return-types
+
 ## F. HTTP 요청 파라미터 - 쿼리 파라미터, HTML Form
 ## G. HTTP 요청 파라미터 - @RequestParam
 ## H. HTTP 요청 파라미터 - ModelAttribute
