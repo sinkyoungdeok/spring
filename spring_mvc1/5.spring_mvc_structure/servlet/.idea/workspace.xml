@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="445703ac-8c5e-45c8-bd61-fb89cc148b56" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/servlet/web/springmvc/old/MyHttpRequestHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/servlet/web/springmvc/old/OldController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hello/servlet/web/springmvc/old/OldController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/servlet/web/springmvc/old/OldController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +117,7 @@
       <workItem from="1625934549148" duration="4274000" />
       <workItem from="1626000853812" duration="19000" />
       <workItem from="1626000946964" duration="1360000" />
-      <workItem from="1626063429512" duration="1280000" />
+      <workItem from="1626063429512" duration="2397000" />
     </task>
     <servers />
   </component>
