@@ -934,6 +934,15 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
     만약 맞지 않으면 HTTP 406 상태코드(Not Acceptable)을 반환한다.
     
 ## D. 요청 매핑 - API 예시
+- 회원 관리를 HTTP API로 만든다 생각하고 매핑을 어떻게 하는지 알아보자.
+  (실제 데이터가 넘어가는 부분은 생략하고 URL매핑만)
+- 회원 관리 API
+  - 회원 목록 조회: GET `/users`
+  - 회원 등록: POST `/users`
+  - 회원 조회: GET `/users/{userId}`
+  - 회원 수정: PATCH `/users/{userId}`
+  - 회원 삭제: DELETE `/users/{userId}`
+  
 ## E. HTTP 요청 - 기본, 헤더 조회
 ## F. HTTP 요청 파라미터 - 쿼리 파라미터, HTML Form
 ## G. HTTP 요청 파라미터 - @RequestParam
