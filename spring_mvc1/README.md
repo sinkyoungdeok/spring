@@ -973,6 +973,30 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
     - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-return-types
 
 ## F. HTTP 요청 파라미터 - 쿼리 파라미터, HTML Form
+### HTTP 요청 데이터 조회 - 개요
+- 서블릿에서 학습했던 HTTP 요청 데이터를 조회 하는 방법을 다시 떠올려보자. 그리고 서블릿으로 학습햇떤 내용을
+스프링이 얼마나 깔끔하고 효율적으로 바꾸어 주는지 알아보자.
+- HTTP 요청 메시지를 통해서 클라이언트에서 서버로 데이터를 전달하는 방법을 알아보자.
+- 클라이언트에서 서버로 요청 데이터를 전달할 때는 주로 다음 3가지 방벙을 사용한다.
+  - GET - 쿼리 파라미터
+    - /url?username=hello&age=20
+    - 메시지 바디 없이, URL의 쿼리 파라미터에 데이터를 포함해서 전달
+    - ex) 검색, 필터, 페이징등에서 많이 사용하는 방식
+  - POST - HTML Form
+    - content-type: application/x-www-form-urlencoded
+    - 메시지 바디에 쿼리 파라미터 형식으로 전달 username=hello&age=20
+    - ex) 회원 가입, 상품 주문, HTML Form 사용
+  - HTTP message body에 데이터를 직접 담아서 요청 
+    - HTTP API에서 주로 사용, JSON, XML, TEXT
+    - 데이터 형식은 주로 JSON사용
+    - POST, PUT, PATCH
+### 요청 파라미터 - 쿼리 파라미터, HTML Form
+- `HttpServletRequest`의 `request.getParameter()`를 사용하면 다음 두가지 요청 파라미터를 조회할 수 있다.
+  - GET, 쿼리 파라미터 전송
+  - POST, HTML Form 전송 
+  - GET 쿼리 파라미터 전송 방식이든, POST HTML Form 전송 방식이든 둘다 형식이 같으므로 구분없이 조회 할 수 있다.
+  이것을 간단히 요청파라미터(request parameter)조회 라고 한다.
+    
 ## G. HTTP 요청 파라미터 - @RequestParam
 ## H. HTTP 요청 파라미터 - ModelAttribute
 ## I. HTTP 요청 메시지 - 단순 텍스트
