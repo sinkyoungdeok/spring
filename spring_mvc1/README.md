@@ -1037,6 +1037,29 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
       - 파라미터의 값이 1개가 확실하다면 `Map`을 사용해도 되지만, 그렇지 않다면 `MultiValueMap`을 사용하자.
 
 ## H. HTTP 요청 파라미터 - ModelAttribute
+- 실제 개발을 하면 요청 파라미터를 받아서 필요한 객체를 만들고 그 객체에 값을 넣어주어야 한다.
+- 스프링은 이 과정을 완전히 자동화해주는 `@ModelAttribute`기능을 제공한다.
+- 롬복 `@Data`
+  - `@Getter`, `@Setter`, `@ToString`, `@EqualsAndHashCode`, `@RequiredArgsConstructor`를 자동으로 적용해준다.
+- @ModelAttribute 적용 - modelAttributeV1
+  - 마치 마법처럼 `HelloData`객체가 생성되고, 요청 파라미터의 값도 모두 들어가 있다.
+  - 스프링 MVC는 `@ModelAttribute`가 있으면 다음을 실행한다.
+    - `HelloData`객체를 생성한다.
+    - 요청 파라미터의 이름으로 `HelloData`객체의 프로퍼티를 찾는다. 그리고 해당 프로퍼티의 setter를 호출해서 파라미터의 값을 입력(바인딩)한다.
+    - ex) 파라미터 이름이 `username`이면 `setUsername()`메서드를 찾아서 호출하면서 값을 입력한다.
+- 프로퍼티
+  - 객체에 `getUsername()`, `setUsername()` 메서드가 있으면, 이 객체는 `username`이라는 프로퍼티를 가지고 있따.
+  `usernmame` 프로퍼티의 값을 변경하면 `setUsername()`이 호출되고, 조회하면 `getUsername()`이 호출된다.
+- 바인딩 오류
+  - `age=abc` 처럼 숫자가 들어가야 할 곳에 문자를 넣으면 `BindException`이 발생한다. 이런 바인딩 오류를 처리하는 방법은 검증 부분에서 다룬다.
+- @ModelAttribute 생략 - modelAttributeV2
+  - `@ModelAttribute` 는 생략할 수 있다.
+  - 그런데 `@RequestParam`도 생략할 수 있으니 혼란이 발생할 수 있다.
+- 스프링은 해당 생략시 다음과 같은 규칙을 적용한다.
+  - `String`, `int`, `Integer`는 같은 단순타입 = `@RequestParam`
+  - 나머지 = `@ModelAttribute`(argument resolver로 지정해둔 타입은 적용되지 않는다 ex) HttpServletResponse)
+- 참고
+  - argument resolver는 뒤에서 학습한다.
 ## I. HTTP 요청 메시지 - 단순 텍스트
 ## J. HTTP 요청 메시지 - JSON
 ## K. 응답 - 정적 리소스, 뷰 템플릿
