@@ -1270,7 +1270,7 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
   - content-type: application/json
   - @RequestMapping void Hello(@RequestBody HelloData data) {}
   - ==> 즉, 정답 MappingJackson2HttpMessageConverter
-- 예시3
+- 예시3 (오류뜸)
   - content-type: text/html
   - @RequestMapping void Hello(@RequestBody HelloData data) {}
   - ==> 정답: ??? 해당되는게 없다.
