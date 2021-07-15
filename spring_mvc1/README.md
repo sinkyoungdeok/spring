@@ -1323,3 +1323,17 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
 `WebMvcConfigurer`를 상속 받아서 스프링 빈으로 등록하면 된다. 실제 자주 사용하지는 않으니
 실제 기능 확장이 필요할 때 `WebMvcConfigurer`를 검색해보자.
   
+
+# 7. 스프링 MVC - 웹 페이지 만들기
+## A. 프로젝트 생성
+## B. 요구사항 분석
+## C. 상품 도메인 개발
+## D. 상품 서비스 HTML
+## E. 상품 목록 - 타임리프
+## F. 상품 상세
+## G. 상품 등록 폼
+## H. 상품 등록 처리 - @ModelAttribute
+## I. 상품 수정
+## J. PRG Post/Redirect/Get
+## K. RedirectAttributes
+## L. 정리
