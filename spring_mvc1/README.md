@@ -1322,8 +1322,4 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
 - 스프링이 필요한 대부분의 기능을 제공하기 떄문에 실제 기능을 확장할 일이 많지는 않다. 기능 확장은
 `WebMvcConfigurer`를 상속 받아서 스프링 빈으로 등록하면 된다. 실제 자주 사용하지는 않으니
 실제 기능 확장이 필요할 때 `WebMvcConfigurer`를 검색해보자.
-
   
-
-  
-## O. 정리
