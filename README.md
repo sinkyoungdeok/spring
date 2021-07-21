@@ -213,3 +213,90 @@ JVM에서 내부적으로 로킹해준다.
   - 계층은 컨트롤러, 뷰, business layer, persistent layer
   - VO도 같은 기능을 하지만 readonly 속성을 가진 차이가 있다.
   
+## JPA N+1 문제
+- 원인
+  - 1:N 관계를 갖는 엔티티의 하위 엔티티를 조회할 때마다 많은 양의 쿼리가 발생
+  - Spring Data JPA에서 제공하는 Repository의 findAll, findById 등과 같은 메소드를 사용하면 바로 DB에
+  SQL쿼리를 날리는 것이 아니다. JPQL 이라는 객체지향 쿼리 언어를 생성, 실행시킨 후 JPA는 이것을 분석해서 SQL을 생성, 실생하는 동작에서 N+1 쿼리 문제가 발생
+  - JPQL 입장에서는 Lazy 로딩, Eager 로딩과 같은 글로벌 패치 전략을 신경 쓰지 않고, JPQL만 사용해서 SQL을 생성
+- 발생시점
+  - Eager 전략으로 데이터를 가져오는 경우
+  - Lazy 전략으로 데이터를 가져온 이후에 가져온 데이터에서 하위 엔티티를 다시 조회한느 경우
+- 해결방법
+  - 패치 조인
+    - 미리 쿼리로 테이블을 조인해서 가져오기 때문에 Lazy, Eager 두개의 전략에 해당되는 해결방법이다.
+    - 단점
+      - JPA가 제공하는 Pageable 기능 사용 불가
+      - 1:N 관계가 2개인 엔티티를 패치 조인 사용 불가 ( 임시 해결법은 List -> Set으로 자료구조를 변경하는 것 )
+      - 데이터가 많아지면, 메모리 초과 예외가 발생할 수 있음
+  - Batch Size 지정 + 즉시로딩 
+    - 설정한 Size만큼 데이터를 미리 로딩 ( where in을 사용하여 )
+    - JPA의 페이징 API 기능처럼 개수가 고정된 데이터를 가져올 때 함께 사용할 때 유용하게 사용 가능
+    - 단점
+      - 글로벌 패치 전략을 Eager로 변경해야함
+  - @EntityGraph 사용
+
+## Service에 @Transactional
+- 미적용 
+  - 기본적으로 JDBC의 트랜잭션은 하나의 Connection Instance를 생성하고 통신하며 종료하는 흐름과 같이 동작
+  - 즉 코드에 존재하는 DAO 로직들은 각각의 트랜잭션 안에서 연산을 진행, 이떄의 트랜잭션을 로컬 트랜잭션이라고 함
+- 적용
+  - 여러 질의를 포함하는 트랜잭션을 구성하기 위해서 하나의 커넥션을 생성하고 Auto-commit을 false처리한 뒤 이 커넥션을 재사용
+  - Spring에서는 이를 구현하는 방법을 Transaction Synchronization 이라고 함
+
+## Transaction Synchronization
+1. DAO의 호출을 위한 connection을 트랜잭션 경계 상단에서 생성
+2. 해당 connection 객체를 TransactionSynchronizationManager 내부의 참조 변수인 connectionHolder 객체에 저장
+3. connection의 Auco-commit 설정 값을 false로 설정
+4. DAO의 메서드가 호출되면 우선 Manager 내부의 Holder 객체에 connection이 있는지 확인
+5. 저장되어 있는 Connection을 가져오고 Statement 객체를 생성하여 쿼리를 전송. 그리고 연산 종료 시 해당 connection을 종료시키지 않고 열어둠
+6. 위와 같은 연산을 진행하여 Runtime Exception이 발생하면 connection 객체의 RollBack을 실행하고 그렇지 않은 경우 commit을 실행
+
+## 트랜잭션
+- 데이터베이스의 상태를 변화시키기 위해서 수행하는 작업 단위
+
+## 트랜잭션 격리 수준 
+- 동시에 여러 트랜잭션이 처리 될 때 특정 트랜잭션이 다른 트랜잭션에서 변경하거나 조회하는 데이터를 볼 수 있도록 허용할지 말지를 결정
+  - READ UNCOMMITTED
+  - READ COMMITED
+  - REPEATABLE READ
+  - SERIALIZABLE
+
+### READ UNCOMMITTED
+- 각 트랜잭션에서의 변경 내용이 COMMIT 이나 ROLLBACK 여부에 상관 없이 다른 트랜잭션에서 값을 읽을 수 있다.
+- 정합성에 문제가 많은 격리 수준이기 떄문에 사용하지 않는 것을 권장
+- 문제점
+  - DIRTY READ 현상 발생
+    - 트랜잭션 작업이 완료되지 않았는데도 다른 트랜잭션에서 볼 수 있게 되는 현상
+
+### READ COMMITED
+- RDB에서 대부분 기본적으로 사용되고 있는 격리 수준
+- DIRTY READ현상 발생 X
+- 실제 테이블 값을 가져오는 것이 아니라 Undo 영역에 백업된 레코드에서 값을 가져옴
+- 문제점
+  - 하나의 트랜잭션내에서 똑같은 SELECT 쿼리를 실행했을 때는 항상 같은 결과를 가져와야 하는 REPEATABLE READ의 정합성에 어긋남
+  - 이러한 문제는 주로 입금, 출금 처리가 진행되는 금전적인 처리에서 주로 발생
+    - 데이터의 정합성은 깨지고, 버그는 찾기 어려워짐
+
+### REPEATABLE READ
+- MYSQL에서는 트랜잭션마다 트랜잭션 ID를 부여하여 트랜잭션 ID보다 작은 트랜잭션 번호에서 변경한 것만 읽게 됨
+- Undo 공간에 백업해두고 실제 레코드 값을 변경
+  - 백업된 데이터는 불필요하다고 판단하는 시점에 주기적으로 삭제
+  - Undo에 백업된 레코드가 많아지면 MYSQL 서버의 처리 성능이 떨어질 수 있음
+- 문제점
+  - PHANTOM READ
+    - 다른 트랜잭션에서 수행한 변경 작업에 의해 레코드가 보였다가 안보였다가 하는 현상
+    - 이를 방지하기 위해서는 쓰기 잠금을 걸어야 함
+
+### SERIALIZABLE
+- 가장 단순한 격리 수준이지만 가장 엄격한 격리 수준
+- 성능 측면에서는 동시 처리성능이 가장 낮다
+- PHANTOM READ가 발생하지 않지만, 데이터베이스에서는 거의 사용되지 않는다. 
+
+## 자바 thread-safe 자료구조
+- Vector
+- Hashtable
+- concurrent API의 Atomic Type
+
+
+
