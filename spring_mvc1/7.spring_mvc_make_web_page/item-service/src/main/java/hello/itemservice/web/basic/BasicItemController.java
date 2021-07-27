@@ -74,13 +74,22 @@ public class BasicItemController {
 //        return "basic/item";
 //    }
 
+//    @PostMapping("/add")
+//    public String addItemV4(Item item) {
+//
+//        itemRepository.save(item);
+//
+////        model.addAttribute("item", item); // ModelAttribute의 "item"이 여기에 addAttribute "item", item 역할 까지 해서 자동 추가 되서 생략 가능하다.
+//        return "basic/item";
+//    }
+
     @PostMapping("/add")
     public String addItemV4(Item item) {
 
         itemRepository.save(item);
 
 //        model.addAttribute("item", item); // ModelAttribute의 "item"이 여기에 addAttribute "item", item 역할 까지 해서 자동 추가 되서 생략 가능하다.
-        return "basic/item";
+        return "redirect:/basic/items/" + item.getId();
     }
 
     @GetMapping("/{itemId}/edit")

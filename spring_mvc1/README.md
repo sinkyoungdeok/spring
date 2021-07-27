@@ -1479,9 +1479,25 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
     - `redirect:/basic/items/{itemId}` -> `{itemId}`는 `@PathVariable Long itemId`의 값을 그대로 사용한다.
 - 참고
   - HTML Form 전송은 PUT, PATH를 지원하지 않는다. GET, POST만 사용할 수 있다.
-  - PUT, PATCH는 HTTP API 전송시에ㄴ사용
+  - PUT, PATCH는 HTTP API 전송시에 사용
   - 스프링에서 HTTP POST로 Form 요청할 때 히든 필드를 통해서 PUT, PATCH 매핑을 사용하는 방법이 있지만, HTTP 요청상 POST요청이다.
 
 ## J. PRG Post/Redirect/Get
+- 지금까지 진행한 상품 등록 처리 컨트롤러는 심각한 문제가 있다. (addItemV1 ~ addItemV4)
+상품 등록을 완료하고 웹 브라우저의 새로고침 버튼을 클릭해보면 상품이 계속해서 중복 등록되는 것을 확인할 수 있다.
+- POST 등록 후 새로 고침
+  - 웹 브라우저의 새로 고침은 마지막에 서버에 전송한 데이터를 다시 전송한다.
+  - 상품 등록 폼에서 데이터를 입력하고 저장을 선택하면 `POST /add` + 상품 데이터를 서버로 전송한다.
+  - 이 상태에서 새로 고침을 또 선택하면 마지막에 전송한 `POST /add` + 상품 데이터를 서버로 다시 전송하게 된다.
+  - 그래서 내용은 같고, ID만 다른 상품 데이터가 계속 쌓이게 된다.
+  - 이 문제를 어떻게 해결할 수 있을까?
+
+- 해결방법: 상품 등록 처리 이후에 뷰 템플릿이 아니라 상품 상세 화면으로 리다이렉트 하도록 코드를 작성한다.
+  - 이런 문제 해결 방식을 `PRG Post/Redirect/Get`라 한다.
+
+- 주의
+  - `"redirect:/basic/items/" + item.getId()` redirect에서 `+item.getId()`처럼 URL에 변수를 더해서 사용하는 것은 
+  URL 인코딩이 안되기 때문에 위험하다. 이것을 `RedirectAttributes`를 사용하는 것이 좋다.
+    
 ## K. RedirectAttributes
 ## L. 정리
