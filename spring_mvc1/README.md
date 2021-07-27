@@ -1431,6 +1431,16 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
 - 목록으로 링크
   - `th:onclick="|location.href='@{/basic/items}'|"`
 ## G. 상품 등록 폼
+- 속성 변경 - th:action (`th:action`)
+  - HTML Form에서 `action`에 값이 없으면 현재 URL에 데이터를 전송한다.
+  - 상품 등록 폼의 URL과 실제 상품 등록을 처리하는 URL을 똑같이 맞추고 HTTP 메서드로 두 기능을 구분한다.
+    - 상품 등록 폼: GET `/basic/items/add`
+    - 상품 등록 처리: POST `/basic/items/add`
+  - 이렇게 하면 하나의 URL로 등록 폼과, 등록 처리를 깔끔하게 처리 할 수 있다.
+- 취소
+  - 취소시 상품 목록으로 이동한다.
+  - `th:onclick="|location.href='@{/basic/items}'|"`
+
 ## H. 상품 등록 처리 - @ModelAttribute
 ## I. 상품 수정
 ## J. PRG Post/Redirect/Get
