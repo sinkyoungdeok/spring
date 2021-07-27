@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -83,13 +84,24 @@ public class BasicItemController {
 //        return "basic/item";
 //    }
 
-    @PostMapping("/add")
-    public String addItemV4(Item item) {
+//    @PostMapping("/add")
+//    public String addItemV5(Item item) {
+//
+//        itemRepository.save(item);
+//
+////        model.addAttribute("item", item); // ModelAttribute의 "item"이 여기에 addAttribute "item", item 역할 까지 해서 자동 추가 되서 생략 가능하다.
+//        return "redirect:/basic/items/" + item.getId();
+//    }
 
-        itemRepository.save(item);
+    @PostMapping("/add")
+    public String addItemV6(Item item, RedirectAttributes redirectAttributes) {
+
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
 
 //        model.addAttribute("item", item); // ModelAttribute의 "item"이 여기에 addAttribute "item", item 역할 까지 해서 자동 추가 되서 생략 가능하다.
-        return "redirect:/basic/items/" + item.getId();
+        return "redirect:/basic/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
