@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -42,9 +39,48 @@ public class BasicItemController {
         return "basic/addForm";
     }
 
+//    @PostMapping("/add")
+//    public String addItemV1(@RequestParam String itemName,
+//                       @RequestParam int price,
+//                       @RequestParam Integer quantity,
+//                       Model model) {
+//
+//        Item item = new Item();
+//        item.setItemName(itemName);
+//        item.setPrice(price);
+//        item.setQuantity(quantity);
+//
+//        itemRepository.save(item);
+//
+//        model.addAttribute("item", item);
+//        return "basic/item";
+//    }
+
+//    @PostMapping("/add")
+//    public String addItemV2(@ModelAttribute("item") Item item) {
+//
+//        itemRepository.save(item);
+//
+////        model.addAttribute("item", item); // ModelAttribute의 "item"이 여기에 addAttribute "item", item 역할 까지 해서 자동 추가 되서 생략 가능하다.
+//        return "basic/item";
+//    }
+
+//    @PostMapping("/add")
+//    public String addItemV3(@ModelAttribute Item item) {
+//
+//        itemRepository.save(item);
+//
+////        model.addAttribute("item", item); // ModelAttribute의 "item"이 여기에 addAttribute "item", item 역할 까지 해서 자동 추가 되서 생략 가능하다.
+//        return "basic/item";
+//    }
+
     @PostMapping("/add")
-    public String save() {
-        return "basic/addForm";
+    public String addItemV4(Item item) {
+
+        itemRepository.save(item);
+
+//        model.addAttribute("item", item); // ModelAttribute의 "item"이 여기에 addAttribute "item", item 역할 까지 해서 자동 추가 되서 생략 가능하다.
+        return "basic/item";
     }
 
     /**
