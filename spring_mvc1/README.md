@@ -1421,11 +1421,15 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
   동적으로 변경된 결과를 확인할 수 있다. JSP를 생각해보면, JSP파일은 웹 브라우저에서 그냥 열면 JSP 소스 코드와 HTML이
   뒤죽박죽 되어서 정상적인 확인이 불가능하다. 오직 서버를 통해서 JSP를 열어야 한다.
   이렇게 "순수 HTML을 그대로 유지하면서 뷰 템플릿도 사용할 수 있는 타임리프의 특징을 네츄럴 템플릿"(natural templates) 이라 한다.
-  
-  
-  
-
+    
 ## F. 상품 상세
+- 속성 변경 - th:value (`th:value="${item.id}"`)
+  - 모델에 있는 item 정보를 획득하고 프로퍼티 접근법으로 출력한다 (`item.getId()`)
+  - value 속성을 `th:value` 속성으로 변경한다.
+- 상품수정 링크
+  - `th:onclick="|location.href='@{/basic/items/{itemId}/edit(itemId=${item.id})}'|"`
+- 목록으로 링크
+  - `th:onclick="|location.href='@{/basic/items}'|"`
 ## G. 상품 등록 폼
 ## H. 상품 등록 처리 - @ModelAttribute
 ## I. 상품 수정
