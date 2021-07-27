@@ -1468,6 +1468,20 @@ RequestMappingHandlerAdapter이다. `@RequestMapping`의 앞글자를 따서 만
 - `@ModelAttribute` 자체도 생략 가능 하다. 대상 객체는 모델에 자동 등록된다. 나머지 사항은 기존과 동일하다.
 
 ## I. 상품 수정
+### 상품 수정 개발
+- 상품 수정은 상품 등록과 전체 프로세스가 유사하다.
+  - GET `/items/{itemId}/edit`: 상품 수정 폼
+  - POSt `/items/{itemId}/edit`: 상품 수정 처리
+- 리다이렉트: 상품 수정은 마지막에 뷰 템플릿을 호출하는 대신에 상품 상세 화면으로 이동하도록 리다이렉트를 호출한다.
+  - 스프링은 `redirect:/...`으로 편리하게 리다이렉트를 지원한다.
+  - `redirect:/basic/items/{itemId}"`
+    - 컨트롤러에 매핑된 `@PathVariable`의 값은 `redirect`에도 사용 할 수 있다.
+    - `redirect:/basic/items/{itemId}` -> `{itemId}`는 `@PathVariable Long itemId`의 값을 그대로 사용한다.
+- 참고
+  - HTML Form 전송은 PUT, PATH를 지원하지 않는다. GET, POST만 사용할 수 있다.
+  - PUT, PATCH는 HTTP API 전송시에ㄴ사용
+  - 스프링에서 HTTP POST로 Form 요청할 때 히든 필드를 통해서 PUT, PATCH 매핑을 사용하는 방법이 있지만, HTTP 요청상 POST요청이다.
+
 ## J. PRG Post/Redirect/Get
 ## K. RedirectAttributes
 ## L. 정리
