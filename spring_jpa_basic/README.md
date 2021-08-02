@@ -134,6 +134,46 @@
     - JPQL은 뒤에서 아주 자세히 다룸
 # 3. 영속성 관리 - 내부 동작 방식
 ## A. 영속성 컨텍스트 1
+### JPA에서 가장 중요한 2가지
+- 객체와 관계형 데이터베이스 매핑하기(Object Relational Mapping)
+- 영속성 컨텍스트
+### 영속성 컨텍스트
+- JPA를 이해하는데 가장 중요한 용어
+- "엔티티를 영구 저장하는 환경" 이라는 뜻
+- EntityManager.persiste(entity);
+### 엔티티 매니저? 영속성 컨텍스트?
+- 영속성 컨텍스트는 논리적인 개념
+- 눈에 보이지 않는다.
+- 엔티티 매니저를 통해서 영속성 컨텍스트에 접근
+### 엔티티의 생명주기
+- 비영속(new/transient)
+    - 영속성 컨텍스트와 전혀 관계가 없는 새로운 상태
+    - Member member = new Member(); <br>
+    member.setId("member1"); <br>
+    member.setUsername("회원1"); 
+- 영속(managed)
+    - 영속성 컨텍스트에 관리되는 상태
+    - Member member = new Member(); <br>
+    member.setId("member1"); <br>
+    member.setUsername("회원1");<br>
+    EntityManager em = emf.createEntityManager();<br>
+    em.getTransaction().begin(); <br>
+    // 객체를 저장한 상태(영속) <br>
+    em.persist(member); 
+- 준영속(detached)
+    - 영속성 컨텍스트에 저장되었다가 분리된 상태
+    - em.detach(member); // 회원 엔티티를 영속성 컨텍스트에서 분리, 준영속 상태
+- 삭제(removed)
+    - 삭제된 상태
+    - em.remove(member); // 객체를 삭제한 상태(삭제)
+
+### 영속성 컨텍스트의 이점
+- 1차 캐시
+- 동일성 보장
+- 트랜잭션을 지원하는 쓰기 지연
+- 변경 감지
+- 지연 로딩
+
 ## B. 영속성 컨텍스트 2
 ## C. 플러시
 ## D. 준영속 상태
