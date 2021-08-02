@@ -175,6 +175,54 @@
 - 지연 로딩
 
 ## B. 영속성 컨텍스트 2
+### 영속성 컨텍스트의 이점 - 1차 캐시
+- Member member = new Member(); <br>
+member.setId("member1");<br>
+member.setUsername("회원1");<br>
+// 1차 캐시에 저장됨<br>
+em.persist(member); <br>
+// 1차 캐시에서 조회<br>
+Member findMember = em.find(Member.class, "member1");
+- 위에 코드처럼 조회를 했을때 직접 DB에서 가져오는 것이 아닌, 영속 컨텍스트에서 1차캐시에서 찾아서 반환한다.
+- 하나의 트랜잭션에 대해서만 이루어지는게 1차캐시라고 하는데, 이 부분에선 하나의 트랜잭션에서만 이루어진다. 
+
+### 영속성 컨텍스트의 이점 - 영속 엔티티의 동일성 보장 
+- Member a = em.find(Member.class, "member1"); <br>
+Member b = em.find(Member.class, "member2"); <br>
+System.out.println(a==b); // 동일성 비교 true 
+- 1차 캐시로 반복 가능한 읽기(REPEATABLE READ) 등급의 트랜잭션 격리 수준을
+데이터베이스가 아닌 애플리케이션 차원에서 제공
+
+### 영속성 컨텍스트의 이점 - 엔티티 등록, 트랜잭션을 지원하는 쓰기 지연
+- EntityManager em = emf.createEntityManager();<br>
+EntityTransaction transaction = em.getTransaction(); <br>
+// 엔티티 매니저는 데이터 변경시 트랜잭션을 시작해야 한다. <br>
+transaction.begin(); // [트랜잭션] 시작 <br>
+em.persist(memberA); <br> 
+em.persist(memberB); <br>
+// 여기까지 INSERT SQL을 데이터베이스에 보내지 않는다.<br>
+// 커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다. <br>
+transaction.commit(); // [트랜잭션] 커밋 
+- 버퍼링을 했다가 한번에 write해서 성능을 최적화가 가능하다.
+
+### 영속성 컨텍스트의 이점 - 엔티티 수정, 변경 감지
+```
+EntityManager em = emf.createEntityManager();
+EntityTransaction transaction = em.getTransaction();
+transaction.begin(); // [트랜잭션] 시작
+// 영속 엔티티 조회
+Member memberA = em.find(Member.class, "memberA");
+// 영속 엔티티 데이터 수정
+memberA.setUsername("hi");
+memberA.setAge(10);
+//em.update(member) 이런 코드가 있어야 하지 않을까? ==> 아니다, 자동으로 업데이트 쿼리가 나감
+transaction.commit(); // [트랜잭션] 커밋
+
+```
+- collection에서 다루는것 처럼 자동으로 변경이 감지되어서 update 된다.
+- 값을 조회할 때 스냅샷이라고해서 그때당시의 값을 저장해두었다가, 커밋되는 시점에 비교 해서 바뀌어있으면
+그떄 update query를 저장소에 저장해서 나중에 처리할 수 있도록 해준다, 삭제도 마찬가지임
+
 ## C. 플러시
 ## D. 준영속 상태
 ## E. 정리
