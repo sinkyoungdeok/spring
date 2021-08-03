@@ -14,13 +14,12 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Member member = new Member(200L, "member200");
+            em.persist(member);
 
-            // 영속 엔티티 조회
-            Member memberA = em.find(Member.class, "memberA");
-            // 영속 엔티티 데이터 수정
-            memberA.setName("hi");
-            //em.update(member) 이런 코드가 있어야 하지 않을까?
+            em.flush();
 
+            System.out.println("==================");
             tx.commit();// [트랜잭션] 커밋
         } catch (Exception e) {
             tx.rollback();
