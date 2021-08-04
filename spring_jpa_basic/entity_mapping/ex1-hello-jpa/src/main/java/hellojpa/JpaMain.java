@@ -23,7 +23,7 @@ public class JpaMain {
                     .getResultList();
 
             for (Member member: result) {
-                System.out.println("member = " + member.getName());
+                System.out.println("member = " + member.getUsername());
             }
 
             tx.commit();
