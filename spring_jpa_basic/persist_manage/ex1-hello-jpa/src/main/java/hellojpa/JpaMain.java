@@ -17,7 +17,9 @@ public class JpaMain {
             Member member = new Member(200L, "member200");
             em.persist(member);
 
-            em.flush();
+            em.clear();
+
+            Member member2 = new Member(200L, "member200");
 
             System.out.println("==================");
             tx.commit();// [트랜잭션] 커밋
