@@ -535,7 +535,34 @@ int memberSize = findTeam.getMembers().size();// 역방향 조회
 
 ### 테이블의 양방향 연관관계
 - 테이블은 외래 키 하나로 두 테이블의 연관관계를 관리
-- MEMBER.TEAM_ID 외래 키 하나로 양방향 연관관계 가짐(양쪽)
+- MEMBER.TEAM_ID 외래 키 하나로 양방향 연관관계 가짐(양쪽으로 조인할 수 있다.)
+```
+SELECT *
+FROM MEMBER M
+JOIN TEAM T ON M.TEAM_ID = T.TEAM_ID 
+```
+
+```
+SELECT *
+FROM TEAM T
+JOIN MEMBER M ON T.TEAM_ID = M.TEAM_ID
+```
+
+### 둘 중 하나로 외래키를 관리해야 한다.
+![image](https://user-images.githubusercontent.com/28394879/128494479-793cbe7a-cd0b-45af-9876-4eeeac34ae62.png)
+
+### 연관관계의 주인(Owner)
+- 양방향 매핑 규칙
+    - 객체의 두 관계중 하나를 연관관계의 주인으로 지정
+    - 연관관계의 주인만이 외래 키를 관리(등록, 수정)
+    - 주인이 아닌쪽은 읽기만 가능
+    - 주인은 mappedBy 속성 사용X
+    - 주인이 아니면 mappedBy 속성으로 주인 지정
+    
+### 누구를 주인으로 ?
+- 외래 키가 있는 곳을 주인으로 정해라
+- 여기서는 Member.team이 연관관계의 주인
+![image](https://user-images.githubusercontent.com/28394879/128494834-60cb5da4-eca6-4107-90a5-2e9281861b63.png)
 
 ## C. 양방향 연관관계와 연관관계의 주인 2-주의점, 정리 
 # 6. 다양한 연관관계 매핑
