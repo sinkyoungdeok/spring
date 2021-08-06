@@ -501,6 +501,14 @@ private Integer temp;
     
 
 ## B. 양방향 연관관계와 연관관계의 주인 1-기본
+### 다대일 단방향
+![image](https://user-images.githubusercontent.com/28394879/128489873-4ba5514c-0a7e-4129-8bfa-b70b8fb9efaf.png)
+- 단방향에서 양방향 매핑으로 바꾼다고 해도 DB테이블에선 차이점이 없다. 왜냐하면 FK로 JOIN을 하면 양방향이 되기 떄문, 그리고 애초에 DB는 방향자체가 없이 양방향으로 되어 있다.
+- 객체는 Member에서 Team, Team에서 Member로 양방향이 가능하려면 매핑을 따로 해주어야 한다. 
+### 양방향 매핑 
+![image](https://user-images.githubusercontent.com/28394879/128490062-8b90fb81-6467-41a8-b63c-9605d2a1daf6.png)
+
+
 ## C. 양방향 연관관계와 연관관계의 주인 2-주의점, 정리 
 # 6. 다양한 연관관계 매핑
 # 7. 고급 매핑
