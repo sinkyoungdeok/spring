@@ -565,6 +565,60 @@ JOIN MEMBER M ON T.TEAM_ID = M.TEAM_ID
 ![image](https://user-images.githubusercontent.com/28394879/128494834-60cb5da4-eca6-4107-90a5-2e9281861b63.png)
 
 ## C. 양방향 연관관계와 연관관계의 주인 2-주의점, 정리 
+### 양방향 매핑시 가장 많이 하는 실수
+(연관관계의 주인에 값을 입력하지 않음)
+```
+Team team = new Team();
+ team.setName("TeamA");
+ em.persist(team);
+ Member member = new Member();
+ member.setName("member1");
+ //역방향(주인이 아닌 방향)만 연관관계 설정
+ team.getMembers().add(member);
+ em.persist(member);
+```
+- 이렇게 할 경우 Member의 TEAM_ID가 null로 들어간다.
+
+### 양방향 매핑시 연관관계의 주인에 값을 입력해야 한다.
+(순수한 객체 관계를 고려하면 항상 양쪽다 값을 입력해야 한다.)
+```
+Team team = new Team();
+ team.setName("TeamA");
+ em.persist(team);
+ Member member = new Member();
+ member.setName("member1");
+ team.getMembers().add(member);
+ //연관관계의 주인에 값 설정
+ member.setTeam(team); //**
+ em.persist(member);
+```
+- 이렇게 해야 Member에 TEAM_ID가 들어간다.
+- 1차 캐시에서 데이터를 가져오면 (flush,clear사용 안할떄) Team, Member가 연결 안되어 있는 상태로 조회가 되버린다.
+그래서, team.getMembers().add(member); 로 연결해서 양방향 연결을 해주어야 한다.
+
+### 양방향 연관관계 주의 - 실습
+- 순수 객체 상태를 고려하여 항상 양쪽에 값을 설정하자.
+- 연관관계 편의 메소드를 생성하자 (Member의 changeTeam)
+- 양방향 매핑시에 무한 루프를 조심하자
+    - 예: toString(), lombok, JSON 생성 라이브러리 
+    - 가급적이면 toString을 쓰지말자
+    - JSON 라이브러리   
+        - Controller에서 Entity를 반환하지 말자
+        - Entity를 반환하면 Entity를 변경하는 순간 API Spec이 변경 될 수 있다.
+        - Entity를 반환하면 양방향 매핑 시 무한루프가 생길 수 있다.
+        - DTO로 변환해서 반환하는것을 추천한다. 이렇게 하면 JSON 생성 라이브러리에 의한 에러는 피할 수 있다.
+    
+### 양방향 매핑 정리
+- 단방향 매핑만으로도 이미 연관관계 매핑은 완료
+- 양방향 매핑은 반대 방향으로 조회(객체 그래프 탐색) 기능이 추가 된 것 뿐
+- JPQL에서 역방향으로 탐색할 일이 많음
+- 단방향 매핑을 잘 하고 양방향은 필요할 때 추가 해도 됨 (테이블에 영향을 주지 않음)
+
+### 연관관계의 주인을 정하는 기준
+- 비즈니스 로직을 기준으로 연관관계의 주인을 선택하면 안됨
+- 연관관계의 주인은 외래 키의 위치를 기준으로 정해야함
+
+
 # 6. 다양한 연관관계 매핑
 # 7. 고급 매핑
 # 8. 프록시와 연관관계 관리
