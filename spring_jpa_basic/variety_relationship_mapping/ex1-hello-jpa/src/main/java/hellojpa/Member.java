@@ -12,6 +12,10 @@ public class Member {
     private String name;
     private int age;
 
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
     public Member() {
     }
 
