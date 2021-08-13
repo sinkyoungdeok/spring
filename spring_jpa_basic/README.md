@@ -744,10 +744,33 @@ Team team = new Team();
     - 장점: 주 테이블과 대상 테이블을 일대일에서 일대다 관계로 변경할 때 테이블 구조 유지
     - 단점: 프록시 기능의 한계로 지연 로딩으로 설정해도 항상 즉시 로딩됨(프록시는 뒤에서 설명)
     
-
-
-
 ## D. 다대다 [N:M]
+### 다대다
+- 관계형 데이터베이스는 정규화된 테이블 2개로 다대다 관계를 표현할 수 없음
+- 연결 테이블을 추가해서 일대다, 다대일 관계로 풀어내야 함
+![image](https://user-images.githubusercontent.com/28394879/129369154-cc154c26-f032-444e-a6ff-e01c806c2770.png)
+
+### 다대다
+- 객체는 컬렉션을 사용해서 객체 2개로 다대다 관계 가능
+  ![image](https://user-images.githubusercontent.com/28394879/129369453-1bbd8112-f449-44e3-8cf9-68ca50945c4e.png)
+  
+### 다대다
+- @ManyToMany 사용
+- @JoinTable로 연결 테이블 지정
+- 다대다 매핑: 단방향, 양방향 가능
+
+### 다대다 매핑의 한계
+- 편리해 보이지만 실무에서 사용X
+- 연결 테이블이 단순히 연결만 하고 끝나지 않음
+- 주문시간, 수량 같은 데이터가 들어올 수 있음
+  ![image](https://user-images.githubusercontent.com/28394879/129370524-3f99ebf7-cb33-44eb-8dea-af8e58b0bfc1.png)
+  
+### 다대다 한계 극복
+- 연결 테이블용 엔티티 추가(연결 테이블을 엔티티로 승격)
+- @ManyToMany -> @OneToMany, @ManyToOne
+  ![image](https://user-images.githubusercontent.com/28394879/129372065-e807d067-4d46-4d12-9da0-7664990d7dd9.png)
+  
+
 ## E. 실전 예제 3 - 다양한 연관관계 매핑
 
 # 7. 고급 매핑
