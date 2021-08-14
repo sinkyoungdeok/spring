@@ -772,6 +772,16 @@ Team team = new Team();
   
 
 ## E. 실전 예제 3 - 다양한 연관관계 매핑
+### 배송, 카테고리 추가 - 엔티티
+- 주문과 배송은 1:1(@OneToMany)
+- 상품과 카테고리는 N:M(@ManyToMany)
+  ![image](https://user-images.githubusercontent.com/28394879/129429619-a9ba537f-cd38-4872-8998-deea1c207423.png)
+
+### 배송, 카테고리 추가 - ERD
+![image](https://user-images.githubusercontent.com/28394879/129429666-fb216f8b-2c70-49a5-ac90-32825fac8799.png)
+
+### 배송, 카테고리 추가 - 엔티티 상세
+![image](https://user-images.githubusercontent.com/28394879/129429732-f752cef1-1fee-4713-9f3d-c5be9b1a216c.png)
 
 # 7. 고급 매핑
 # 8. 프록시와 연관관계 관리
