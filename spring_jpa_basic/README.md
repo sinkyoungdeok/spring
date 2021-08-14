@@ -779,9 +779,30 @@ Team team = new Team();
 
 ### 배송, 카테고리 추가 - ERD
 ![image](https://user-images.githubusercontent.com/28394879/129429666-fb216f8b-2c70-49a5-ac90-32825fac8799.png)
-
+- 일대일 관계는 외래 키를 양쪽 어디나 둘 수 있음
+    - ORDERS에 두면: 성능(바로 확인 가능, 나중에 프록시 등등) + 객체 입장에서 편리함
+    - DELIVERY에 두면: 1 -> N으로 확장이 편리함(DB컬럼 변경 없이 N으로 변경 가능)
+- 다대다 관계 -> 테이블은 중간 테이블을 만들고 다대일 관계로 풀어야 한다.
 ### 배송, 카테고리 추가 - 엔티티 상세
 ![image](https://user-images.githubusercontent.com/28394879/129429732-f752cef1-1fee-4713-9f3d-c5be9b1a216c.png)
+
+### N:M 관계는 1:N, N:1 로
+- 테이블의 N:M 관계는 중간 테이블을 이용해서 1:N, N:1
+- 실전에서는 중간 테이블이 단순하지 않다.
+- @ManyToMany는 제약: 필드 추가X, 엔티티 테이블 불일치
+- 실전에서는 @ManyToMany 사용X 
+
+### @JoinColumn
+- 외래 키를 매핑할 때 사용
+  ![image](https://user-images.githubusercontent.com/28394879/129430444-6ccc85f3-fa8d-4937-ae4e-d761b42a4522.png)
+
+### @ManyToOne - 주요 속성
+- 다대일 관계 매핑
+![image](https://user-images.githubusercontent.com/28394879/129430472-c032c16b-9fcb-4839-bee7-cdeddd47f41b.png)
+  
+### @OneToMany - 주요 속성
+- 다대일 관계 매핑
+  ![image](https://user-images.githubusercontent.com/28394879/129430503-2e428617-e751-4874-9980-74be03887350.png)
 
 # 7. 고급 매핑
 # 8. 프록시와 연관관계 관리
