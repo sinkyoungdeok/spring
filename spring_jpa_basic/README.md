@@ -806,6 +806,59 @@ Team team = new Team();
 
 # 7. 고급 매핑
 ## A. 상속관계 매핑
+
+### 상속관계 매핑
+- 관계형 데이터베이스는 상속 관계 X
+- 슈퍼타입 서브타입 관계라는 모델링 기법이 객체 상속과 유사
+- 상속관계 매핑: 객체의 상속과 구조와 DB의 슈퍼타입 서브타입 관계를 매핑
+  ![image](https://user-images.githubusercontent.com/28394879/129435611-a5c3fbc4-4cc1-4a3e-8086-f669adcc91d1.png)
+  
+### 상속관계 매핑
+- 슈퍼타입 서브타입 논리 모델을 실제 물리 모델로 구현하는 방법
+    - 각각 테이블로 변환 -> 조인 전략
+    - 통합 테이블로 변환 -> 단일 테이블 전략
+    - 서뷰타입 테이블로 변환 -> 구현 클래스마다 테이블 전략
+
+### 주요 어노테이션
+- @Inheritance(strategy=InheritanceType.XXX)
+    - JOINED: 조인 전략
+    - SINGLE_TABLE: 단일 테이블 전략
+    - TABLE_PER_CLASs: 구현 클래스마다 테이블 전략
+- @DiscriminatorColumn(name="DTYPE")
+- @DiscriminatorValue("XXX")
+
+### 조인 전략
+![image](https://user-images.githubusercontent.com/28394879/129435708-d6345887-ae0e-42fd-a16e-8b5e80e5b157.png)
+- 장점
+    - 테이블 정규화
+    - 외래 키 참조 무결성 제약조건 활용가능
+    - 저장공간 효율화
+- 단점
+    - 조회시 조인을 많이 사용, 성능 저하
+    - 조회 쿼리가 복잡함
+    - 데이터 저장시 INSERT SQL 2번 호출
+
+### 단일 테이블 전략
+![image](https://user-images.githubusercontent.com/28394879/129435791-073c4ab2-a98c-444a-bd81-87933bfaaa20.png)
+- 장점
+    - 조인이 필요 없으므로 일반적으로 조회 성능이 빠름
+    - 조회 쿼리가 단순함
+- 단점
+    - 자식 엔티티가 매핑한 컬럼은 모두 null 허용
+    - 단일 테이블에 모든 것을 저장하므로 테이블이 커질 수 있다. 상황에 
+    따라서 조회 성능이 오히려 느려질 수 있다.
+
+### 구현 클래스마다 테이블 전략
+![image](https://user-images.githubusercontent.com/28394879/129435837-8f900cd5-6ebd-42a6-aaf6-64b8407b28e2.png)
+- 이 전략은 데이터베이스 설계자와 ORM 전문가 둘다 추천 X
+- 장점
+    - 서브 타입을 명확하게 구분해서 처리할 때 효과적
+    - not null 제약 조건 사용 가능
+- 단점
+    - 여러 자식 테이블을 함께 조회할 때 성능이 느림(UNION SQL 필요)
+    - 자식 테이블을 통합해서 쿼리하기 어려움
+
+
 ## B. Mapped Superclass - 매핑 정보 상속
 ## C. 실전 예제 4 - 상속관계 매핑
 
