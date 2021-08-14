@@ -805,6 +805,10 @@ Team team = new Team();
   ![image](https://user-images.githubusercontent.com/28394879/129430503-2e428617-e751-4874-9980-74be03887350.png)
 
 # 7. 고급 매핑
+## A. 상속관계 매핑
+## B. Mapped Superclass - 매핑 정보 상속
+## C. 실전 예제 4 - 상속관계 매핑
+
 # 8. 프록시와 연관관계 관리
 # 9. 값 타입
 # 10. 객체지향 쿼리 언어1 - 기본 문법
