@@ -14,22 +14,39 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            Member member1 = new Member();
-            member1.setName("member1");
-            member1.setTeam(team);
-            em.persist(member1);
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
+//            em.persist(child1); // CASCADE 덕분에 쓸필요가 없어짐.
+//            em.persist(child2); // CASCADE 덕분에 쓸필요가 없어짐.
 
             em.flush();
             em.clear();
 
-            Member m = em.find(Member.class, member1.getId());
-            System.out.println("m = " + m.getTeam().getClass()); // proxy
+            Parent findParent = em.find(Parent.class, parent.getId());
+            findParent.getChildList().remove(0);
 
-            m.getTeam().getName(); // 이 시점에서 team에 대한 값을 가져옴 ( proxy 초기화 )
+//            Team team = new Team();
+//            team.setName("teamA");
+//            em.persist(team);
+//
+//            Member member1 = new Member();
+//            member1.setName("member1");
+//            member1.setTeam(team);
+//            em.persist(member1);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Member m = em.find(Member.class, member1.getId());
+//            System.out.println("m = " + m.getTeam().getClass()); // proxy
+//
+//            m.getTeam().getName(); // 이 시점에서 team에 대한 값을 가져옴 ( proxy 초기화 )
 
 //            Member member1 = new Member();
 //            em.persist(member1);
