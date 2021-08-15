@@ -879,6 +879,19 @@ Team team = new Team();
 
 
 ## C. 실전 예제 4 - 상속관계 매핑
+### 요구 사항 추가
+- 상품의 종류는 음식, 도서, 영화가 있고 이후 더 확장될 수 있다.
+- 모든 데이터는 등록일과 수정일이 필수다.
+
+### 도메인 모델
+![image](https://user-images.githubusercontent.com/28394879/129464113-25907d7d-4158-4db5-88ce-38a284e8d406.png)
+
+### 도메인 모델 상세
+![image](https://user-images.githubusercontent.com/28394879/129464131-609ce663-eead-456d-abab-ae5bb19754e5.png)
+
+### 테이블 설계
+![image](https://user-images.githubusercontent.com/28394879/129464137-37d52163-a807-43db-bdde-42df06d6153d.png)
+
 
 # 8. 프록시와 연관관계 관리
 # 9. 값 타입
