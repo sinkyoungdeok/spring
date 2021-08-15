@@ -17,12 +17,10 @@ public class Member  extends BaseEntity{
     @OneToMany(mappedBy = "member")
     private List<MemberProduct> memberProducts = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
-    public Member() {
-    }
 
     public Long getId() {
         return id;
@@ -48,5 +46,19 @@ public class Member  extends BaseEntity{
         this.age = age;
     }
 
+    public List<MemberProduct> getMemberProducts() {
+        return memberProducts;
+    }
 
+    public void setMemberProducts(List<MemberProduct> memberProducts) {
+        this.memberProducts = memberProducts;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 }
