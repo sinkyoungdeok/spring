@@ -942,6 +942,59 @@ org.hibernate.Hibernate.initialize(entity)
 강제 호출: member.getName()
 
 ## B. 즉시 로딩과 지연 로딩
+### Member를 조회할 때 Team도 함께 조회해야 할까?
+- 단순히 member 정보만 사용하는 비즈니스 로직 
+- println(member.getName());
+  ![image](https://user-images.githubusercontent.com/28394879/129473894-42160de0-a5da-4adc-b149-d0dca787a647.png)
+
+### 지연 로딩 LAZY을 사용해서 프록시로 조회
+![image](https://user-images.githubusercontent.com/28394879/129473912-afc19f8f-cee2-42a2-89c9-f020e575ed7e.png)
+
+### 지연 로딩
+![image](https://user-images.githubusercontent.com/28394879/129474009-753529f3-41ce-44ec-9e7a-28f95b507020.png)
+
+### 지연 로딩 LAZY을 사용해서 프록시로 조회
+![image](https://user-images.githubusercontent.com/28394879/129474037-2b187a23-0809-450d-b606-99f49ea93005.png)
+```
+- Team team = member.getTeam(); 
+team.getName(); // 실제 team을 사용하는 시점에 초기화(DB 조회)
+```
+
+### Member와 Team을 자주 함께 사용한다면?
+- EAGER 전략 사용
+
+### 즉시 로딩 EAGER를 사용해서 함께 조회
+![image](https://user-images.githubusercontent.com/28394879/129474098-1f9e8d9c-ea74-49ce-9161-66f208a987e0.png)
+
+### 즉시 로딩
+![image](https://user-images.githubusercontent.com/28394879/129474113-de81486f-f40d-408f-b29b-884ed8fc75ec.png)
+
+### 즉시 로딩(EAGER), Member 조회시 항상 Team도 조회
+![image](https://user-images.githubusercontent.com/28394879/129474127-b516a017-8ffd-46f3-bb43-2e86aa24034b.png)
+
+### 프록시와 즉시로딩 주의
+- 가급적 지연 로딩만 사용(특히 실무에서)
+- 즉시 로딩을 적용하면 예상하지 못한 SQL이 발생
+- 즉시 로딩은 JPQL에서 N+1 문제를 일으킨다.
+- @ManyToOne, @OneToOne은 기본이 즉시 로딩 -> LAZY로 설정
+- @OneToMany, @ManyToMany는 기본이 지연 로
+
+### 지연 로딩 활용
+- Member와 Team은 자주 함께 사용 -> 즉시 로딩
+- Member와 Order는 가끔 사용 -> 지연 로딩
+- Order와 Product는 자주 함꼐 사용 -> 즉시 로딩
+  ![image](https://user-images.githubusercontent.com/28394879/129474927-0f94fdb0-4945-4848-9205-535c08e23a41.png)
+  
+### 지연 로딩 활용
+![image](https://user-images.githubusercontent.com/28394879/129474958-54e0b37a-4068-4ccb-935f-91dc3c021d1f.png)
+![image](https://user-images.githubusercontent.com/28394879/129474982-56f0f175-1603-4019-ad1a-cd88de0f42bd.png)
+
+### 지연 로딩 활용 - 실무
+- 모든 연관관계에 지연 로딩을 사용해라!
+- 실무에서 즉시 로딩을 사용하지 마라!
+- JPQL fetch 조인이나, 엔티티 그래프 기능을 사용해라! ( 뒤에서 정리 )
+- 즉시 로딩은 상상하지 못한 쿼리가 나간다.
+
 ## C. 영속성 전이(CASCADE)과 고아 객체
 ## D. 실전 예제 5 - 연관관계 관리
 

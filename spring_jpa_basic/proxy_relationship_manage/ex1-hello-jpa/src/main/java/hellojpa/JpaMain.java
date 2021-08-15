@@ -14,18 +14,35 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
             Member member1 = new Member();
+            member1.setName("member1");
+            member1.setTeam(team);
             em.persist(member1);
 
             em.flush();
             em.clear();
 
-            Member refMember = em.getReference(Member.class, member1.getId());
-            System.out.println("refMember = " + refMember.getClass());
+            Member m = em.find(Member.class, member1.getId());
+            System.out.println("m = " + m.getTeam().getClass()); // proxy
 
-            em.detach(refMember); // 또는 em.close() 또는 em.clear()  ( 준영속으로 만들기 )
+            m.getTeam().getName(); // 이 시점에서 team에 대한 값을 가져옴 ( proxy 초기화 )
 
-            refMember.getName(); // 여기에서 에러 뜸.. 준영속 상태인데 프록시를 초기화하면 문제 생긴다.
+//            Member member1 = new Member();
+//            em.persist(member1);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Member refMember = em.getReference(Member.class, member1.getId());
+//            System.out.println("refMember = " + refMember.getClass());
+//
+//            em.detach(refMember); // 또는 em.close() 또는 em.clear()  ( 준영속으로 만들기 )
+//
+//            refMember.getName(); // 여기에서 에러 뜸.. 준영속 상태인데 프록시를 초기화하면 문제 생긴다.
 
 
 //            Member member1 = new Member();
