@@ -1080,8 +1080,55 @@ parent1.getChildren().remove(0); // 자식 엔티티를 컬렉션에서 제거
 - 기본 타입은 항상 값을 복사함
 - Integer같은 래퍼 클래스나 String 같은 특수한 클래스는 공유 가능한 객체이지만 변경X
 
-
 ## B. 임베디드 타입
+### 임베디드 타입
+- 새로운 값 타입을 직접 정의할 수 있음
+- JPA는 임베디드 타입(embedded type)이라 함
+- 주로 기본 값 타입을 모아서 만들어서 복합 값 타입이라고도 함
+- int, String과 같은 값 타입
+
+### 임베디드 타입
+- 회원 엔티티는 이름, 근무 시작일, 근무 종료일, 주소 도시, 주소 번지, 주소 우편번호를 가진다.
+  ![image](https://user-images.githubusercontent.com/28394879/129580669-51d2c299-1b64-483f-8ce7-9d9b88184ef9.png)
+
+### 임베디드 타입
+- 회원 엔티티는 이름, 근무 기간, 집 주소를 가진다.
+  ![image](https://user-images.githubusercontent.com/28394879/129580831-b95207a0-9bc5-4d5a-aabd-ae73b6f1d176.png)
+  ![image](https://user-images.githubusercontent.com/28394879/129580975-83034e8d-3d2a-49e4-be3c-fc483ff4dffa.png)
+  
+### 임베디드 타입 사용법
+- @Embeddable: 값 타입을 정의하는 곳에 표시
+- @Embedded: 값 타입을 사용하는 곳에 표시
+- 기본 생성자 필수
+
+### 임베디드 타입의 장점
+- 재사용
+- 높은 응집도
+- Period.isWork()처럼 해당 값 타입만 사용하는 의미 있는 메소드를 만들 수 있음
+- 임베디드 타입을 포함한 모든 값 타입은, 값 타입을 소유한 엔티티에 생명주기를 의존함
+
+### 임베디드 타입과 테이블 매핑
+![image](https://user-images.githubusercontent.com/28394879/129581354-a3e10b28-27ac-4d87-8dbe-bcfd24fa8b1e.png)
+
+### 임베디드 타입과 테이블 매핑
+- 임베디드 타입은 엔티티의 값일 뿐이다.
+- 임베디드 타입을 사용하기 전과 후에 매핑하는 테이블은 같다.
+- 객체와 테이블을 아주 세밀하게(find-grained) 매핑하는 것이 가능
+- 잘 설계한 ORM 애플리케이션은 매핑한 테이블의 수보다 클래스의 수가 더 많음
+
+### 임베디드 타입과 연관관계
+![image](https://user-images.githubusercontent.com/28394879/129582946-42dda557-9814-4ebd-84fe-b8bb7e75580b.png)
+
+### @AttributeOverride: 속성 재정의
+- 한 엔티티에서 같은 값 타입을 사용하면?
+- 컬럼 명이 중복됨
+- @AttributeOverrides, @AttributeOverride를 사용해서 컬럼 명 속성을 재정의
+
+### 임베디드 타입과 null
+- 임베디드 타입의 값이 null이면 매핑한 컬럼 값은 모두 null
+
+
+
 ## C. 값 타입과 불변 객체
 ## D. 값 타입의 비교 
 ## E. 값 타입 컬렉션

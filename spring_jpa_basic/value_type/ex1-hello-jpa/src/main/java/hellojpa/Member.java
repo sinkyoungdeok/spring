@@ -1,26 +1,38 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Member  extends BaseEntity{
+public class Member {
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
     @Column(name = "USERNAME")
     private String name;
-    private int age;
 
-    @OneToMany(mappedBy = "member")
-    private List<MemberProduct> memberProducts = new ArrayList<>();
+    //기간 Period
+    @Embedded
+    private Period workPeriod;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    //주소
+    @Embedded
+    private Address homeAddress;
 
+    //주소
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="city",
+                    column = @Column(name = "WORK_CITY")),
+            @AttributeOverride(name="street",
+                    column = @Column(name = "WORK_STREET")),
+            @AttributeOverride(name="zipcode",
+                    column = @Column(name = "WORK_ZIPCODE"))
+    })
+    private Address workAddress;
 
     public Long getId() {
         return id;
@@ -38,27 +50,19 @@ public class Member  extends BaseEntity{
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
+    public Period getWorkPeriod() {
+        return workPeriod;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
     }
 
-    public List<MemberProduct> getMemberProducts() {
-        return memberProducts;
+    public Address getAddress() {
+        return homeAddress;
     }
 
-    public void setMemberProducts(List<MemberProduct> memberProducts) {
-        this.memberProducts = memberProducts;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setAddress(Address address) {
+        this.homeAddress = address;
     }
 }
