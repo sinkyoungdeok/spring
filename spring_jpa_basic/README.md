@@ -1242,6 +1242,9 @@ Address b = new Address("서울시");
 
 
 ## F. 실전 예제 6 - 값 타입 매핑
+![image](https://user-images.githubusercontent.com/28394879/132521148-305bbcd4-41c3-4760-972b-b8d4749156c8.png)
+
+
 
 # 10. 객체지향 쿼리 언어1 - 기본 문법
 # 11. 객체지향 쿼리 언어2 - 중급 문법
