@@ -1814,6 +1814,23 @@ for(Team team : teams) {
 필요한 데이터들만 조회해서 DTO로 반환하는 것이 효과적
 
 ## D. 다형성 쿼리
+![image](https://user-images.githubusercontent.com/28394879/132991650-2bca6af3-a465-437b-93e4-450f258dd891.png)
+
+### TYPE
+- 조회 대상을 특정 자식으로 한정
+- ex) Item 중에 Book, Movie를 조회해라
+- [JPQL] select i from Item i where type(i) IN (Book, Movie)
+- [SQL] select i from i where i.DTYPE in ('B', 'M')
+
+### TREAT(JPA 2.1)
+- 자바의 타입 캐스팅 유사
+- 상속 구조에서 부모 타입을 특정 자식 타입으로 다툴 때 사용
+- FROM, WHERE, SELECT(하이버네이트 지원) 사용
+- 예) 부모인 Item과 자식 Book이 있다.
+- [JPQL] select i from Item i where treat(i as Book).auther = 'kim'
+- [SQL] select i.* from Item i where i.DTYPE = 'B' and i.auther = 'kim'
+
+
 ## E. 엔티티 직접 사용
 ## F. Named 쿼리
 ## G. 벌크 연산 
