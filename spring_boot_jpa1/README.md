@@ -64,6 +64,17 @@ View 파일 변경이 가능하다.
 
 <details> <summary> 4. H2 데이터베이스 설치 </summary>
 
+- 개발이나 테스트 용도로 가볍고 편리한 DB, 웹 화면 제공
+- 주의 Version 1.4.200를 사용
+- https://www.h2database.com/html/main.html
+- 다운로드 및 설치
+- 데이터 베이스 파일 생성 방법
+    - `jdbc:h2:~/jpashop` (최소 한번)
+    - `~/jpashop.mv.db`파일 생성 확인
+    - 이후 부터는 `jdbc:h2:tcp://localhost/~/jpashop`
+
+- 주의: H2 데이터베이스의 MVCC 옵션은 G2 1.4.198 버전부터 제거되었다. 1.4.200 버전에서는 MVCC옵션을 사용하면 오류가 발생한다.
+
 </details>
 
 <details> <summary> 5. JPA와 DB 설정, 동작 확인 </summary>
