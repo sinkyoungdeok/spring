@@ -287,6 +287,21 @@ useJUnitPlatform()
 
 <details> <summary> 4. 엔티티 클래스 개발2 </summary>
 
+### 카테고리 엔티티
+> 참고: 실무에서는 @ManyToMany를 사용하지 말자
+> @MnayToMany는 편리한 것 같지만, 중간 테이블(CATEGORY_ITEM)에 컬럼을 추가할 수 없고, 세밀하게
+> 쿼리를 실행하기 어렵기 때문에 실무에서 사용하기에는 한계가 있다. 중간 엔티티(CategoryItem)를 만들고
+> @ManyToOne, @OneToMany로 매핑해서 사용하자. 정리하면 다대다 매핑을 일대다, 다대일 매핑으로 풀어내서 사용하자.
+
+### 주소 값 타입
+> 참고: 값 타입은 변경 불가능하게 설계해야 한다.
+> @Setter 를 제거하고, 생성자에서 값을 모두 초기화해서 변경 불가능한 클래스를 만들자. JPA 스펙상 엔티
+> 티나 임베디드 타입( @Embeddable )은 자바 기본 생성자(default constructor)를 public 또는
+> protected 로 설정해야 한다. public 으로 두는 것 보다는 protected 로 설정하는 것이 그나마 더 안전
+> 하다.
+> JPA가 이런 제약을 두는 이유는 JPA 구현 라이브러리가 객체를 생성할 때 리플랙션 같은 기술을 사용할 수
+> 있도록 지원해야 하기 때문이다.
+
 </details>
 
 <details> <summary> 5. 엔티티 설계시 주의점 </summary>
