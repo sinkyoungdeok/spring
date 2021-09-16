@@ -359,3 +359,14 @@ class org.hibernate.collection.internal.PersistentBag // 똑같은 orders인데 
 
 
 </details>
+
+# [3. 애플리케이션 구현 준비](./3.application_implementation_ready)
+
+<details> <summary> 1. 구현 요구사항 </summary>
+
+</details>
+
+
+<details> <summary> 2. 애플리케이션 아키텍처 </summary>
+
+</details>
