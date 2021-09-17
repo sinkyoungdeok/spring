@@ -431,7 +431,12 @@ class org.hibernate.collection.internal.PersistentBag // 똑같은 orders인데 
 - 회원 서비스 개발
 - 회원 기능 테스트
 
-## 회원 리포지 토리
+### 회원 리포지 토리 개발
+
+**기술 설명**
+- `@Repository`: 스프링 빈으로 등록, JPA 예외를 스프링 기반 예외로 예외 변환
+- `@PersistenceContext`: 엔티티 매니저(`EntityManager`)주입
+- `@PersistenceUnit`: 엔티티 매니저 팩토리(`EntityManagerFactory`)주입
 
 </details>
 
