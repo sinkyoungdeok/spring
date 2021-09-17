@@ -419,7 +419,19 @@ class org.hibernate.collection.internal.PersistentBag // 똑같은 orders인데 
 
 # [4. 회원 도메인 개발](./4.member_domain_develop)
 
-<details> <summary> 1. 회원 도메인 개발 </summary>
+<details> <summary> 1. 회원 리포지토리 개발 </summary>
+
+**구현 기능**
+- 회원 등록
+- 회원 목록 조회
+
+**순서**
+- 회원 엔티티 코드 다시 보기
+- 회원 리포지토리 개발
+- 회원 서비스 개발
+- 회원 기능 테스트
+
+## 회원 리포지 토리
 
 </details>
 
