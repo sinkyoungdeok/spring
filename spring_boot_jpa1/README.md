@@ -514,3 +514,17 @@ class org.hibernate.collection.internal.PersistentBag // 똑같은 orders인데 
 
 
 </details>
+
+
+# [5. 상품 도메인 개발](./5.item_domain_develop)
+<details> <summary> 1. 상품 엔티티 개발(비즈니스 로직 추가) </summary>
+
+</details>
+
+<details> <summary> 2. 상품 리포지토리 개발 </summary>
+
+</details>
+
+<details> <summary> 3. 상품 서비스 개발 </summary>
+
+</details>
