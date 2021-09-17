@@ -437,6 +437,27 @@ class org.hibernate.collection.internal.PersistentBag // 똑같은 orders인데 
 
 <details> <summary> 2. 회원 서비스 개발 </summary>
 
+### 회원 서비스 코드
+**기술 설명**
+- `@Service`
+- `@Transactional`: 트랜잭션, 영속성 컨텍스트
+    - `readOnly=true`: 데이터의 변경이 없는 읽기 전용 메서드에 사용, 영속성 컨텍스트를 플러시 하지 않으므로 약간의 성능 향상(읽기 전용에는 다 적용)
+    - 데이터베이스 드라이버가 지원하면 DB에서 성능 향상
+- `@Autowired`
+    - 생성자 Injection 많이 사용, 생성자가 하나면 생략 가능
+
+**기능 설명**
+- `join()`
+- `findMembers()`
+- `findOne()`
+
+> 참고: 실무에서는 검증 로직이 있어도 멀티 쓰레드 상황을 고려해서 회원 테이블의 회원명 컬럼에 유니크 제약 조건을 추가하는 것이
+> 안전하다.
+
+> 참고: 스프링 필드 주입 대신에 생성자 주입을 사용하자.
+
+> 참고: 스프링 데이터 JPA를 사용하면 `EntityManager`도 주입 가능
+
 </details>
 
 <details> <summary> 3. 회원 기능 테스트 </summary>
