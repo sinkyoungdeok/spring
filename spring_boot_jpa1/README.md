@@ -653,3 +653,44 @@ Then 절에서 주문 가격이 올바른지, 주문 후 재고 수량이 정확
 
 
 </details>
+
+
+# [7. 웹 계층 개발](./7.web_hierarchy_develop)
+
+<details> <summary> 1. 홈 화면과 레이아웃 </summary>
+
+</details>
+
+<details> <summary> 2. 회원 등록 </summary>
+
+</details>
+
+<details> <summary> 3. 회원 목록 조회 </summary>
+
+</details>
+
+<details> <summary> 4. 상품 등록 </summary>
+
+</details>
+
+<details> <summary> 5. 상품 목록 </summary>
+
+</details>
+
+<details> <summary> 6. 상품 수정 </summary>
+
+</details>
+
+<details> <summary> 7. 변경 감지와 병합(merge) </summary>
+
+</details>
+
+<details> <summary> 8. 상품 주문 </summary>
+
+</details>
+
+<details> <summary> 9. 주문 목록 검색, 취소 </summary>
+
+</details>
+
+
