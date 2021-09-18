@@ -590,6 +590,9 @@ class org.hibernate.collection.internal.PersistentBag // 똑같은 orders인데 
 
 <details> <summary> 2. 주문 리포지토리 개발 </summary>
 
+### 주문 리포지 토리 개발
+- 주문 리포지토리에는 주문 엔티티를 저장하고 검색하는 기능이 있다. 마지막의 `findAll(OrderSearch orderSearch)`메서드는 조금 뒤에 있는 주문 검색 기능에서 자세히 알아보자.
+
 </details>
 
 <details> <summary> 3. 주문 서비스 개발 </summary>
