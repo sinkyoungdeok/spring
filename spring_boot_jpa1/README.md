@@ -615,6 +615,21 @@ class org.hibernate.collection.internal.PersistentBag // 똑같은 orders인데 
 
 <details> <summary> 4. 주문 기능 테스트 </summary>
 
+**테스트 요구사항**
+- 상품 주문이 성공해야 한다.
+- 상품을 주문할 때 재고 수량을 초과하면 안 된다.
+- 주문 취소가 성공해야 한다.
+
+### 상품 주문 테스트
+- 상품주문이 정상 동작하는지 확인하는 테스트다. Given 절에서 테스트를 위한 회원과 상품을 만들고 When 절에서 실제 상품을 주문하고
+Then 절에서 주문 가격이 올바른지, 주문 후 재고 수량이 정확히 줄었는지 검증한다.
+
+### 재고 수량 초과 테스트
+- 재고 수량을 초과해서 상품을 주문해보자. 이때는 `NotEnoughStockException`예외가 발생해야 한다.
+
+### 주문 취소 테스트
+- 주문을 취소하면 그만큼 재고가 증가해야 한다.
+
 </details>
 
 <details> <summary> 5. 주문 검색 기능 개발 </summary>
