@@ -537,6 +537,11 @@ class org.hibernate.collection.internal.PersistentBag // 똑같은 orders인데 
 
 <details> <summary> 2. 상품 리포지토리 개발 </summary>
 
+**기능 설명**
+- `save()`
+    - `id`가 없으면 신규로 보고 `persist()`실행
+    - `id`가 있으면 이미 데이터베이스에 저장된 엔티티를 수정한다고 보고, `merge()`를 실행, 자세한 내용은 뒤에 웹에서 설명(그냥 지금은 저장한다 정도로만 생각하자)
+
 </details>
 
 <details> <summary> 3. 상품 서비스 개발 </summary>
