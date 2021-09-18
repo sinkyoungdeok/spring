@@ -551,3 +551,28 @@ class org.hibernate.collection.internal.PersistentBag // 똑같은 orders인데 
 - 상품 기능 테스트는 회원 테스트와 비슷하므로 생략 ( 실무에서는 다 작성해야 됨 )
 
 </details>
+
+
+
+
+# [6. 주문 도메인 개발](./6.order-domain-develop)
+
+<details> <summary> 1. 주문, 주문상품 엔티티 개발 </summary>
+
+</details>
+
+<details> <summary> 2. 주문 리포지토리 개발 </summary>
+
+</details>
+
+<details> <summary> 3. 주문 서비스 개발 </summary>
+
+</details>
+
+<details> <summary> 4. 주문 기능 테스트 </summary>
+
+</details>
+
+<details> <summary> 5. 주문 검색 기능 개발 </summary>
+
+</details>
