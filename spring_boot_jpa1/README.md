@@ -546,4 +546,8 @@ class org.hibernate.collection.internal.PersistentBag // 똑같은 orders인데 
 
 <details> <summary> 3. 상품 서비스 개발 </summary>
 
+- 상품 서비스는 상품 리포지토리에 단순히 위임한 하는 클래스
+
+- 상품 기능 테스트는 회원 테스트와 비슷하므로 생략 ( 실무에서는 다 작성해야 됨 )
+
 </details>
