@@ -692,6 +692,9 @@ spring:
 
 <details> <summary> 2. 회원 등록 </summary>
 
+- 폼 객체를 사용해서 화면 계층과 서비스 계층을 명확하게 분리한다.
+
+
 </details>
 
 <details> <summary> 3. 회원 목록 조회 </summary>
