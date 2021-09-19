@@ -62,3 +62,14 @@
 - 추가로 Result 클래스로 컬렉션을 감싸서 향후 필요한 필드를 추가할 수 있다.
 
 </details>
+
+
+# [2. API 개발 고급](./2.API-develop-advanced-prepare)
+
+<details> <summary> 1. API 개발 고급 소개 </summary>
+
+</details>
+
+<details> <summary> 2. 조회용 샘플 데이터 입력 </summary>
+
+</details>
