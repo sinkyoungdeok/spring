@@ -78,4 +78,14 @@
 
 <details> <summary> 2. 조회용 샘플 데이터 입력 </summary>
 
+**API 개발 고급 설명을 위해 샘플 데이터를 입력하자**
+- userA
+    - JPA1 BOOK
+    - JPA2 BOOK
+- userB
+    - SPRING1 BOOK
+    - SPRING2 BOOK
+
+> 참고: 주문 내역 화면에서는 회원당 주문 내역을 하나만 출력했으므로 하나만 노출된다.
+
 </details>
