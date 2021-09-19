@@ -870,6 +870,18 @@ public class ItemService {
 
 <details> <summary> 8. 상품 주문 </summary>
 
+### 상품 주문 컨트롤러
+**주문 폼 이동**
+- 메인 화면에서 상품 주문을 선택하면 `/order`를 GET 방식으로 호출
+- `OrderController`의 `createForm()` 메서드
+- 주문 화면에는 주문할 고객정보와 상품 정보가 필요하므로 `model` 객체에 담아서 뷰에 넘겨줌
+
+**주문 실행**
+- 주문할 회원과 상품 그리고 수량을 선택해서 Submit 버튼을 누르면 `/order` URL을 POST방식으로 호출
+- 컨트롤러의 `order()` 메서드를 실행
+- 이 메서드는 고객 식별자(`memberId`), 주문할 상품 식별자(`itemId`), 수량(`count`)정보를 받아서 주문 서비스에 주문을 요청
+- 주문이 끝나면 상품 주문 내역이 있는 `/orders` URL로 리다이렉트
+
 </details>
 
 <details> <summary> 9. 주문 목록 검색, 취소 </summary>
