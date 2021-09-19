@@ -659,6 +659,35 @@ Then 절에서 주문 가격이 올바른지, 주문 후 재고 수량이 정확
 
 <details> <summary> 1. 홈 화면과 레이아웃 </summary>
 
+### 스프링 부트 타임 리프 기본 설정
+```
+spring:
+ thymeleaf:
+ prefix: classpath:/templates/
+ suffix: .html
+```
+- 스프링 부트 타임리프 viewName 매핑
+    - `resources:templates/` + (ViewName) + `.html`
+    - `resources:templates/home.html`
+    - 반환한 문자(`home`)과 스프링부트 설정 `prefix`, `suffix` 정보를 상요해서 렌더링할 뷰(`html`)를 찾는다.
+
+
+> 참고: Hierarchical-style layouts
+> 예제에서는 뷰 템플릿을 최대한 간단하게 설명하려고, header , footer 같은 템플릿 파일을 반복해서 포
+> 함한다. 다음 링크의 Hierarchical-style layouts을 참고하면 이런 부분도 중복을 제거할 수 있다.
+> https://www.thymeleaf.org/doc/articles/layouts.html
+
+> 참고: 뷰 템플릿 변경사항을 서버 재시작 없이 즉시 반영하기
+> 1. spring-boot-devtools 추가
+> 2. html 파일 build-> Recompile
+
+### view 리소스 등록
+- 이쁜 디자인을 위해 부트스트랩을 사용하겠다. (v4.3.1) (https://getbootstrap.com/)
+- `resources/static` 하위에 css , js 추가
+- `resources/static/css/jumbotron-narrow.css` 추가
+
+
+
 </details>
 
 <details> <summary> 2. 회원 등록 </summary>
