@@ -719,6 +719,10 @@ spring:
 
 <details> <summary> 4. 상품 등록 </summary>
 
+### 상품 등록
+- 상품 등록 폼에서 데이터를 입력하고 Submit 버튼을 클릭하면 `/items/new`를 POST 방식으로 요청
+- 상품 저장이 끝나면 상품 목록 화면(`redirect:/items`)으로 리다이렉트
+
 </details>
 
 <details> <summary> 5. 상품 목록 </summary>
