@@ -734,6 +734,18 @@ spring:
 
 <details> <summary> 6. 상품 수정 </summary>
 
+### 상품 수정 폼 이동
+1. 수정 버튼을 선택하면 `/items/{itemId}/edit` URL을 GET 방식으로 요청
+2. 그 결과로 `updateItemForm()` 메서드를 실행하는데 이 메서드는 `itemService.findOne(itemId)`를 호출해서 수정할 상품을 조회
+3. 조회 결과를 모델 객체에 담아서 뷰(`items/updateItemForm`)에 전달
+
+### 상품 수정 실행
+- 상품 수정 폼 HTML에는 상품의 id(hidden), 상품명, 가격, 수량 정보 있음
+1. 상품 수정 폼에서 정보를 수정하고 Submit버튼을 선택
+2. `/items/{itemId}/edit` URL을 POST 방식으로 요청하고 `updateItem()` 메서드를 실행
+3. 이때 컨트롤러에 파라미터로 넘어온 `item` 엔티티 인스턴스는 현재 준영속 상태다. 따라서 영속성 컨텍스트의 지원을 받을 수 없고 데이터를 수정해도
+변경 감지 기능은 동작X
+
 </details>
 
 <details> <summary> 7. 변경 감지와 병합(merge) </summary>
