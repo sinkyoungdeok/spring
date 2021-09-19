@@ -89,3 +89,22 @@
 > 참고: 주문 내역 화면에서는 회원당 주문 내역을 하나만 출력했으므로 하나만 노출된다.
 
 </details>
+
+
+# [3. API 개발 고급 - 지연 로딩과 조회 성능 최적](./3.API-develop-advanced-lazy-loading-select-optimization)
+
+<details> <summary> 1. 간단한 주문 조회 V1: 엔티티를 직접 노출 </summary>
+
+</details>
+
+<details> <summary> 2. 간단한 주문 조회 V2: 엔티티를 DTO로 변환 </summary>
+
+</details>
+
+<details> <summary> 3. 간단한 주문 조회 V3: 엔티티를 DTO로 변환 - 페치 조인 최적화 </summary>
+
+</details>
+
+<details> <summary> 4. 간단한 주문 조회 V4: JPA에서 DTO로 바로 조회 </summary>
+
+</details>
