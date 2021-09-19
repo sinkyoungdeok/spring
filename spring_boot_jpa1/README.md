@@ -727,6 +727,9 @@ spring:
 
 <details> <summary> 5. 상품 목록 </summary>
 
+### 상품 목록 뷰
+- `model`에 담아둔 상품 목록인 `items`를 꺼내서 상품 정보를 출력
+
 </details>
 
 <details> <summary> 6. 상품 수정 </summary>
