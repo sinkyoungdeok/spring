@@ -164,6 +164,10 @@ true);
 
 <details> <summary> 3. 간단한 주문 조회 V3: 엔티티를 DTO로 변환 - 페치 조인 최적화 </summary>
 
+**OrderRepository - 추가**
+- 엔티티를 페치 조인(fetch join)을 사용해서 쿼리 1번에 조회
+- 페치 조인으로 `order -> member`, `order -> delivery`는 이미 조회 된 상태 이므로 지연 로딩X
+
 </details>
 
 <details> <summary> 4. 간단한 주문 조회 V4: JPA에서 DTO로 바로 조회 </summary>
