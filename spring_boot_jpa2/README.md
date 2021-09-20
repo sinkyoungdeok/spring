@@ -201,6 +201,16 @@ true);
 
 <details> <summary> 1. 주문 조회 V1: 엔티티 직접 노출 </summary>
 
+- 주문내역에서 추가로 주문한 상품 정보를 추가로 조회하자.
+- Order 기준으로 컬렉션인 `OrderItem`와 `Item`이 필요하다.
+- 앞의 예제에서는 toOne(OntToOne, ManyToOne) 관계만 있었다.
+- 이번에는 컬렉션인 일대다 관계(OneToMany)를 조회하고, 최적화하는 방법을 알아보자.
+
+### 주문 조회 V1: 엔티티 직접 노출
+- `orderItem`, `item` 관계를 직접 초기화하면 `Hibernate5Module`설정에 의해 엔티티를 JSON으로 생성한다.
+- 양방향 연관관계면 무한 루프에 걸리지 않게 한곳에 `@JsonIgnore`를 추가해야 한다.
+- 엔티티를 직접 노출하므로 좋은 방법은 아니다.
+
 </details>
 
 
