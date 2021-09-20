@@ -264,7 +264,7 @@ true);
 ### 한계 돌파 
 - 그러면 페이징 + 컬렉션 엔티티를 함꼐 조회하려면 어떻게 해야할까?
 - 지금부터 코드도 단순하고, 성능 최적화도 보장하는 매우 강력한 방법을 소개하겠다. 대부분의 페이징 + 컬렉션 엔티티 조회 문제는 이 방법으로 해결 할 수 있다. (딱히 다른 해결 방법은 없다)
-- 먼저 **ToOne(OneToOne, ManyToOne) 관계를 모두 페치조인 한다. ToOne 관계는 row수를 증가시키지 않으므로 페이징 쿼리에 영향을 주지 않는다.
+- 먼저 **ToOne**(OneToOne, ManyToOne) 관계를 모두 페치조인 한다. ToOne 관계는 row수를 증가시키지 않으므로 페이징 쿼리에 영향을 주지 않는다.
 - 컬렉션은 지연 로딩으로 조회한다.
 - 지연 로딩 성능 최적화를 위해 `hibernate.default_batch_fetch_size`, `@BatchSize`를 적용한다.
   - hibernate.default_batch_fetch_szie: 글로벌 설정
