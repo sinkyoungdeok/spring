@@ -4,6 +4,8 @@
 3. [자바 ORM 표준 JPA 프로그래밍 - 기본편](./spring_jpa_basic)
 4. [실전! 스프링 부트와 JPA 활용1 - 웹 애플리케이션 개발](./spring_boot_jpa1)
 5. [실전! 스프링 부트와 JPA 활용2 - API 개발과 성능 최적화](./spring_boot_jpa2)
+6. [실전! 스프링 데이터 JPA](./spring_data_jpa)
+   
 # 스프링 용어 및 개념 정리 
 ## REST란
 - 자원을 이름으로 구분하여 해당 자원의 상태(정보)를 주고 받는 모든 것을 의미 한다.
