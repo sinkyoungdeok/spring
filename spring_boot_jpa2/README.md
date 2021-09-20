@@ -307,6 +307,11 @@ true);
 
 <details> <summary> 6. 주문 조회 V5: JPA에서 DTO 직접 조회 - 컬렉션 조회 최적화 </summary>
 
+### JPA에서 DTO 직접 조회 - 컬렉션 조회 최적화
+- Query: 루트 1번, 컬렉션 1번 실행
+- ToOne 관계들을 먼저 조회하고, 여기서 얻은 식별자 orderId로 ToMany 관계인 `OrderItem`을 한꺼번에 조회
+- MAP을 사용해서 매칭 성능 향상(O(1))
+
 </details>
 
 
