@@ -150,6 +150,16 @@ true);
 
 <details> <summary> 2. 간단한 주문 조회 V2: 엔티티를 DTO로 변환 </summary>
 
+**OrderSimpleApiController - 추가**
+- 엔티티를 DTO로 변환하는 일반적인 방법이다.
+- 쿼리가 총 1 + N + N 실행된다. (v1과 쿼리수 결과는 같다)
+    - `order`조회 1번(order 조회 결과 수가 N이 된다.)
+    - `order -> member`지연 로딩 조회 N번
+    - `order -> delivery` 지연 로딩 조회 N번
+    - 예) order의 결과가 4개면 최악의 경우 1 + 4 + 4번 실행된다.(최악의 경우)
+        - 지연로딩은 영속성 컨텍스트에서 조회하므로, 이미 조회된 경우 쿼리를 생략한다.
+
+
 </details>
 
 <details> <summary> 3. 간단한 주문 조회 V3: 엔티티를 DTO로 변환 - 페치 조인 최적화 </summary>
