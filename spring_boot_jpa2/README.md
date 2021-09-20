@@ -217,6 +217,17 @@ true);
 
 <details> <summary> 2. 주문 조회 V2: 엔티티를 DTO로 변환 </summary>
 
+### 주문 조회 V2: 엔티티를 DTO로 변환
+- 지연 로딩으로 너무 많은 SQL 실행
+- SQL 실행 수
+    - `order` 1번
+    - `member`, `address` N번(order 조회 수 만큼)
+    - `orderItem` N번(order 조회 수 만큼)
+    - `item` N번(orderItem 조회 수 만큼)
+
+> 참고: 지연 로딩은 영속성 컨텍스트에 있으면 영속성 컨텍스트에 있는 엔티티를 사용하고 없으면 SQL을 실행한다.
+> 따라서 같은 영속성 컨텍스트에서 이미 로딩한 회원 엔티티를 추가로 조회하면 SQL을 실행하지 않는다.
+
 </details>
 
 
