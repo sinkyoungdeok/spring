@@ -292,6 +292,15 @@ true);
 
 <details> <summary> 5. 주문 조회 V4: JPA에서 DTO 직접 조회 </summary>
 
+### OrderItemQueryDto
+- Query: 루트 1번, 컬렉션 N번 실행 
+- ToOne(N:1, 1:1) 관계들을 먼저 조회하고, ToMany(1:N) 관계는 각각 별도로 처리한다.
+  - 이런 방식을 선택한 이유는 다음과 같다.
+  - ToOne 관계는 조인해도 데이터 row수가 증가하지 않는다.
+  - toMany(1:N) 관계는 조인하면 row수가 증가한다.
+- row 수가 증가하지 않는 ToOne 관계는 조인으로 최적화 하기 쉬우므로 한번에 조회하고, ToMany 관계는
+최적화 하기 어려우므로 `findOrderItems()`같은 별도의 메서드로 조회한다.
+
 </details>
 
 
