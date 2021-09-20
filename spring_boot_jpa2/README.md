@@ -191,3 +191,55 @@ true);
 
 
 </details>
+
+
+
+
+
+# [4. API 개발 고급 - 컬렉션 조회 최적화](./4.API-develop-advanced-collection-select-optimization)
+
+
+<details> <summary> 1. 주문 조회 V1: 엔티티 직접 노출 </summary>
+
+</details>
+
+
+
+<details> <summary> 2. 주문 조회 V2: 엔티티를 DTO로 변환 </summary>
+
+</details>
+
+
+
+<details> <summary> 3. 주문 조회 V3: 엔티티를 DTO로 변환 - 페치 조인 최적화 </summary>
+
+</details>
+
+
+
+<details> <summary> 4. 주문 조회 V3.1: 엔티티를 DTO로 변환 - 페이징과 한계 돌파 </summary>
+
+</details>
+
+
+
+<details> <summary> 5. 주문 조회 V4: JPA에서 DTO 직접 조회 </summary>
+
+</details>
+
+
+
+<details> <summary> 6. 주문 조회 V5: JPA에서 DTO 직접 조회 - 컬렉션 조회 최적화 </summary>
+
+</details>
+
+
+
+<details> <summary> 7. 주문 조회 V6: JPA에서 DTO로 직접 조회, 플랫 데이터 최적화 </summary>
+
+</details>
+
+
+<details> <summary> 8. API 개발 고급 정리 </summary>
+
+</details>
