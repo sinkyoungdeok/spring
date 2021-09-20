@@ -376,3 +376,11 @@ true);
 그리고 데이터가 많으면 중복 전송이 증가해서 V5와 비교해서 성능차이도 미비하다. 
 
 </details>
+
+
+
+# [5. API 개발 고급 - 실무 필수 최적화](./5.API-develop-advanced-practical-essential-optimization)
+
+<details> <summary> 1. OSIV와 성능 최적화 </summary>
+
+</details>
