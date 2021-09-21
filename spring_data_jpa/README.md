@@ -239,3 +239,53 @@ public class AppConfig {}
 > 참고: `JpaRepository`는 대부분의 공통 메서드르 제공한다.
 
 </details>
+
+
+
+
+# [4. 쿼리 메소드 기능](./4.query-method-function)
+
+<details> <summary> 1. 메소드 이름으로 쿼리 생성 </summary>
+
+</details>
+
+<details> <summary> 2. JPA NamedQuery </summary>
+
+</details>
+
+<details> <summary> 3. @Query, 리포지토리 메소드에 쿼리 정의하기 </summary>
+
+</details>
+
+<details> <summary> 4. @Query, 값, DTO 조회하기 </summary>
+
+</details>
+
+<details> <summary> 5. 파라미터 바인딩 </summary>
+
+</details>
+
+<details> <summary> 6. 반환 타입 </summary>
+
+</details>
+
+<details> <summary> 7. 순수 JPA 페이징과 정렬 </summary>
+
+</details>
+
+<details> <summary> 8. 스프링 데이터 JPA 페이징과 정렬 </summary>
+
+</details>
+
+<details> <summary> 9. 벌크성 수정 쿼리 </summary>
+
+</details>
+
+<details> <summary> 10. @EntityGraph </summary>
+
+</details>
+
+<details> <summary> 11. JPA Hint & Lock </summary>
+
+</details>
+
