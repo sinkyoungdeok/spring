@@ -206,6 +206,9 @@ public class AppConfig {}
 
 <details> <summary> 3. 공통 인터페이스 적용 </summary>
 
+- 순수 JPA로 구현한 `MemberJpaRepository` 대신에 스프링 데이터 JPA가 제공하는 공통 인터페이스 사용
+
+
 </details>
 
 
