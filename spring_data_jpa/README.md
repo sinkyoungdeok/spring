@@ -118,4 +118,28 @@ logging.level:
 
 <details> <summary> 1. 예제 도메인 모델과 동작확인 </summary>
 
+**엔티티 클래스**
+![image](https://user-images.githubusercontent.com/28394879/134102684-acc050af-2014-40ac-ba32-92502e61b8b8.png)
+
+**ERD**
+![image](https://user-images.githubusercontent.com/28394879/134102731-e9f9f990-0f73-4ffd-b31d-de8a37b97dd6.png)
+
+
+**Member 엔티티**
+- 롬복 설명
+    - @Setter: 실무에서 가급적 Setter는 사용하지 않기
+    - @NoArgsConstructor AccessLevel.PROTECTED: 기본 생성자 막고 싶은데, JPA 스팩상 PROTECTED로 열어 두어야 함
+    - @ToString: 가급적 내부 필드만(연관관계 없는 필드만)
+- `changeTeam()`으로 양방향 연관관계 한번에 처리(연관관계 편의 메소드)
+
+
+**Team 엔티티**
+- Member와 Team은 양방향 연관관계, `Member.team`이 연관관계의 주인, `Team.members`는 연관관계의 주인이 아님,
+따라서 `Member.team`이 데이터베이스 외래키 값을 변경, 반대편은 읽기만 가능
+
+**데이터 확인 테스트**
+- 가급적 순수 JPA로 동작 확인 (뒤에서 변경)
+- db 테이블 결과 확인
+- 지연 로딩 동작 확인
+
 </details>
