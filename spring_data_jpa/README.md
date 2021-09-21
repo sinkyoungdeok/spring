@@ -143,3 +143,33 @@ logging.level:
 - 지연 로딩 동작 확인
 
 </details>
+
+
+
+
+
+
+
+# [3. 공통 인터페이스 기능](./3.common-interface-function)
+
+<details> <summary> 1. 순수 JPA 기반 리포지토리 만들기 </summary>
+
+</details>
+
+
+
+<details> <summary> 2. 공통 인터페이스 설정 </summary>
+
+</details>
+
+
+
+<details> <summary> 3. 공통 인터페이스 적용 </summary>
+
+</details>
+
+
+
+<details> <summary> 4. 공통 인터페이스 분석 </summary>
+
+</details>
