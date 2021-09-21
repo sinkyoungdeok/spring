@@ -215,4 +215,27 @@ public class AppConfig {}
 
 <details> <summary> 4. 공통 인터페이스 분석 </summary>
 
+- JpaRepository 인터페이스: 공통 CRUD 제공
+- 제네릭은 <엔티티 타입, 식별자 타입> 설정
+
+**공통 인터페이스 구성**
+![image](https://user-images.githubusercontent.com/28394879/134111657-c8beaeeb-58c6-43e3-9665-f033ad03d47c.png)
+
+**주의**
+- `T findOne(ID)` -> `Optional<T> findById(ID)` 변경
+
+**제네릭 타입**
+- `T`: 엔티티
+- `ID`: 엔티티의 식별자 타입
+- `S`: 엔티티와 그 자식 타입
+
+**주요 메서드**
+- `save(S)`: 새로운 엔티티는 저장하고 이미 있는 엔티티는 병합한다.
+- `delete(T)`: 엔티티 하나를 삭제한다. 내부에서 `EntityManager.remove()` 호출
+- `findById(ID)`: 엔티티 하나를 조회한다. 내부에서 `EntityManager.find()` 호출
+- `getOne(ID)`: 엔티티를 프록시로 조회한다. 내부에서 `EntityManager.getReference()`호출
+- `findAll(_)`: 모든 엔티티를 조회한다. 정렬(`Sort`)이나 페이징(`Pageable`)조건을 파라미터로 제공할 수 있다.
+
+> 참고: `JpaRepository`는 대부분의 공통 메서드르 제공한다.
+
 </details>
