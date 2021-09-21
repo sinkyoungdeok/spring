@@ -342,7 +342,7 @@ public interface MemberRepository
 
 <details> <summary> 3. @Query, 리포지토리 메소드에 쿼리 정의하기 </summary>
 
-###@Query, 리포지토리 메소드에 쿼리 정의하기
+### @Query, 리포지토리 메소드에 쿼리 정의하기
 
 **메서드에 JPQL 쿼리 작성**
 ```java
@@ -362,6 +362,39 @@ age);
 </details>
 
 <details> <summary> 4. @Query, 값, DTO 조회하기 </summary>
+
+### @Query, 값, DTO 조회하기
+**단순히 값 하나를 조회**
+```java
+@Query("select m.username from Member m")
+List<String> findUsernameList();
+```
+- JPA 값 타입 (`@Embedded`)도 이 방식으로 조회할 수 있다.
+
+**DTO로 직접 조회**
+```java
+@Query("select new study.datajpa.dto.MemberDto(m.id, m.username, t.name) " +
+ "from Member m join m.team t")
+List<MemberDto> findMemberDto();
+```
+- 주의! DTO로 직접 조회 하려면 JPA의 `new` 명령어를 사용해야 한다. 그리고 다음과 같이 생성자가 맞는 DTO가 필요하다.(JPA와 사용방식이 동일하다.)
+
+```java
+package study.datajpa.repository;
+import lombok.Data;
+@Data
+public class MemberDto {
+ private Long id;
+ private String username;
+ private String teamName;
+ public MemberDto(Long id, String username, String teamName) {
+ this.id = id;
+ this.username = username;
+ this.teamName = teamName;
+ }
+}
+```
+
 
 </details>
 
