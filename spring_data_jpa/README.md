@@ -114,7 +114,7 @@ logging.level:
 </details>
 
 
-# [2. 예제 도메인 모델](./2.example_domain_model)
+# [2. 예제 도메인 모델](./2.example-domain-model)
 
 <details> <summary> 1. 예제 도메인 모델과 동작확인 </summary>
 
