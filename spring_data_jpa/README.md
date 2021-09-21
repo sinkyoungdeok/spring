@@ -247,6 +247,42 @@ public class AppConfig {}
 
 <details> <summary> 1. 메소드 이름으로 쿼리 생성 </summary>
 
+- 메소드 이름으로 쿼리 생성
+- NamedQuery
+- @Query - 리파지토리 메소드에 쿼리 정의
+- 파라미터 바인딩
+- 반환 타입
+- 페이징과 정렬
+- 벌크성 수정 쿼리
+- @EntityGraph
+
+**쿼리 메소드 기능 3가지**
+- 메소드 이름으로 쿼리 생성
+- 메소드 이름으로 JPA NamedQuery 호출
+- `@Query` 어노테이션을 사용해서 리파지토리 인터페이스에 쿼리 직접 정의
+
+### 메소드 이름으로 쿼리 생성
+- 스프링 데이터 JPA는 메소드 이름을 분석해서 JPQL을 생성하고 실행
+
+**쿼리 메소드 필터 조건**
+- 스프링 데이터 JPA 공식 문서 참고: (https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
+
+**스프링 데이터 JPA가 제공하는 쿼리 메소드 기능**
+- 조회: find...By, read...By, query...By, get...By
+    - https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation
+    - ex) findHelloBy 처럼 ...에 식별하기 위한 내용(설명)이 들어가도 된다.
+- COUNT: count...By 반환타입 `long`
+- EXISTS: exists...By 반환타입 `boolean`
+- 삭제: delete...By, remove...By 반환타입 `long`
+- DISTINCT: findDistinct, findMemberDistinctBy
+- LIMIT: findFirst3, findFirst, findTop, findTop3
+    - https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.limit-query-result
+
+> 참고: 이 기능은 엔티티의 필드명이 변경되면 인터페이스에 정의한 메서드 이름도 꼭 함께 변경해야 한다.
+> 그렇지 않으면 애플리케이션을 시작하는 시점에 오류가 발생한다.
+> 이렇게 애플리케이션 로딩 시점에 오류를 인지할 수 있는 것이 스프링 데이터 JPA의 매우 큰 장점이다.
+
+
 </details>
 
 <details> <summary> 2. JPA NamedQuery </summary>
