@@ -49,6 +49,17 @@
 
 <details> <summary> 3. H2 데이터베이스 설치 </summary>
 
+- https://www.h2database.com/html/main.html
+- 다운로드 및 설치
+- h2 데이터베이스 버전은 스프링 부트 버전에 맞춘다.
+- 권한 주기: `chmod 755 h2.sh`
+- 데이터 베이스 파일 생성 방법
+    - `jdbc:h2:~/datajpa` (최소 한번)
+    - `~/datajpa.mv.db`파일 생성 확인
+    - 이후 부터는 `jdbc:h2:tcp://localhost/~/datajpa` 이렇게 접속
+
+- 주의: H2 데이터베이스의 MVCC 옵션은 G2 1.4.198 버전부터 제거되었다. 1.4.200 버전에서는 MVCC옵션을 사용하면 오류가 발생한다.
+
 </details>
 
 <details> <summary> 4. 스프링 데이터 JPA와 DB 설정, 동작 확인 </summary>
