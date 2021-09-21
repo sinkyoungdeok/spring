@@ -400,6 +400,37 @@ public class MemberDto {
 
 <details> <summary> 5. 파라미터 바인딩 </summary>
 
+### 파라미터 바인딩
+- 위치 기반
+- 이름 기반
+
+```java
+select m from Member m where m.username = ?0 //위치 기반
+select m from Member m where m.username = :name //이름 기반
+```
+
+
+```java
+
+import org.springframework.data.repository.query.Param
+
+public interface MemberRepository extends JpaRepository<Member, Long> {
+
+ @Query("select m from Member m where m.username = :name")
+ Member findMembers(@Param("name") String username);
+}
+```
+> 참고: 코드 가독성과 유지보수를 위해 이름 기반 파라미터 바인딩을 사용하자
+> (위치기반은 순서 실수가 바꾸면...)
+
+
+**컬렉션 파라미터 바인딩**
+- `Collection`타입으로 in절 지원
+```java
+@Query("select m from Member m where m.username in :names")
+List<Member> findByNames(@Param("names") List<String> names);
+```
+
 </details>
 
 <details> <summary> 6. 반환 타입 </summary>
