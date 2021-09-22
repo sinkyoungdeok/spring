@@ -1394,4 +1394,33 @@ public class Item implements Persistable<String> {
 
 <details> <summary> 4. 네이티브 쿼리 </summary>
 
+- 가급적 네이티브 쿼리는 사용하지 않는게 좋음, 정말 어쩔 수 없을 때 사용
+- 최근에 나온 궁극의 방법 -> 스프링 데이터 Projections 활용
+
+**Projections 활용**
+- 예) 스프링 데이터 JPA 네이티브 쿼리 + 인터페이스 기반 Projections 활용
+```java
+@Query(value = "SELECT m.member_id as id, m.username, t.name as teamName " +
+ "FROM member m left join team t",
+ countQuery = "SELECT count(*) from member",
+ nativeQuery = true)
+Page<MemberProjection> findByNativeProjection(Pageable pageable);
+```
+
+### 동적 네이티브 쿼리
+- 하이버네이트를 직접 활용
+- 스프링 JdbcTemplate, myBatis, jooq같은 외부 라이브러리 사용
+```java
+//given
+String sql = "select m.username as username from member m";
+List<MemberDto> result = em.createNativeQuery(sql)
+ .setFirstResult(0)
+ .setMaxResults(10)
+ .unwrap(NativeQuery.class)
+ .addScalar("username")
+ .setResultTransformer(Transformers.aliasToBean(MemberDto.class))
+ .getResultList();
+}
+```
+
 </detals>
