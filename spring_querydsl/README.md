@@ -250,3 +250,10 @@ implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
 > 편하게 사용해도 된다. 하지만 운영시스템에 적용하려면 꼭 성능테스트를 하고 사용하는 것이 좋다
 
 </details>
+
+
+# [2. 예제 도메인 모델](./2.example-domain-model)
+
+<details> <summary> 1. 예제 도메인 모델과 동작 확인 </summary>
+
+</details>
