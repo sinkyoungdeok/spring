@@ -1253,3 +1253,15 @@ public Page<MemberDto> list(Pageable pageable) {
 
 </details>
 
+
+
+# [6. 스프링 데이터 JPA 분석](./6.spring-data-jpa-analysis)
+
+<details> <summary> 1. 스프링 데이터 JPA 구현체 분석 </summary>
+
+</details>
+
+
+<details> <summary> 2. 새로운 엔티티를 구별하는 방법 </summary>
+
+</details>
