@@ -610,8 +610,8 @@ Pageable previousPageable();//이전 페이지 객체
 
 **참고: count쿼리를 다음과 같이 분리할 수 있음**
 ```java
-@Query(value = “select m from Member m”,
- countQuery = “select count(m.username) from Member m”)
+@Query(value = "select m from Member m”,
+ countQuery = "select count(m.username) from Member m”)
 Page<Member> findMemberAllCountBy(Pageable pageable);
 ```
 
@@ -937,6 +937,166 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 </details>
 
 <details> <summary> 2. Auditing </summary>
+
+### Auditing
+- 엔티티를 생성, 변경할 때 변경한 사람과 시간을 추적하고 싶으면?
+    - 등록일
+    - 수정일
+    - 등록자
+    - 수정자
+
+### 순수 JPA 사용
+- 우선 등록일, 수정일 적용
+```java
+package study.datajpa.entity;
+@MappedSuperclass
+@Getter
+public class JpaBaseEntity {
+ @Column(updatable = false)
+ private LocalDateTime createdDate;
+ private LocalDateTime updatedDate;
+ @PrePersist
+ public void prePersist() {
+ LocalDateTime now = LocalDateTime.now();
+ createdDate = now;
+ updatedDate = now;
+ }
+ @PreUpdate
+ public void preUpdate() {
+ updatedDate = LocalDateTime.now();
+ }
+}
+public class Member extends JpaBaseEntity {}
+```
+
+**확인 코드**
+```java
+@Test
+public void JpaEventBaseEntity() throws Exception {
+ //given
+ Member member = new Member("member1");
+ memberRepository.save(member); //@PrePersist
+ Thread.sleep(100);
+ member.setUsername("member2");
+ em.flush(); //@PreUpdate
+ em.clear();
+ //when
+ Member findMember = memberRepository.findById(member.getId()).get();
+ //then
+ System.out.println("findMember.createdDate = " +
+findMember.getCreatedDate());
+ System.out.println("findMember.updatedDate = " +
+findMember.getUpdatedDate());
+}
+```
+
+**JPA 주요 이벤트 어노테이션**
+- @PrePersist, @PostPersist
+- PreUpdate, @PostUpdate
+
+### 스프링 데이터 JPA 사용
+**설정**
+- `@EnableJpaAuditing` -> 스프링 부트 설정 클래스에 적용해야함(main파일)
+- `@EntityListeners(AuditingEntityListener.class)` -> 엔티티에 적용
+
+**사용 어노테이션**
+- `@CreateDate`
+- `@LastModifiedDate`
+- `@CreatedBy`
+- `@LastModifiedBy`
+
+**스프링 데이터 Auditing 적용 - 등록일,수정일**
+```java
+package study.datajpa.entity;
+@EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass
+@Getter
+public class BaseEntity {
+ @CreatedDate
+ @Column(updatable = false)
+ private LocalDateTime createdDate;
+ @LastModifiedDate
+ private LocalDateTime lastModifiedDate;
+}
+```
+
+**스프링 데이터 Auditing 적용 - 등록자, 수정자**
+```java
+package jpabook.jpashop.domain;
+@EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass
+public class BaseEntity {
+ @CreatedDate
+ @Column(updatable = false)
+ private LocalDateTime createdDate;
+ @LastModifiedDate
+ private LocalDateTime lastModifiedDate;
+ @CreatedBy
+ @Column(updatable = false)
+ private String createdBy;
+ @LastModifiedBy
+ private String lastModifiedBy;
+}
+```
+
+**등록자, 수정자를 처리해주는 `AuditorAware`스프링 빈 등록**
+```java
+@Bean
+public AuditorAware<String> auditorProvider() {
+ return () -> Optional.of(UUID.randomUUID().toString());
+}
+```
+- 실무에서는 세션 정보나, 스프링 시큐리티 로그인 정보에서 ID를 받음
+
+> 참고: 실무에서 대부분의 엔티티는 등록시간, 수정시간이 필요하지만, 등록자, 수정자는 없을 수도 있다.
+> 그래서 다음과 같이 Base 타입을 분리하고, 원하는 타입을 선택해서 상속한다.
+```java
+public class BaseTimeEntity {
+ @CreatedDate
+ @Column(updatable = false)
+ private LocalDateTime createdDate;
+ @LastModifiedDate
+ private LocalDateTime lastModifiedDate;
+}
+public class BaseEntity extends BaseTimeEntity {
+ @CreatedBy
+ @Column(updatable = false)
+ private String createdBy;
+ @LastModifiedBy
+ private String lastModifiedBy;
+}
+```
+
+> 참고: 저장시점에 등록일, 등록자는 물론이고, 수정일, 수정자도 같은 데이터가 저장된다. 데이터가 중복
+> 저장되는 것 같지만, 이렇게 해두면 변경 컬럼만 확인해도 마지막에 업데이트한 유저를 확인할 수 있으므로
+> 유지보수 관점에서 편리하다. 이렇게 하지 않으면 변경 컬럼이 `null`일때 등록 컬럼을 또 찾아야 한다.
+> 참고로 저장시점에 저장데이터만 입력하고 싶으면 `@EnableJpaAuditing(modifyOnCreate = false)`
+> 옵션을 사용하면 된다.
+
+**전체 적용**
+- `EntityListeners(AuditingEntityListener.class)`를 생략하고 스프링 데이터 JPA가 제공하는
+이벤트를 엔티티 전체에 적용하려면 orm.xml에 다음과 같이 등록하면 된다.
+
+`META-INF/orm.xml`
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/
+orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+ version="2.2">
+ <persistence-unit-metadata>
+ <persistence-unit-defaults>
+ <entity-listeners>
+ <entity-listener
+class="org.springframework.data.jpa.domain.support.AuditingEntityListener"/>
+ </entity-listeners>
+ </persistence-unit-defaults>
+ </persistence-unit-metadata>
+
+</entity-mappings>
+```
+
 
 </details>
 
