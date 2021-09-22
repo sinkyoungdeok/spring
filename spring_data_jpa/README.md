@@ -840,3 +840,23 @@ List<Member> findByUsername(String name);
 
 </details>
 
+
+
+# [5. 확장 기능](./5.extension-function)
+
+<details> <summary> 1. 사용자 정의 리포지토리 구현 </summary>
+
+</details>
+
+<details> <summary> 2. Auditing </summary>
+
+</details>
+
+<details> <summary> 3. Web 확장 - 도메인 클래스 컨버터 </summary>
+
+</details>
+
+<details> <summary> 4. Web 확장 - 페이징과 정렬 </summary>
+
+</details>
+
