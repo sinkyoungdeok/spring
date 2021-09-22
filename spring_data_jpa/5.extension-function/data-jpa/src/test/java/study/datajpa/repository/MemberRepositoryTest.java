@@ -98,7 +98,7 @@ class MemberRepositoryTest {
 
         memberRepository.findUsernameList()
                 .stream().forEach(username -> {
-                    System.out.println(username);
+            System.out.println(username);
         });
     }
 
@@ -242,7 +242,7 @@ class MemberRepositoryTest {
             System.out.println("member.getTeam().getClass() = " + member.getTeam().getClass());
             System.out.println("member.getTeam().getName() = " + member.getTeam().getName());
         }
-        
+
     }
 
     @Test
@@ -277,6 +277,11 @@ class MemberRepositoryTest {
         em.flush();
 
         //then
+    }
+
+    @Test
+    public void callCustom() {
+        List<Member> memberCustom = memberRepository.findMemberCustom();
     }
 
 }
