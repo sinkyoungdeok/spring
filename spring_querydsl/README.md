@@ -550,6 +550,57 @@ spring.jpa.properties.hibernate.use_sql_comments: true
 
 <details> <summary> 3. 검색 조건 쿼리 </summary>
 
+### 검색 조건 쿼리
+**기본 검색 쿼리**
+```java
+@Test
+public void search() {
+ Member findMember = queryFactory
+ .selectFrom(member)
+ .where(member.username.eq("member1")
+ .and(member.age.eq(10)))
+ .fetchOne();
+ assertThat(findMember.getUsername()).isEqualTo("member1");
+}
+```
+- 검색 조건은 `.and()`, `.or()`를 메서드 체인으로 연결할 수 있다.
+
+> 참고: `select`, `from`을 `selectFrom`으로 합칠 수 있음
+
+**JPQL이 제공하는 모든 검색 조건 제공**
+```java
+member.username.eq("member1") // username = 'member1'
+member.username.ne("member1") //username != 'member1'
+member.username.eq("member1").not() // username != 'member1'
+member.username.isNotNull() //이름이 is not null
+member.age.in(10, 20) // age in (10,20)
+member.age.notIn(10, 20) // age not in (10, 20)
+member.age.between(10,30) //between 10, 30
+member.age.goe(30) // age >= 30
+member.age.gt(30) // age > 30
+member.age.loe(30) // age <= 30
+member.age.lt(30) // age < 30
+member.username.like("member%") //like 검색
+member.username.contains("member") // like ‘%member%’ 검색
+member.username.startsWith("member") //like ‘member%’ 검색
+//...
+```
+
+**AND 조건을 파라미터로 처리**
+```java
+@Test
+public void searchAndParam() {
+ List<Member> result1 = queryFactory
+ .selectFrom(member)
+ .where(member.username.eq("member1"),
+ member.age.eq(10))
+ .fetch();
+ assertThat(result1.size()).isEqualTo(1);
+}
+```
+- `where()`에 파라미터로 검색조건을 추가하면 `AND` 조건이 추가됨
+- 이 경우 `null`값은 무시 -> 메서드 추출을 활용해서 동적 쿼리를 깔끔하게 만들 수 있음 -> 뒤에서 설명
+
 </details>
 
 <details> <summary> 4. 결과 조회 </summary>
