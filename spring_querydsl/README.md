@@ -390,7 +390,7 @@ public class MemberTest {
 </details>
 
 
-# [3. 기본 문법(./3.basic-grammar)
+# [3. 기본 문법](./3.basic-grammar)
 
 <details> <summary> 1. 시작 - JPQL vs Querydsl </summary>
 
