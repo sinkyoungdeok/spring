@@ -388,3 +388,58 @@ public class MemberTest {
 
 
 </details>
+
+
+# [3. 기본 문법(./3.basic-grammar)
+
+<details> <summary> 1. 시작 - JPQL vs Querydsl </summary>
+
+</details>
+
+<details> <summary> 2. 기본 Q-Type 활용 </summary>
+
+</details>
+
+<details> <summary> 3. 검색 조건 쿼리 </summary>
+
+</details>
+
+<details> <summary> 4. 결과 조회 </summary>
+
+</details>
+
+<details> <summary> 5. 정렬 </summary>
+
+</details>
+
+<details> <summary> 6. 페이징 </summary>
+
+</details>
+
+<details> <summary> 7. 집합 </summary>
+
+</details>
+
+<details> <summary> 8. 조인 - 기본 조인 </summary>
+
+</details>
+
+<details> <summary> 9. 조인 - on절 </summary>
+
+</details>
+
+<details> <summary> 10. 조인 - 페치 조인 </summary>
+
+</details>
+
+<details> <summary> 11. 서브 쿼리 </summary>
+
+</details>
+
+<details> <summary> 12. Case 문 </summary>
+
+</details>
+
+<details> <summary> 13. 상수, 문자 더하기 </summary>
+
+</details>
