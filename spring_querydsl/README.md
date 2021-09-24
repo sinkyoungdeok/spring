@@ -1193,3 +1193,35 @@ String result = queryFactory
 
 
 </details>
+
+
+
+# [4. 중급 문법](./1.project-setting)
+
+<details> <summary> 1. 프로젝션과 결과 반환 - 기본 </summary>
+
+</details>
+
+<details> <summary> 2. 프로젝션과 결과 반환 - DTO 조회 </summary>
+
+</details>
+
+<details> <summary> 3. 프로젝션과 결과 반환 - @QueryProjection </summary>
+
+</details>
+
+<details> <summary> 4. 동적 쿼리 - BooleanBuilder 사용 </summary>
+
+</details>
+
+<details> <summary> 5. 동적 쿼리 - Where 다중 파라미터 사용 </summary>
+
+</details>
+
+<details> <summary> 6. 수정, 삭제 벌크 연산 </summary>
+
+</details>
+
+<details> <summary> 7. SQL function 호출하기 </summary>
+
+</details>
