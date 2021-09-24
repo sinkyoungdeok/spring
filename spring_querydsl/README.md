@@ -1164,4 +1164,32 @@ username = member3 age = 30 rank = 1
 
 <details> <summary> 13. 상수, 문자 더하기 </summary>
 
+### 상수, 문자 더하기
+
+**상수가 필요하면 `Expressions.constant(xxx)` 사용**
+```java
+Tuple result = queryFactory
+ .select(member.username, Expressions.constant("A"))
+ .from(member)
+ .fetchFirst();
+```
+
+> 참고: 위와 같이 최적화가 가능하면 SQL에 constant 값을 넘기지 않는다. 상수를 더하는 것 처럼 최적화가
+> 어려우면 SQL에 constant값을 넘긴다.
+
+**문자 더하기 concat**
+```java
+String result = queryFactory
+ .select(member.username.concat("_").concat(member.age.stringValue()))
+ .from(member)
+ .where(member.username.eq("member1"))
+ .fetchOne();
+```
+
+- 결과: member1_10
+
+> 참고: `member.age.stringValue()` 부분이 중요한데, 문자가 아닌 다른 타입들은 `stringValue()`로
+> 문자로 변환할 수 있다. 이 방법은 ENUM을 처리할 때도 자주 사용한다.
+
+
 </details>
