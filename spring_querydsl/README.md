@@ -676,6 +676,46 @@ public void sort() {
 
 <details> <summary> 6. 페이징 </summary>
 
+### 페이징
+
+**조회 건수 제한**
+```java
+@Test
+public void paging1() {
+ List<Member> result = queryFactory
+ .selectFrom(member)
+ .orderBy(member.username.desc())
+ .offset(1) //0부터 시작(zero index)
+ .limit(2) //최대 2건 조회
+ .fetch();
+ assertThat(result.size()).isEqualTo(2);
+}
+```
+
+**전체 조회 수가 필요하면?**
+```java
+@Test
+public void paging2() {
+ QueryResults<Member> queryResults = queryFactory
+ .selectFrom(member)
+ .orderBy(member.username.desc())
+ .offset(1)
+ .limit(2)
+ .fetchResults();
+ assertThat(queryResults.getTotal()).isEqualTo(4);
+ assertThat(queryResults.getLimit()).isEqualTo(2);
+ assertThat(queryResults.getOffset()).isEqualTo(1);
+ assertThat(queryResults.getResults().size()).isEqualTo(2);
+}
+```
+
+> 주의: count 쿼리가 실행되니 성능상 주의!
+
+> 참고: 실무에서 페이징 쿼리를 작성할 때, 데이터를 조회하는 쿼리는 여러 테이블을 조인해야 하지만,
+> count 쿼리는 조인이 필요 없는 경우도 있다. 그런데 이렇게 자동화된 count쿼리는 원본 쿼리와 같이 모두
+> 조인을 해버리기 때문에 성능이 안나올 수 있다. count쿼리에 조인이 필요없는 성능 최적화가 필요하다면,
+> count 전용 쿼리를 별도로 작성해야 한다.
+
 </details>
 
 <details> <summary> 7. 집합 </summary>
