@@ -934,6 +934,54 @@ t=[Member(id=8, username=teamB, age=0), Team(id=2, name=teamB)]
 
 <details> <summary> 10. 조인 - 페치 조인 </summary>
 
+### 조인 - 페치 조인
+- 페치 조인은 SQL에서 제공하는 기능은 아니다.
+- SQL조인을 활용해서 연관된 엔티티를 SQL 한번에 조회하는 기능이다.
+- 주로 성능 최적화에 사용하는 방법이다.
+
+**페치 조인 미적용**
+- 지연로딩으로 Member, Team SQL 쿼리 각각 실행
+```java
+@PersistenceUnit
+EntityManagerFactory emf;
+@Test
+public void fetchJoinNo() throws Exception {
+ em.flush();
+ em.clear();
+ Member findMember = queryFactory
+ .selectFrom(member)
+ .where(member.username.eq("member1"))
+ .fetchOne();
+ boolean loaded =
+emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
+ assertThat(loaded).as("페치 조인 미적용").isFalse();
+}
+```
+
+**페치 조인 적용**
+- 즉시로딩으로 Member, Team SQL 쿼리 조인으로 한번에 조회
+```java
+@Test
+public void fetchJoinUse() throws Exception {
+ em.flush();
+ em.clear();
+ Member findMember = queryFactory
+ .selectFrom(member)
+ .join(member.team, team).fetchJoin()
+ .where(member.username.eq("member1"))
+ .fetchOne();
+ boolean loaded =
+emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
+ assertThat(loaded).as("페치 조인 적용").isTrue();
+}
+```
+
+**사용방법**
+- `join(), leftJoin()` 등 조인 기능 뒤에 `fetchJoin()`이라고 추가하면 된다.
+
+> 참고: 페치 조인에 대한 자세한 내용은 JPA 기본편이나, 활용 2편을 참고하자.
+
+
 </details>
 
 <details> <summary> 11. 서브 쿼리 </summary>
