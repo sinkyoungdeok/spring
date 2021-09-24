@@ -1098,6 +1098,68 @@ List<Member> result = queryFactory
 
 <details> <summary> 12. Case 문 </summary>
 
+### Case 문
+
+**select, 조건절(where)에서 사용 가능**
+
+**단순한 조건**
+```java
+List<String> result = queryFactory
+ .select(member.age
+ .when(10).then("열살")
+ .when(20).then("스무살")
+ .otherwise("기타"))
+ .from(member)
+ .fetch();
+```
+
+**복잡한 조건**
+```java
+List<String> result = queryFactory
+ .select(new CaseBuilder()
+ .when(member.age.between(0, 20)).then("0~20살")
+ .when(member.age.between(21, 30)).then("21~30살")
+ .otherwise("기타"))
+ .from(member)
+ .fetch();
+```
+
+**orderBy**에서 **Case** 문 함께 사용하기 예제
+
+- 예를 들어서 다음과 같은 임의의 순서로 회원을 출력하고 싶다면?
+1. 0 ~ 30살이 아닌 회원을 가장 먼저 출력
+2. 0 ~ 20살 회원 출력
+3. 21 ~ 30살 회원 출력
+
+```java
+NumberExpression<Integer> rankPath = new CaseBuilder()
+ .when(member.age.between(0, 20)).then(2)
+ .when(member.age.between(21, 30)).then(1)
+ .otherwise(3);
+List<Tuple> result = queryFactory
+ .select(member.username, member.age, rankPath)
+ .from(member)
+ .orderBy(rankPath.desc())
+ .fetch();
+for (Tuple tuple : result) {
+ String username = tuple.get(member.username);
+ Integer age = tuple.get(member.age);
+ Integer rank = tuple.get(rankPath);
+ System.out.println("username = " + username + " age = " + age + " rank = "
++ rank);
+}
+```
+
+- Querydsl은 자바 코드로 작성하기 때문에 `rankPath`처럼 복잡한 조건을 변수로 선언해서 `select`절, `orderBy`절에서 함께 사용할 수 있다.
+
+```
+결과
+username = member4 age = 40 rank = 3
+username = member1 age = 10 rank = 2
+username = member2 age = 20 rank = 2
+username = member3 age = 30 rank = 1
+```
+
 </details>
 
 <details> <summary> 13. 상수, 문자 더하기 </summary>
