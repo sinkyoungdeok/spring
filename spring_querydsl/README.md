@@ -1937,6 +1937,28 @@ public class MemberController {
 
 </details>
 
+# [6. 실무 활용 - 스프링 데이터 JPA와 Querydsl](./6.spring-data-jpa-vs-querydsl)
+
+<details> <summary> 1. 스프링 데이터 JPA 리포지토리로 변경 </summary>
+
+</details>
+
+
+<details> <summary> 2. 사용자 정의 리포지토리 </summary>
+
+</details>
+
+<details> <summary> 3. 스프링 데이터 페이징 활용1 - Querydsl 페이징 </summary>
+
+</details>
+
+<details> <summary> 4. 스프링 데이터 페이지 활용2 - CountQuery 최적화 </summary>
+
+</details>
+
+<details> <summary> 5. 스프링 데이터 페이징 활용3 - 컨트롤러 개발 </summary>
+
+</details>
 
 
 
