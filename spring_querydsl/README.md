@@ -1533,3 +1533,27 @@ member.username)))
 ```
 
 </details>
+
+
+
+# [5. 실무 활용 - 순수 JPA와 Querydsl](./5.jpa-vs-querydsl)
+
+<details> <summary> 1. 순수 JPA 리포지토리와 Querydsl </summary>
+
+</details>
+
+<details> <summary> 2. 동적 쿼리와 성능 최적화 조회 - Builder 사용 </summary>
+
+</details>
+
+<details> <summary> 3. 동적 쿼리와 성능 최적화 조회 - Where절 파라미터 사용 </summary>
+
+</details>
+
+<details> <summary> 4. 조회 API 컨트롤러 개발 </summary>
+
+</details>
+
+
+
+
