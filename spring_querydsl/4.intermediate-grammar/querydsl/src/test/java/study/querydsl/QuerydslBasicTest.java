@@ -4,7 +4,6 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
@@ -636,8 +635,62 @@ public class QuerydslBasicTest {
         return usernameCond == null ? null : member.username.eq(usernameCond);
     }
 
-    private Predicate allEq(String usernameCond, Integer ageCond) {
+    private BooleanExpression allEq(String usernameCond, Integer ageCond) {
         return usernameEq(usernameCond).and(ageEq(ageCond));
     }
 
+    @Test
+    @Commit
+    public void bulkUpdate() {
+        long count = queryFactory
+                .update(member)
+                .set(member.username, "비회원")
+                .where(member.age.lt(28))
+                .execute();
+        System.out.println("count = " + count);
+
+        List<Member> result = queryFactory
+                .selectFrom(member)
+                .fetch();
+        result.stream().forEach(m -> {
+            System.out.println(m.getUsername());
+        });
+
+        em.flush();
+        em.clear();
+
+        // em.flush, emclear()를 해야 정상적으로 영속성 컨텍스트가 날라가고 DB에 저장되어 있는 Member들을 볼 수 있다. 위에 결과랑 아래 결과랑 다른 것이 그 이유이다.
+        List<Member> result2 = queryFactory
+                .selectFrom(member)
+                .fetch();
+        result2.stream().forEach(m -> {
+            System.out.println(m.getUsername());
+        });
+    }
+
+    @Test
+    public void buldAdd() {
+        long count = queryFactory
+                .update(member)
+                .set(member.age, member.age.add(1))
+                .execute();
+        System.out.println("count = " + count);
+    }
+
+    @Test
+    public void buldMultiply() {
+        long count = queryFactory
+                .update(member)
+                .set(member.age, member.age.multiply(5))
+                .execute();
+        System.out.println("count = " + count);
+    }
+
+    @Test
+    public void bulkDelete() {
+        long count = queryFactory
+                .delete(member)
+                .where(member.age.gt(18))
+                .execute();
+    }
 }
