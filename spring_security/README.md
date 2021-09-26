@@ -50,6 +50,27 @@ protected void configure(HttpSecurity http) throws Exception { 
 
 ```
 
+### 인증 API - HTTP Basic 인증, BasicAuthenticationFilter
+![image](https://user-images.githubusercontent.com/28394879/134798416-434154aa-99f8-45e8-849c-9c38fef1015b.png)
+- HTTP는 자체적인 인증 관련 기능을 제공하며 HTTP 표준에 정의된 가장 단순한 인증 방법이다.
+- 간단한 설정과 Stateless가 장점 - Session Cookie(JSESSIONID) 사용하지 않음
+- 보호 자원 접근시 서버가 클라이언트에게 401 Unauthorized 응답과 함께 WWW-Authenticate header를 기술해서 인증교수를 보냄
+- Client는 ID:Password 값을 Base64로 Encoding한 문자열을 Authorization Header에 추가한 뒤 Server에 Resource를 요청
+    - Authorization: Basic cmVzdDpyZXN0
+- ID, Password가 Base64로 Encoding되어 있어 ID, Password가 외부에게 쉽게 노출되는 구조이기 떄문에 SSL이나 TLS는 필수이다.
+
+**HTTP Basic 인증 코드**
+```java
+protected void configure(HttpSecurity http) throws Exception {
+	http.httpBasic();
+}
+
+```
+
+**BasicAuthenticationFilter**
+
+![image](https://user-images.githubusercontent.com/28394879/134798517-a0ce77f2-999d-45dd-b337-5643e32cb22f.png)
+
 </details>
 
 <details> <summary> 3. Form Login 인증 </summary>
