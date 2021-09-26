@@ -2304,3 +2304,21 @@ List<Member> result = query.fetch();
 
 
 
+# [7. 스프링 데이터 JPA가 제공하는 Querydsl 기능](./7.querydsl-function-provided-by-spring-data-jpa)
+
+
+<details> <summary> 1. 인터페이스 지원 - QuerydslPredicateExecutor </summary>
+
+</details>
+
+<details> <summary> 2. Querydsl Web 지원 </summary>
+
+</details>
+
+<details> <summary> 3. 리포지토리 지원 - QuerydslRepositorySupport </summary>
+
+</details>
+
+<details> <summary> 4. Querydsl 지원 클래스 직접 만들기 </summary>
+
+</details>
