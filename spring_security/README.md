@@ -102,6 +102,16 @@ protected void configure(HttpSecurity http) throws Exception {
 
 <details> <summary> 4. Form Login 인증 필터: UsernamePasswordAuthenticationFilter </summary>
 
+## 4. Form Login 인증 필터: UsernamePasswordAuthenticationFilter
+
+### 인증 API - Login Form 인증
+
+![image](https://user-images.githubusercontent.com/28394879/134799534-64da8c33-622a-483d-8fac-eb9d63ec1ed4.png)
+
+### 인증 API - UsernamePasswordAuthenticationFilter
+
+![image](https://user-images.githubusercontent.com/28394879/134799584-77d9210c-da02-445e-9d90-38a4227890dd.png)
+
 </details>
 
 <details> <summary> 5. Logout 처리, LogoutFilter </summary>
