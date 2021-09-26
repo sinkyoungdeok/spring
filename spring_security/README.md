@@ -75,6 +75,29 @@ protected void configure(HttpSecurity http) throws Exception {
 
 <details> <summary> 3. Form Login 인증 </summary>
 
+## 3. Form Login 인증
+
+![image](https://user-images.githubusercontent.com/28394879/134798648-bba75da6-91e8-419c-bf9f-9294bb273842.png)
+
+**http.formLogin()**
+
+- Form 로그인 인증 기능이 작동함
+
+```java
+protected void configure(HttpSecurity http) throws Exception {
+	 http.formLogin()
+                .loginPage("/login.html")   				// 사용자 정의 로그인 페이지
+                .defaultSuccessUrl("/home")				// 로그인 성공 후 이동 페이지
+	         .failureUrl("/login.html?error=true")		// 로그인 실패 후 이동 페이지
+                .usernameParameter("username")			// 아이디 파라미터명 설정
+                .passwordParameter("password")			// 패스워드 파라미터명 설정
+                .loginProcessingUrl("/login")			// 로그인 Form Action Url
+                .successHandler(loginSuccessHandler())		// 로그인 성공 후 핸들러
+                .failureHandler(loginFailureHandler())		// 로그인 실패 후 핸들러
+}
+
+```
+
 </details>
 
 <details> <summary> 4. Form Login 인증 필터: UsernamePasswordAuthenticationFilter </summary>
