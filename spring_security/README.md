@@ -29,6 +29,27 @@
 
 <details> <summary> 2. 사용자 정의 보안 기능 구현 </summary>
 
+## 2. 사용자 정의 보안 기능 구현
+
+![image](https://user-images.githubusercontent.com/28394879/134797847-a8142a0e-457a-460e-89c4-d8efe4844add.png)
+
+### 인증 API - SecurityConfig 설정
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+@Override
+protected void configure(HttpSecurity http) throws Exception { 
+	http
+		.authorizeRequests()
+		.anyRequest().authenticated()
+	.and()
+		.formLogin();
+}
+
+```
+
 </details>
 
 <details> <summary> 3. Form Login 인증 </summary>
