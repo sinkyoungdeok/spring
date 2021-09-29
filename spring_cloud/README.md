@@ -2,6 +2,40 @@
 
 <details> <summary> 1. 소프트웨어 아키텍처 </summary>
 
+## 1. 소프트웨어 아키텍처
+
+
+- IT 시스템의 역사
+    - 1960~1980년대: Fragile, Cowboys
+        - Mainframe, Hardware
+    - 1990~2000년대: Robust, Distributed
+        - Changes
+    - 2010년대~: Resilient/Anti-Fragile, Cloud Native
+        - Flow of value의 지속적인 개선
+![image](https://user-images.githubusercontent.com/28394879/135281527-2d0a3325-59e1-47d6-8f32-650ee49114b0.png)
+
+### Antifragile 특징
+- Auto scaling
+    - 자동 확장성을 갖는다.
+![image](https://user-images.githubusercontent.com/28394879/135281911-0924f3c7-5c6d-4edb-899b-398c14256ed8.png)
+
+- Microservices
+    - 클라우드 네이티브 아키텍처의 핵심
+    - 기존의 시스템들이 거대한 형태로 구축된 반면에 microservices는 모듈이나 기능등을 독립적으로 운영하고 배포 하는 것을 의미
+![image](https://user-images.githubusercontent.com/28394879/135282170-13e73426-55d8-43d8-91b3-0fb8f01a8a71.png)
+
+- Chaos engineering
+    - 아래 4가지나 그 외에도 안정적인 서비스가 되도록 구축되어져 있음을 의미
+    1. 시스템의 변동
+    2. 예견된 불확실성
+    3. 예견되지 않은 불확실성
+    4. 카오스 불확실성
+![image](https://user-images.githubusercontent.com/28394879/135282694-95c65a7d-77b4-4332-88ac-fca0e1334b4c.png)
+
+- Continuous deployments
+    - CI/CD와 같은 배포 파이프라인
+![image](https://user-images.githubusercontent.com/28394879/135283055-619a2f1d-ff1f-4875-bcd5-4d5a110ccd68.png)
+
 </details>
 
 <details> <summary> 2. Cloud Native Architecture</summary>
