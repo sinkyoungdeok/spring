@@ -144,7 +144,30 @@ protected void configure(HttpSecurity http) throws Exception {
 
 <details> <summary> 6. Remember Me 인증 </summary>
 
+## 6. Remember Me 인증
+1. 세션이 만료되고 웹 브라우저가 종료된 후에도 어플리케이션이 사용자를 기억하는 기능
+2. Remember-Me 쿠키에 대한 Http 요청을 확인한 후 토큰 기반 인증을 사용해 유효성을 검사하고 토큰이 검증되면 사용자는 로그인이 된다
+3. 사용자 라이프 사이클
+    - 인증 성공(Remember-Me쿠키 설정)
+    - 인증 실패(쿠키가 존재하면 쿠키 무효화)
+    - 로그아웃(쿠키가 존재하면 쿠키 무효화)
+
+### API - Remember Me 인증
+- http.rememberMe(): rememberMe 기능이 작동함
+```java
+protected void configure(HttpSecurity http) throws Exception {
+	http.rememberMe()
+		.rememberMeParameter("remember") // 기본 파라미터명은 remember-me
+		.tokenValiditySeconds(3600) // Default 는 14일
+		.alwaysRemember(true) // 리멤버 미 기능이 활성화되지 않아도 항상 실행
+		.userDetailsService(userDetailsService)
+}
+```
+
+
 </details>
+
+
 <details> <summary> 7. Remember Me 인증 필터: RememberMeAuthenticationFilter </summary>
 
 </details>
