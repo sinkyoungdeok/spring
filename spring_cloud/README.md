@@ -100,6 +100,29 @@
 
 <details> <summary> 4. 12 Factors</summary>
 
+## 4. 12 Factors
+
+![image](https://user-images.githubusercontent.com/28394879/135288418-db3c6095-bd85-4644-8348-065b779bc94d.png)
+
+- 최근에 3가지 추가되서 15가지이다.
+
+1. One codebase, one application
+**2. API first**
+3. Dependency management
+4. Design, build, release, and run
+5. Configuration, credential, and code
+6. Logs
+7. Disposability
+8. Backing services
+9. Environment parity
+10. Administrative processes
+11. Port Binding
+12. Stateless processes
+13. Concurrency
+**14. Telemetry**
+**15. Authentication and authorization **
+
+
 </details>
 
 <details> <summary> 5. Monolithic vs. Microservice </summary>
