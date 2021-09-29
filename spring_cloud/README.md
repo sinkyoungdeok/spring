@@ -127,6 +127,24 @@
 
 <details> <summary> 5. Monolithic vs. Microservice </summary>
 
+## 5. Monolithic vs. Microservice
+
+![image](https://user-images.githubusercontent.com/28394879/135293525-cbfa7a14-a1d1-424a-94bb-16694f6a35ac.png)
+
+### Monolith Architecture
+- 모든 업무 로직이 하나의 애플리케이션 형태로 패키지 되어 서비스
+- 애플리케이션에서 사용하는 데이터가 한 곳에 모여 참조되어 서비스되는 형태
+![image](https://user-images.githubusercontent.com/28394879/135294692-ccd5aafd-e7e9-4585-8911-0d9fdaae58f3.png)
+- 일부 기능만 수정 하려고해도 전체 애플리케이션 빌드하고 배포 해야 되는 단점이 있다.
+
+### Monolith vs Front & Back vs Microservice Architecture
+![image](https://user-images.githubusercontent.com/28394879/135295933-5cd5838c-6586-4374-8af0-1eadba081884.png)
+
+### Monolithic vs MSA
+![image](https://user-images.githubusercontent.com/28394879/135296583-efa1eec8-19ee-48a4-95ce-91e5c7cccdc2.png)
+
+
+
 </details>
 
 <details> <summary> 6. Microservice Architecture란? </summary>
