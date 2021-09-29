@@ -7,6 +7,7 @@
 6. [실전! 스프링 데이터 JPA](./spring_data_jpa)
 7. [실전! Querydsl](./spring_querydsl)
 8. [스프링 시큐리티 - Spring Boot 기반으로 개발하는 Spring Security](./spring_security)
+9. [Spring Cloud로 개발하는 마이크로 애플리케이션(MSA)](./spring_cloud)
 
 # 스프링 용어 및 개념 정리 
 ## REST란
