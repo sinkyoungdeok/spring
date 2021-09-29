@@ -116,6 +116,30 @@ protected void configure(HttpSecurity http) throws Exception {
 
 <details> <summary> 5. Logout 처리, LogoutFilter </summary>
 
+## 5. Logout 처리, LogoutFilter
+
+### 인증 API - Form 인증
+![image](https://user-images.githubusercontent.com/28394879/135270088-65f21896-8d8f-45c8-9e8f-29a92b37210f.png)
+
+### 인증 API - Logout
+- http.logout(): 로그아웃 기능이 작동함
+```java
+protected void configure(HttpSecurity http) throws Exception {
+	 http.logout()						// 로그아웃 처리
+                .logoutUrl(＂/logout＂)				// 로그아웃 처리 URL
+	         .logoutSuccessUrl(＂/login＂)			// 로그아웃 성공 후 이동페이지
+                .deleteCookies(＂JSESSIONID“, ＂remember-me＂) 	// 로그아웃 후 쿠키 삭제
+	         .addLogoutHandler(logoutHandler())		 // 로그아웃 핸들러
+                .logoutSuccessHandler(logoutSuccessHandler()) 	// 로그아웃 성공 후 핸들러
+}
+```
+![image](https://user-images.githubusercontent.com/28394879/135270356-6eb73d19-e879-4482-b490-458abe2b08ee.png)
+
+### 인증 API - LogoutFilter
+![image](https://user-images.githubusercontent.com/28394879/135270525-3e63ba59-6509-41a1-b06e-8a95540ec951.png)
+
+
+
 </details>
 
 <details> <summary> 6. Remember Me 인증 </summary>
