@@ -63,6 +63,39 @@
 
 <details> <summary> 3. Cloud Native Application </summary>
 
+## 3. Cloud Native Application
+
+![image](https://user-images.githubusercontent.com/28394879/135284653-73406d81-b393-41fd-a0c7-9c01823e860b.png)
+
+### Cloud Native Application - CI/CD
+- 지속적신 통합, CI(Continuous Integration)
+    - 통합 서버, 소스 관리 (SCM), 빌드 도구, 테스트 도구
+    - ex) Jenkins, Team CI, Travis CI
+- 지속적 배포
+    - Continuous Delivery: CI까지 자동, 수동 배포
+    - Continuous Deployment: 테스트부터 배포까지 완전한 자동화
+    - Pipe line
+![image](https://user-images.githubusercontent.com/28394879/135285216-933f5622-dd32-462e-9329-fa3795d0ab9a.png)
+
+- 카나리 배포와 블루그린 배포
+![image](https://user-images.githubusercontent.com/28394879/135285662-f24244a8-f80b-41bb-ada5-4500095ba769.png)
+
+### Cloud Native Application - DevOps
+- 개발 조직과 운영 조직의 통합을 의미
+    - 이러한 통합으로 고객의 요구사항을 빠르게 반영하고 만족도 높은 결과물을 제시하는 것에 목적을 둔다.
+- 기존의 엔터프라이즈 어플리케이션들은 고객의 요구사항에 맞게 도메인을 분석하고 시스템을 설계 그리고 어플리케이션 구현 테스트 배포 과정을 거쳐 3~6개월 혹은 수년에 거친다.
+    - 개발 기간이 길어짐으로써 그만큼 변경사항이나 요구사항에 바로 대처 할 수 없다는 단점이 있다.
+    - 이러한 변경사항이나 개선사항들이 시스템 막바지에 반영되기보다는 바로바로 반영되는 것이 더 좋다.
+    - 그때그떄 고객의 요구사항을 반영하거나 개발된 내용을 테스트하는 것은 개발 기간을 더 느리게 할 수 도 있지만,
+    - 개발회사가 완성도 높은 어플리케이션을 만들기 위해선 자주 업데이트하고 자주 테스트 해야 한다.
+- 자주 테스트-피드백-업데이트하는 과정을 거쳐 전체 개발 일정이 완료될때 까지 지속적으로 끊임없이 진행해 나가는것을 Devops라고 한다.
+
+
+### Cloud Native Application - Container 가상화
+- 클라우드 네이티브의 핵심이다.
+- Container가상화 기술은 기존의 하드웨어 가상화 또는 서버 가상화에 비해 적은 리소스를 사용하여 가상화 서비스를 구축할 수 있다.
+![image](https://user-images.githubusercontent.com/28394879/135287740-c7f0dc27-150c-40ee-8fc9-b6a406c79369.png)
+
 </details>
 
 <details> <summary> 4. 12 Factors</summary>
