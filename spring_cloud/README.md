@@ -278,9 +278,49 @@
 
 
 
-# 2. Service Discovery
+# [2. Service Discovery](./2.service-discovery)
 
 <details> <summary> 1. Spring Cloud Netflix Eureka </summary>
+
+![image](https://user-images.githubusercontent.com/28394879/135461538-0ee7c758-6a70-4b18-8dd2-9f27b6657d23.png)
+- 서비스3개를 구성하기위해서는 컴퓨터가 3대라면 3개의 ip에서 같은 port를 사용하면 되지만, 우리는 1대의 컴터로 구성할 것이기 때문에 3개의 서비스에 port만 다르게 구성할 것이다.
+
+**main.java**
+```java
+package com.example.ecommerce;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+
+@SpringBootApplication
+@EnableEurekaServer
+public class EcommerceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(EcommerceApplication.class, args);
+	}
+
+}
+
+**application.yml**
+```yml
+server:
+  port: 8761
+
+
+spring:
+  application:
+      name: discoveryservice
+
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+```
+
+```
 
 </details>
 
