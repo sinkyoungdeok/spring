@@ -400,4 +400,35 @@ java -jar -Dserver.port=9004 ./target/user-service-0.0.1-SNAPSHOT.jar
 
 <details> <summary> 5. User Service - Load Balancer </summary>
 
+## 5. User Service - Load Balancer
+
+**랜덤 포트 부여 받는 방법**
+```yml
+server:
+  port: 0
+
+#...
+```
+- 하지만, 이 방법으로 진행해서 여러대의 서버를 띄우면 eureka에는 같은 port:0 으로 인식해서 1대만 띄워져 있는걸로 보이게 된다.
+
+**랜덤 포트 부여 및 eureka에 인식 될 수 있도록 설정 방법**
+```yml
+server:
+  port: 0
+
+spring:
+  application:
+    name: user-service
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+```
+- 이 방법으로 진행하면 eureka에 2대 모두 떠있는걸 확인할 수 있다.
+
 </details>
