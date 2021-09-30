@@ -199,6 +199,21 @@
 
 <details> <summary> 8. Microservice Architecture Structures </summary>
 
+## 8. Microservice Architecture Structures
+
+### MSA 표준 구성요소
+![image](https://user-images.githubusercontent.com/28394879/135451363-ae609e4d-02d1-4332-8635-ef660f365d57.png)
+
+### Service Mesh Capabilities
+- MSA 인프라 -> 미들웨어
+    - 프록시 역할, 인증, 권한 부여, 암호화, 서비스 검색, 요청 라우팅, 로드 밸런싱
+    - 자가 치유 복구 서비스
+- 서비스간의 통신과 관련된 기능을 자동화
+
+### MSA 기반 기술
+![image](https://user-images.githubusercontent.com/28394879/135452177-286e9ae3-0d80-4772-8574-ef19bfc32813.png)
+
+
 </details>
 
 <details> <summary> 9. Spring Cloud란? </summary>
