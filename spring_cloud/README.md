@@ -275,3 +275,27 @@
     - Hystrix
 
 </details>
+
+
+
+# 2. Service Discovery
+
+<details> <summary> 1. Spring Cloud Netflix Eureka </summary>
+
+</details>
+
+<details> <summary> 2. Eureka Service Discovery - 프로젝트 생성 </summary>
+
+</details>
+
+<details> <summary> 3. User Service - 프로젝트 생성 </summary>
+
+</details>
+
+<details> <summary> 4. User Service - 등록 </summary>
+
+</details>
+
+<details> <summary> 5. User Service - Load Balancer </summary>
+
+</details>
