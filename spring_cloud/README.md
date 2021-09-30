@@ -282,8 +282,18 @@
 
 <details> <summary> 1. Spring Cloud Netflix Eureka </summary>
 
+## 1. Spring Cloud Netflix Eureka
+
 ![image](https://user-images.githubusercontent.com/28394879/135461538-0ee7c758-6a70-4b18-8dd2-9f27b6657d23.png)
 - 서비스3개를 구성하기위해서는 컴퓨터가 3대라면 3개의 ip에서 같은 port를 사용하면 되지만, 우리는 1대의 컴터로 구성할 것이기 때문에 3개의 서비스에 port만 다르게 구성할 것이다.
+
+
+
+</details>
+
+<details> <summary> 2. Eureka Service Discovery - 프로젝트 생성 </summary>
+
+## 2. Eureka Service Discovery - 프로젝트 생성
 
 **main.java**
 ```java
@@ -320,11 +330,6 @@ eureka:
     fetch-registry: false
 ```
 
-```
-
-</details>
-
-<details> <summary> 2. Eureka Service Discovery - 프로젝트 생성 </summary>
 
 </details>
 
