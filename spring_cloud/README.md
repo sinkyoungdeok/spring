@@ -379,6 +379,23 @@ eureka:
 
 <details> <summary> 4. User Service - 등록 </summary>
 
+## 4. User Service - 등록
+
+**컴퓨터 한대에 같은 spring 다수 서버 설정 방법-1**
+![image](https://user-images.githubusercontent.com/28394879/135467670-3c6a0e6d-c793-485a-898e-07b6768f547c.png)
+
+**컴퓨터 한대에 같은 spring 다수 서버 설정 방법-2**
+```
+mvn spring-boot:run -Dspring-boot.run.jvmArguments='-Dserver.port=9003'
+```
+
+**컴퓨터 한대에 같은 spring 다수 서버 설정 방법-3**
+```
+mvn compile package
+java -jar -Dserver.port=9004 ./target/user-service-0.0.1-SNAPSHOT.jar
+
+```
+
 </details>
 
 <details> <summary> 5. User Service - Load Balancer </summary>
