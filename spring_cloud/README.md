@@ -218,4 +218,60 @@
 
 <details> <summary> 9. Spring Cloud란? </summary>
 
+## 9. Spring Cloud란?
+- https://spring.io/projects/spring-cloud
+
+### Main projects
+- Spring Cloud Config
+- Spring Cloud Netflix
+- Spring Cloud Bus
+- Spring Cloud Cloudfoundry
+- Spring Cloud Open Service Broker
+- Spring Cloud Cluster
+- Spring Cloud Consul
+- Spring Cloud Security
+- Spring Cloud Sleuth
+- Spring Cloud Data Flow
+- Spring Cloud Stream
+- Spring Cloud Stream App Starters
+- Spring Cloud Task
+- Spring Cloud Task App Starters
+- Spring Cloud Zookeeper
+- Spring Cloud Connectors
+- Spring Cloud Starters
+- Spring Cloud CLI
+- Spring Cloud Contract
+- Spring Cloud Gateway
+- Spring Cloud OpenFeign
+- Spring Cloud Pipelines
+- Spring Cloud Function
+
+**여기에서 다룰 projects**
+
+- Spring Cloud Config
+- Spring Cloud Netflix
+- Spring Cloud Security
+- Spring Cloud Sleuth
+- Spring Cloud Starters
+- Spring Cloud Gateway
+- Spring Cloud OpenFeign
+
+
+**스프링 클라우드 애플리케이션을 위한 서비스들**
+
+- Centralized configuration management
+    - Spring Cloud Config Server
+- Location transparency
+    - Naming Server (Eureka)
+- Load Distribution (Load Balancing)
+    - Ribbon (Client Side)
+    - Spring Cloud Gateway
+- Easier REST Clients
+    - FeignClient
+- Visibility and monitoring
+    - Zipkin Distributed Tracing
+    - Netflix API gateway
+- Fault Tolerance
+    - Hystrix
+
 </details>
