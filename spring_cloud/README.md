@@ -432,3 +432,16 @@ eureka:
 - 이 방법으로 진행하면 eureka에 2대 모두 떠있는걸 확인할 수 있다.
 
 </details>
+
+
+# [3. API Gateway Service](./3.api-gateway-service)
+
+<details> <summary> </summary>
+
+</details>
+
+
+
+
+
+
