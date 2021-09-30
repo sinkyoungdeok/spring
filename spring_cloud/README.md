@@ -181,6 +181,20 @@
 
 <details> <summary> 7. SOA vs MSA </summary>
 
+## 7. SOA vs MSA
+
+### SOA와 MSA와의 차이점
+![image](https://user-images.githubusercontent.com/28394879/135387972-d3507360-5f4e-498b-b10a-e6d42f343cc6.png)
+- 서비스 공유 지향점
+    - SOA - 재사용을 통한 비용 절감
+    - MSA - 서비스 간의 결합도를 낮추어 변화에 능동적으로 대응
+
+- 기술 방식
+![image](https://user-images.githubusercontent.com/28394879/135388131-44721fd5-f447-49cd-9aa7-ce33a48e5044.png)
+    - SOA - 공통의 서비스를 ESB에 모아 사업 측면에서 공통 서비스 형식으로 서비스 제공
+    - MSA - 각 독립된 서비스가 노출된 REST API를 사용
+
+
 </details>
 
 <details> <summary> 8. Microservice Architecture Structures </summary>
