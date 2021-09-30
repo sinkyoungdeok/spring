@@ -149,6 +149,34 @@
 
 <details> <summary> 6. Microservice Architecture란? </summary>
 
+## 6. Microservice Architecture란?
+
+### Microservice의 특징
+1. Challenges
+2. Small Well Chosen Deployable Units
+3. Bounded Context
+4. RESTful
+5. Configuration Management
+6. Cloud Enabled
+7. Dynamic Scale Up And Scale Down
+8. CI/CD
+9. Visibility
+
+**microservice를 도입하기 위해 고려해야 될 사항들**
+1. Multiple Rates of Change
+2. Independent Life Cycles
+3. Independent Scalability
+4. Isolated Failure
+5. Simplify Interactions with External Dependencies
+6. Polyglot Technology
+
+**Microservice Team Structure**
+- Two Pizza team
+- Teams communicating through API contracts
+- Develop, test and deploy each service independently
+- Consumer Driven Contract
+
+
 </details>
 
 <details> <summary> 7. SOA vs MSA </summary>
