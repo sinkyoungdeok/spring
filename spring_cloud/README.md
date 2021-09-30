@@ -336,6 +336,45 @@ eureka:
 
 <details> <summary> 3. User Service - 프로젝트 생성 </summary>
 
+## 3. User Service - 프로젝트 생성
+
+**main**
+```java
+package com.example.userservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class UserServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(UserServiceApplication.class, args);
+	}
+
+}
+
+```
+
+**application.yml**
+```yml
+server:
+  port: 9001
+
+spring:
+  application:
+    name: user-service
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+```
+
 </details>
 
 <details> <summary> 4. User Service - 등록 </summary>
