@@ -436,7 +436,54 @@ eureka:
 
 # [3. API Gateway Service](./3.api-gateway-service)
 
-<details> <summary> </summary>
+<details> <summary> 1. API Gateway Service </summary>
+
+## 1. API Gateway Service
+
+### API Gateway Service의 특징
+- 인증 및 권한 부여
+- 서비스 검색 통합
+- 응답 캐싱
+- 정책, 회로 차단기 및 QoS 다시 시도
+- 속도 제한
+- 부하 분산
+- 로깅, 추적, 상관 관계
+- 헤더, 쿼리 문자열 및 청구 변환
+- IP 허용 목록에 추가
+
+### Netflix Ribbon
+- Spring CLoud 에서의 MSA간 톡신
+    1) RestTemplate
+    ```java
+    RestTemplate restTemplate = new RestTemplate();
+    restTemplate.getForObject("http://localhost:8080/", User.class, 200);
+    ```
+    2) Feign Client
+    ```java
+    @FeignClient("store")
+    public interface StoreClient {
+        @RestMapping(method = RequestMethod.GET, value = "/stores")
+        List<Store> getStores();
+    }
+    ```
+- Ribbon: Client side Load Balancer
+    - 서비스 이름으로 호출
+    - Health Check
+    - Spring Cloud Ribbon은 Spring Boot 2.4 에서 Maintenance 상태 (더이상 사용할 수 없는 상태)
+
+### Netflix Zuul 구현
+- 구성
+    - First Service
+    - Second Service
+    - Netflix Zuul
+        - Routing 역할
+        - API gateway 역할
+![image](https://user-images.githubusercontent.com/28394879/135565916-ba0c97a4-ca2a-4827-bb1c-e0ab1f22478b.png)
+
+- Spring Cloud Zuul 은 Spring Boot 2.4 에서 Maintenance 상태 (더이상 사용할 수 없는 상태)
+
+
+
 
 </details>
 
