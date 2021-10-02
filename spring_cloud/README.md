@@ -489,6 +489,113 @@ eureka:
 
 
 
+<details> <summary> 2. Netflix Zuul - 프로젝트 생성 </summary>
+
+## 2. Netflix Zuul - 프로젝트 생성
+
+### First Service, Second Service
+
+- Step1) First, Second Service 프로젝트 세팅
+  - Spring Boot: 2.3.8
+  - Dependencies: Lombok, Spring Web, Eureka Discovery Client
+
+- Step2) First, Second Service 코드 작성
+  - GetMapping으로 /welcome 으로 들어올 시 First Service 혹은 Second service 문자열 리턴
+  - application.yml
+    - first
+    ```yml
+    server:
+       port: 8081
+    
+    spring:
+       application:
+          name: my-first-service
+    
+    eureka:
+       client:
+          register-with-eureka: false
+          fetchRegistry: false
+    ```
+    - second
+    ```yml
+    server:
+       port: 8082
+    
+    spring:
+       application:
+          name: my-second-service
+    
+    eureka:
+       client:
+          register-with-eureka: false
+          fetchRegistry: false
+    ```
+- Step3) First, Second Service가 제대로 동작하는지 확인
+
+- Step4) Zuul Service 프로젝트 세팅 
+  - Spring Boot: 2.3.8
+  - Dependencies: Lombok, Spring Web, Zuul
+
+- Step5) Zuul Service 코드 작성
+
+```java
+@SpringBootApplication
+@EnableZuulProxy
+public class ZuulServiceApplication {
+    
+    public static void main(String[] args) {
+        SpringApplication.run(ZuulServiceApplication.class, args);
+    }
+}
+```
+
+```yml
+server:
+  port: 8080
+
+spring:
+  application:
+    name: my-zuul-service
+
+zuul:
+  routes:
+    first-service:
+      path: /first-service/**
+      url: http://localhost:8081
+    second-service:
+      path: /second-service/**
+      url: http://localhost:8082
+```
+  
+- Step6) ZuulFilter 
+
+```java
+@Component
+public class ZuulLoggingFilter extends ZuulFilter {
+    
+    Logger logger = LoggerFactory.getLogger(ZuulLoggingFilter.class);
+    
+    @Override
+    public Object run() throws ZuulException {
+        logger.info("**************** printing logs : ");
+        
+        RequestContext ctx = RequestContext.getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
+        
+        logger.info("**************** " + request.getRequestURI());
+        
+        return null;
+    }
+    
+    @Override
+    public String filterType() {
+        return "pre";
+    }
+}
 
 
+```
+
+
+</details>
 
