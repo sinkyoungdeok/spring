@@ -1381,7 +1381,7 @@ public class Item implements Persistable<String> {
 - 실무에서 사용하기에는 매칭 조건이 너무 단순하고, LEFT 조인이 안됨
 - 실무에서는 QueryDSL을 사용하자
 
-</detals>
+</details>
 
 <details> <summary> 3. Projections </summary>
 
@@ -1390,7 +1390,7 @@ public class Item implements Persistable<String> {
 - 실무의 복잡한 쿼리를 해결하기에는 한계가 있다.
 - 실무에서는 단순할 때만 사용하고, 조금만 복잡해지면 QueryDSL을 사용하자
 
-</detals>
+</details>
 
 <details> <summary> 4. 네이티브 쿼리 </summary>
 
@@ -1423,4 +1423,4 @@ List<MemberDto> result = em.createNativeQuery(sql)
 }
 ```
 
-</detals>
+</details>
