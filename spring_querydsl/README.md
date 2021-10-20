@@ -10,54 +10,54 @@
 - `build.gradle`에 주석을 참고해서 querydsl 설정 추가
 ```gradle
 plugins {
- id 'org.springframework.boot' version ‘2.2.2.RELEASE'
- id 'io.spring.dependency-management' version '1.0.8.RELEASE'
- //querydsl 추가
- id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
- id 'java'
+	id 'org.springframework.boot' version ‘2.2.2.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	//querydsl 추가
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	id 'java'
 }
 group = 'study'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 configurations {
- compileOnly {
- extendsFrom annotationProcessor
- }
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
 }
 repositories {
- mavenCentral()
+	mavenCentral()
 }
 dependencies {
- implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
- implementation 'org.springframework.boot:spring-boot-starter-web'
- //querydsl 추가
- implementation 'com.querydsl:querydsl-jpa'
- compileOnly 'org.projectlombok:lombok'
- runtimeOnly 'com.h2database:h2'
- annotationProcessor 'org.projectlombok:lombok'
- testImplementation('org.springframework.boot:spring-boot-starter-test') {
- exclude group: ‘org.junit.vintage’, module: ‘junit-vintage-engine'
- }
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//querydsl 추가
+	implementation 'com.querydsl:querydsl-jpa'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: ‘org.junit.vintage’, module: ‘junit-vintage-engine'
+	}
 }
 test {
- useJUnitPlatform()
+	useJUnitPlatform()
 }
 //querydsl 추가 시작
 def querydslDir = "$buildDir/generated/querydsl"
 querydsl {
- jpa = true
- querydslSourcesDir = querydslDir
- }
- sourceSets {
-  main.java.srcDir querydslDir
- }
- configurations {
-  querydsl.extendsFrom compileClasspath
- }
- compileQuerydsl {
-  options.annotationProcessorPath = configurations.querydsl
- }
- //querydsl 추가 끝
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+sourceSets {
+	main.java.srcDir querydslDir
+}
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+//querydsl 추가 끝
 ```
 
 ### Querydsl 환경설정 검증
@@ -72,8 +72,8 @@ import javax.persistence.Id;
 @Entity
 @Getter @Setter
 public class Hello {
- @Id @GeneratedValue
- private Long id;
+    @Id @GeneratedValue
+    private Long id;
 }
 ```
 
@@ -110,21 +110,21 @@ import java.util.List;
 @SpringBootTest
 @Transactional
 class QuerydslApplicationTests {
-@Autowired
-EntityManager em;
-@Test
-void contextLoads() {
-Hello hello = new Hello();
-em.persist(hello);
-JPAQueryFactory query = new JPAQueryFactory(em);
-QHello qHello = QHello.hello; //Querydsl Q타입 동작 확인
-Hello result = query
-.selectFrom(qHello)
-.fetchOne();
-Assertions.assertThat(result).isEqualTo(hello);
-//lombok 동작 확인 (hello.getId())
-Assertions.assertThat(result.getId()).isEqualTo(hello.getId());
-}
+    @Autowired
+    EntityManager em;
+    @Test
+    void contextLoads() {
+        Hello hello = new Hello();
+        em.persist(hello);
+        JPAQueryFactory query = new JPAQueryFactory(em);
+        QHello qHello = QHello.hello; //Querydsl Q타입 동작 확인
+        Hello result = query
+                .selectFrom(qHello)
+                .fetchOne();
+        Assertions.assertThat(result).isEqualTo(hello);
+        //lombok 동작 확인 (hello.getId())
+        Assertions.assertThat(result.getId()).isEqualTo(hello.getId());
+    }
 }
 ```
 - Querydsl Q타입이 정상 동작하는가?
