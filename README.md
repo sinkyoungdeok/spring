@@ -6,8 +6,9 @@
 5. [실전! 스프링 부트와 JPA 활용2 - API 개발과 성능 최적화](./spring_boot_jpa2)
 6. [실전! 스프링 데이터 JPA](./spring_data_jpa)
 7. [실전! Querydsl](./spring_querydsl)
-8. [스프링 시큐리티 - Spring Boot 기반으로 개발하는 Spring Security](./spring_security)
-9. [Spring Cloud로 개발하는 마이크로 애플리케이션(MSA)](./spring_cloud)
+8. [스프링 핵심 원리 - 고급편](./spring_core_principle)
+9. [스프링 시큐리티 - Spring Boot 기반으로 개발하는 Spring Security](./spring_security)
+10. [Spring Cloud로 개발하는 마이크로 애플리케이션(MSA)](./spring_cloud)
 
 # 스프링 용어 및 개념 정리 
 ## REST란
