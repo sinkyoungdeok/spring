@@ -1306,6 +1306,108 @@ ex=java.lang.IllegalStateException: 예외 발생!
 
 <details> <summary> 3. 필드 동기화 - 동시성 문제 </summary>
 
+## 3. 필드 동기화 - 동시성 문제
+
+잘 만든 로그 추적기를 실제 서비스에 배포 했다고 가정해보자.
+
+테스트 할 때는 문제가 없는 것처럼 보인다. 
+
+하지만 `FieldLogTrace`는 심각한 동시성 문제를 가지고 있다.
+
+동시성 문제를 확인하려면 다음과 같이 동시에 여러번 호출해보면 된다.
+
+**동시성 문제 확인**  
+다음 로직을 1초안에 2번 실행해보자.
+- http://localhost:8080/v3/request?itemId=hello
+- http://localhost:8080/v3/request?itemId=hello
+
+**기대하는 결과**
+```
+[nio-8080-exec-3] [52808e46] OrderController.request()
+[nio-8080-exec-3] [52808e46] |-->OrderService.orderItem()
+[nio-8080-exec-3] [52808e46] | |-->OrderRepository.save()
+[nio-8080-exec-4] [4568423c] OrderController.request()
+[nio-8080-exec-4] [4568423c] |-->OrderService.orderItem()
+[nio-8080-exec-4] [4568423c] | |-->OrderRepository.save()
+[nio-8080-exec-3] [52808e46] | |<--OrderRepository.save() time=1001ms
+[nio-8080-exec-3] [52808e46] |<--OrderService.orderItem() time=1001ms
+[nio-8080-exec-3] [52808e46] OrderController.request() time=1003ms
+[nio-8080-exec-4] [4568423c] | |<--OrderRepository.save() time=1000ms
+[nio-8080-exec-4] [4568423c] |<--OrderService.orderItem() time=1001ms
+[nio-8080-exec-4] [4568423c] OrderController.request() time=1001ms
+```
+
+동시에 여러 사용자가 요청하면 여러 쓰레드가 동시에 애플리케이션 로직을 호출하게 된다.  
+따라서 로그는 이렇게 섞어서 출력된다.
+
+**기대하는 결과 - 로그 분리해서 확인하기**
+```
+[52808e46]
+[nio-8080-exec-3] [52808e46] OrderController.request()
+[nio-8080-exec-3] [52808e46] |-->OrderService.orderItem()
+[nio-8080-exec-3] [52808e46] | |-->OrderRepository.save()
+[nio-8080-exec-3] [52808e46] | |<--OrderRepository.save() time=1001ms
+[nio-8080-exec-3] [52808e46] |<--OrderService.orderItem() time=1001ms
+[nio-8080-exec-3] [52808e46] OrderController.request() time=1003ms
+[4568423c]
+[nio-8080-exec-4] [4568423c] OrderController.request()
+[nio-8080-exec-4] [4568423c] |-->OrderService.orderItem()
+[nio-8080-exec-4] [4568423c] | |-->OrderRepository.save()
+[nio-8080-exec-4] [4568423c] | |<--OrderRepository.save() time=1000ms
+[nio-8080-exec-4] [4568423c] |<--OrderService.orderItem() time=1001ms
+[nio-8080-exec-4] [4568423c] OrderController.request() time=1001ms
+```
+
+로그가 섞어서 출력되더라도 특정 트랜잭션ID로 구분해서 직접 분류해보면 이렇게 깔끔하게 분리된 것을 확인할 수 있다.  
+그런데 실제 결과를 기대한 것과 다르게 다음과 같이 출력 된다.  
+
+**실제 결과**
+```
+[nio-8080-exec-3] [aaaaaaaa] OrderController.request()
+[nio-8080-exec-3] [aaaaaaaa] |-->OrderService.orderItem()
+[nio-8080-exec-3] [aaaaaaaa] | |-->OrderRepository.save()
+[nio-8080-exec-4] [aaaaaaaa] | | |-->OrderController.request()
+[nio-8080-exec-4] [aaaaaaaa] | | | |-->OrderService.orderItem()
+[nio-8080-exec-4] [aaaaaaaa] | | | | |-->OrderRepository.save()
+[nio-8080-exec-3] [aaaaaaaa] | |<--OrderRepository.save() time=1005ms
+[nio-8080-exec-3] [aaaaaaaa] |<--OrderService.orderItem() time=1005ms
+[nio-8080-exec-3] [aaaaaaaa] OrderController.request() time=1005ms
+[nio-8080-exec-4] [aaaaaaaa] | | | | |<--OrderRepository.save()
+time=1005ms
+[nio-8080-exec-4] [aaaaaaaa] | | | |<--OrderService.orderItem()
+time=1005ms
+[nio-8080-exec-4] [aaaaaaaa] | | |<--OrderController.request() time=1005ms
+```
+
+**실제 결과 - 로그 분리해서 확인하기**
+```
+[nio-8080-exec-3]
+[nio-8080-exec-3] [aaaaaaaa] OrderController.request()
+[nio-8080-exec-3] [aaaaaaaa] |-->OrderService.orderItem()
+[nio-8080-exec-3] [aaaaaaaa] | |-->OrderRepository.save()
+[nio-8080-exec-3] [aaaaaaaa] | |<--OrderRepository.save() time=1005ms
+[nio-8080-exec-3] [aaaaaaaa] |<--OrderService.orderItem() time=1005ms
+[nio-8080-exec-3] [aaaaaaaa] OrderController.request() time=1005ms
+[nio-8080-exec-4]
+[nio-8080-exec-4] [aaaaaaaa] | | |-->OrderController.request()
+[nio-8080-exec-4] [aaaaaaaa] | | | |-->OrderService.orderItem()
+[nio-8080-exec-4] [aaaaaaaa] | | | | |-->OrderRepository.save()
+[nio-8080-exec-4] [aaaaaaaa] | | | | |<--OrderRepository.save()
+time=1005ms
+[nio-8080-exec-4] [aaaaaaaa] | | | |<--OrderService.orderItem()
+time=1005ms
+[nio-8080-exec-4] [aaaaaaaa] | | |<--OrderController.request() time=1005ms
+```
+
+기대한 것과 전혀 다른 문제가 발생한다. `트랜잭션 ID`도 동일하고, `level`도 뭔가 많이 꼬인 것 같다.   
+
+**동시성 문제**  
+이 문제가 동시성 문제다.
+`FieldLogTrace`는 싱글톤으로 등록된 스프링 빈이다. 이 객체의 인스턴스가 애플리케이션에 딱 1개 존재한다는 뜻이다.  
+이렇게 하나만 있는 인스턴스의 `FieldLogTrace.traceIdHolder` 필드를 여러 쓰레드가 동시에 접근하기 때문에 문제가 발생한다.  
+실무에서 한번 나타나면 개발자를 가장 괴롭히는 문제도 바로 이러한 동시성 문제이다.
+
+
 </details>
 
 
