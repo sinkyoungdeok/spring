@@ -1950,8 +1950,3 @@ ex=java.lang.IllegalStateException: 예외 발생!
 
 
 </details>
-
-
-<details> <summary> 10. 정리 </summary>
-
-</details>
