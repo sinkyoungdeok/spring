@@ -1950,3 +1950,66 @@ ex=java.lang.IllegalStateException: 예외 발생!
 
 
 </details>
+
+
+# [3. 템플릿 메서드 패턴과 콜백 패턴](./3.template-method-pattern-and-callback-pattern)
+
+<details> <summary> 1. 템플릿 메서드 패턴 - 시작 </summary>
+
+</details>
+
+<details> <summary> 2. 템플릿 메서드 패턴 - 예제1 </summary>
+
+</details>
+
+<details> <summary> 3. 템플릿 메서드 패턴 - 예제2 </summary>
+
+</details>
+
+<details> <summary> 4. 템플릿 메서드 패턴 - 예제3 </summary>
+
+</details>
+
+<details> <summary> 5. 템플릿 메서드 패턴 - 적용1 </summary>
+
+</details>
+
+<details> <summary> 6. 템플릿 메서드 패턴 - 적용2 </summary>
+
+</details>
+
+<details> <summary> 7. 템플릿 메서드 패턴 - 정의 </summary>
+
+</details>
+
+<details> <summary> 8. 전략 패턴 - 시작 </summary>
+
+</details>
+
+<details> <summary> 9. 전략 패턴 - 예제1 </summary>
+
+</details>
+
+<details> <summary> 10. 전략 패턴 - 예제2 </summary>
+
+</details>
+
+<details> <summary> 11. 전략 패턴 - 예제3 </summary>
+
+</details>
+
+<details> <summary> 12. 템플릿 콜백 패턴 - 시작 </summary>
+
+</details>
+
+<details> <summary> 13. 템플릿 콜백 패턴 - 예제 </summary>
+
+</details>
+
+<details> <summary> 14. 템플릿 콜백 패턴 - 적용 </summary>
+
+</details>
+
+<details> <summary> 15. 정리 </summary>
+
+</details>
