@@ -1410,32 +1410,36 @@ time=1005ms
 
 </details>
 
-
-<details> <summary> 4. ThreadLocal - 소개 </summary>
-
-</details>
-
-
-<details> <summary> 5. ThreadLocal - 예제 코드 </summary>
+<details> <summary> 4. 동시성 문제 - 예제 코드 </summary>
 
 </details>
 
 
-<details> <summary> 6. 쓰레드 로컬 동기화 - 개발 </summary>
+<details> <summary> 5. ThreadLocal - 소개 </summary>
 
 </details>
 
 
-<details> <summary> 7. 쓰레드 로컬 동기화 - 적용 </summary>
+<details> <summary> 6. ThreadLocal - 예제 코드 </summary>
 
 </details>
 
 
-<details> <summary> 8. 쓰레드 로컬 - 주의 사항 </summary>
+<details> <summary> 7. 쓰레드 로컬 동기화 - 개발 </summary>
 
 </details>
 
 
-<details> <summary> 9. 정리 </summary>
+<details> <summary> 8. 쓰레드 로컬 동기화 - 적용 </summary>
+
+</details>
+
+
+<details> <summary> 9. 쓰레드 로컬 - 주의 사항 </summary>
+
+</details>
+
+
+<details> <summary> 10. 정리 </summary>
 
 </details>
