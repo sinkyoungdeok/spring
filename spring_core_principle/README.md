@@ -3206,3 +3206,78 @@ public class OrderRepositoryV5 {
 
 
 </details>
+
+
+# [4. 프록시 패턴과 데코레이션 패턴](./4.proxy-pattern-decorator-pattern)
+
+<details> <summary> 1. 프로젝트 생성 </summary>
+
+</details>
+
+<details> <summary> 2. 예제 프로젝트 만들기 v1 </summary>
+
+</details>
+
+<details> <summary> 3. 예제 프로젝트 만들기 v2 </summary>
+
+</details>
+
+<details> <summary> 4. 예제 프로젝트 만들기 v3 </summary>
+
+</details>
+
+<details> <summary> 5. 요구사항 추가 </summary>
+
+</details>
+
+<details> <summary> 6. 프록시, 프록시 패턴, 데코레이터 패턴 - 소개  </summary>
+
+</details>
+
+<details> <summary> 7. 프록시 패턴 - 예제 코드1 </summary>
+
+</details>
+
+<details> <summary> 8. 프록시 패턴 - 예제 코드2 </summary>
+
+</details>
+
+<details> <summary> 9. 데코레이터 패턴 - 예제 코드1 </summary>
+
+</details>
+
+<details> <summary> 10. 데코레이터 패턴 - 예제 코드2 </summary>
+
+</details>
+
+<details> <summary> 11. 데코레이터 패턴 - 예제 코드3 </summary>
+
+</details>
+
+<details> <summary> 12. 프록시 패턴과 데코레이터 패턴 정리 </summary>
+
+</details>
+
+<details> <summary> 13. 인터페이스 기반 프록시 - 적용 </summary>
+
+</details>
+
+<details> <summary> 14. 구체 클래스 기반 프록시 - 예제1 </summary>
+
+</details>
+
+<details> <summary> 15. 구체 클래스 기반 프록시 - 예제2 </summary>
+
+</details>
+
+<details> <summary> 16. 구체 클래스 기반 프록시 - 적용 </summary>
+
+</details>
+
+<details> <summary> 17. 인터페이스 기반 프록시와 클래스 기반 프록시 </summary>
+
+</details>
+
+<details> <summary> 18. 정리 </summary>
+
+</details>
