@@ -5685,3 +5685,58 @@ CGLIB가 동적으로 생성하는 클래스 이름은 다음과 같은 규칙�
 - 특정 조건에 맞을 때 프록시 로직을 적용하는 기능도 공통으로 제공되었으면? 
 
 </details>
+
+# [6. 스프링이 지원하는 프록시](./6.proxy-supported-by-spring)
+
+<details> <summary> 1. 프록시 팩토리 - 소개 </summary>
+
+</details>
+
+<details> <summary> 2. 프록시 팩토리 - 예제 코드1 </summary>
+
+</details>
+
+
+<details> <summary> 3. 프록시 팩토리 - 예제 코드2 </summary>
+
+</details>
+
+
+<details> <summary> 4. 포인트컷, 어드바이스, 어드바이저 - 소개 </summary>
+
+</details>
+
+
+<details> <summary> 5. 예제 코드1 - 어드바이저 </summary>
+
+</details>
+
+
+<details> <summary> 6. 예제 코드2 - 직접 만든 포인트컷 </summary>
+
+</details>
+
+
+<details> <summary> 7. 예제 코드3 - 스프링이 제공하는 포인트컷 </summary>
+
+</details>
+
+
+<details> <summary> 8. 예제 코드4 - 여러 어드바이저 함께 적용 </summary>
+
+</details>
+
+
+<details> <summary> 9. 프록시 팩토리 - 적용1 </summary>
+
+</details>
+
+
+<details> <summary> 10. 프록시 팩토리 - 적용2 </summary>
+
+</details>
+
+
+<details> <summary> 11. 정리 </summary>
+
+</details>
