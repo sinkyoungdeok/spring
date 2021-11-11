@@ -4827,12 +4827,4 @@ public class ProxyApplication {
 **바로 다음에 설명할 동적 프록시 기술이 이 문제를 해결해준다.**
 
 
-
-
-
-
-</details>
-
-<details> <summary> 18. 정리 </summary>
-
 </details>
