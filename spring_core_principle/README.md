@@ -4828,3 +4828,37 @@ public class ProxyApplication {
 
 
 </details>
+
+# [5. 동적 프록시 기술](./5.dynamic-proxy-technology)
+
+<details> <summary> 1. 리플렉션 </summary>
+
+</details>
+
+<details> <summary> 2. JDK 동적 프록시 - 소개 </summary>
+
+</details>
+
+<details> <summary> 3. JDK 동적 프록시 - 예제 코드 </summary>
+
+</details>
+
+<details> <summary> 4. JDK 동적 프록시 - 적용1 </summary>
+
+</details>
+
+<details> <summary> 5. JDK 동적 프록시 - 적용2 </summary>
+
+</details>
+
+<details> <summary> 6. CGLIB - 소개 </summary>
+
+</details>
+
+<details> <summary> 7. CGLIB - 예제 코드 </summary>
+
+</details>
+
+<details> <summary> 8. 정리 </summary>
+
+</details>
