@@ -6664,3 +6664,51 @@ http://localhost:8080/v2/request?itemId=hello
 **두 가지 문제를 한번에 해결하는 방법이 바로 다음에 정리할 빈 후처리기이다.**
 
 </details>
+
+
+# [7. 빈 후처리기](./7.bean-postprocessor)
+
+<details> <summary> 1. 빈 후처리기 - 소개 </summary>
+
+
+</details>
+
+<details> <summary> 2. 빈 후처리기 - 예제 코드1 </summary>
+
+
+</details>
+
+<details> <summary> 3. 빈 후처리기 - 예제 코드2 </summary>
+
+
+</details>
+
+<details> <summary> 4. 빈 후처리기 - 적용 </summary>
+
+
+</details>
+
+<details> <summary> 5. 빈 후처리기 - 정리 </summary>
+
+
+</details>
+
+<details> <summary> 6. 스프링이 제공하는 빈 후처리기1 </summary>
+
+
+</details>
+
+<details> <summary> 7. 스프링이 제공하는 빈 후처리기2 </summary>
+
+
+</details>
+
+<details> <summary> 8. 하나의 프록시, 여러 Advisor 적용 </summary>
+
+
+</details>
+
+<details> <summary> 9. 정리 </summary>
+
+
+</details>
