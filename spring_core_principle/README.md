@@ -7344,5 +7344,12 @@ execution(* hello.proxy.app..*(..)) && !execution(* hello.proxy.app..noLog(..))
 
 <details> <summary> 9. 정리 </summary>
 
+## 9. 정리
+자동 프록시 생성기인 `AnnotationAwareAspectJAutoProxyCreator` 덕분에 개발자는 매우 편리하게 프록시를 적용할 수 있다.  
+이제 `Advisor`만 스프링 빈으로 등록하면 된다.
+
+`Advisor` = `Pointcut` + `Advice`
+
+다음은 `@Aspect` 애노테이션을 사용해서 더 편리하게 포인트컷과 어드바이스를 만들고 프록시를 적용해보자. 
 
 </details>
