@@ -7542,3 +7542,33 @@ public class ProxyApplication {
 이제 이 기반을 바탕으로 이러한 횡단 관심사를 전문으로 해결하는 스프링 AOP에 대해 본격적으로 알아보자
 
 </details>
+
+
+# [9. 스프링 AOP 개념](./9.spring-aop-concept)
+
+<details> <summary> 1. AOP 소개 - 핵심 기능과 부가 기능 </summary>
+
+
+</details>
+
+<details> <summary> 2. AOP 소개 - 애스팩트 </summary>
+
+
+</details>
+
+<details> <summary> 3. AOP 적용 방식 </summary>
+
+
+</details>
+
+
+
+<details> <summary> 4. AOP 용어 정리 </summary>
+
+
+</details>
+
+<details> <summary> 5. 정리 </summary>
+
+
+</details>
