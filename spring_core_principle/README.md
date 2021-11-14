@@ -7353,3 +7353,18 @@ execution(* hello.proxy.app..*(..)) && !execution(* hello.proxy.app..noLog(..))
 다음은 `@Aspect` 애노테이션을 사용해서 더 편리하게 포인트컷과 어드바이스를 만들고 프록시를 적용해보자. 
 
 </details>
+
+
+# [8. @Aspect AOP](./8.aspect-aop)
+
+<details> <summary> 1. @Aspect 프록시 - 적용 </summary>
+
+</details>
+
+<details> <summary> 2. @Aspect 프록시 - 설명 </summary>
+
+</details>
+
+<details> <summary> 3. 정리 </summary>
+
+</details>
