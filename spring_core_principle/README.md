@@ -7767,6 +7767,64 @@ AOP는 지금까지 학습한 메서드 실행 위치 뿐만 아니라 다음과
 
 <details> <summary> 1. 프로젝트 생성 </summary>
 
+## 1. 프로젝트 생성
+
+이번에는 스프링 웹 기술은 사용하지 않는다.   
+Lombok만 추가하면 된다.  
+참고로 스프링 프레임워크의 핵심 모듈들은 별도의 설정이 없어도 자동으로 추가 된다.  
+추가로 AOP 기능을 사용하기 위해서 다음을 `build.gradle`에 직접 추가하자.
+
+```
+implementation 'org.springframework.boot:spring-boot-starter-aop'
+```
+
+`build.gradle`에 테스트 코드에서도 lombok을 사용할 수 있도록 다음 코드를 추가하자.
+```
+//테스트에서 lombok 사용
+testCompileOnly 'org.projectlombok:lombok'
+testAnnotationProcessor 'org.projectlombok:lombok'
+```
+
+**참고**  
+`@Aspect`를 사용하려면 `@EnableAspectJAutoProxy`를 스프링 설정에 추가해야 하지만, 스프링 부트를 사용하면 자동으로 추가된다.
+
+**build.gradle**
+```
+plugins {
+id 'org.springframework.boot' version '2.5.5'
+id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+id 'java'
+}
+group = 'hello'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+configurations {
+compileOnly {
+extendsFrom annotationProcessor
+}
+}
+repositories {
+mavenCentral()
+}
+dependencies {
+implementation 'org.springframework.boot:spring-boot-starter'
+implementation 'org.springframework.boot:spring-boot-starter-aop' //직접 추가
+compileOnly 'org.projectlombok:lombok'
+annotationProcessor 'org.projectlombok:lombok'
+testImplementation 'org.springframework.boot:spring-boot-starter-test'
+ //테스트에서 lombok 사용
+ testCompileOnly 'org.projectlombok:lombok'
+ testAnnotationProcessor 'org.projectlombok:lombok'
+}
+test {
+useJUnitPlatform()
+}
+```
+
+- 동작 확인
+  - 기본 메인 클래스 실행(`AopApplication.main()`)
+  - 스프링 부트 실행 로그가 나오면 성공(스프링 웹 프로젝트를 추가하지 않아서 서버가 실행되지는 않는다.)
+
 </details>
 
 <details> <summary> 2. 예제 프로젝트 만들기 </summary>
