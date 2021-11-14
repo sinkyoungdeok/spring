@@ -7761,8 +7761,3 @@ AOP는 지금까지 학습한 메서드 실행 위치 뿐만 아니라 다음과
 
 
 </details>
-
-<details> <summary> 5. 정리 </summary>
-
-
-</details>
