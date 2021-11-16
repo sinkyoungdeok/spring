@@ -8656,6 +8656,105 @@ public void doBefore(JoinPoint joinPoint) {
 
 <details> <summary> 2. 예제 만들기 </summary>
 
+## 2. 예제 만들기
+
+포인트컷 표현식을 이해하기 위해 예제 코드를 하나 추가하자.
+
+**ClassAop**
+```java
+package hello.aop.member.annotation;
+import java.lang.annotation.*;
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ClassAop {
+}
+```
+
+**MethodAop**
+```java
+package hello.aop.member.annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MethodAop {
+ String value();
+}
+```
+
+**MemberService**
+```java
+package hello.aop.member;
+public interface MemberService {
+ String hello(String param);
+}
+```
+
+**MemberServiceImpl**
+```java
+package hello.aop.member;
+import hello.aop.member.annotation.ClassAop;
+import hello.aop.member.annotation.MethodAop;
+import org.springframework.stereotype.Component;
+@ClassAop
+@Component
+public class MemberServiceImpl implements MemberService {
+ @Override
+ @MethodAop("test value")
+ public String hello(String param) {
+ return "ok";
+ }
+ public String internal(String param) {
+ return "ok";
+ }
+}
+```
+
+
+**ExecutionTest**
+```java
+package hello.aop.pointcut;
+import hello.aop.member.MemberServiceImpl;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.aop.aspectj.AspectJExpressionPointcut;
+import java.lang.reflect.Method;
+import static org.assertj.core.api.Assertions.assertThat;
+@Slf4j
+public class ExecutionTest {
+ AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+ Method helloMethod;
+ @BeforeEach
+ public void init() throws NoSuchMethodException {
+ helloMethod = MemberServiceImpl.class.getMethod("hello", String.class);
+ }
+ @Test
+ void printMethod() {
+ //public java.lang.String
+hello.aop.member.MemberServiceImpl.hello(java.lang.String)
+ log.info("helloMethod={}", helloMethod);
+ }
+}
+```
+
+`AspectJExpressionPointcut`이 바로 포인트컷 표현식을 처리해주는 클래스다.  
+여기에 포인트컷 표현식을 지정하면 된다.  
+`AspectJExpressionPointcut`는 상위에 `Pointcut`인터페이스를 가진다.
+
+`printMethod()` 테스트는 `MemberServiceImpl.hello(String)` 메서드의 정보를 출력해준다.
+
+**실행 결과**  
+```
+helloMethod = public java.lang.String
+hello.aop.member.MemberServiceImpl.hello(java.lang.String)
+```
+
+이번에 알아볼 `execution`으로 시작하는 포인트컷 표현식은 이 메서드 정보를 매칭해서 포인트컷 대상을 찾아낸다.
+
+
 </details>
 
 <details> <summary> 3. execution - 1 </summary>
