@@ -8617,10 +8617,4 @@ public void doBefore(JoinPoint joinPoint) {
 제약 덕분에 역할이 명확해진다.  
 다른 개발자도 이 코드를 보고 고민해야 하는 범위가 줄어들고 코드의 의도도 파악하기 쉽다. 
 
-
-
-</details>
-
-<details> <summary> 9. 종류 </summary>
-
 </details>
