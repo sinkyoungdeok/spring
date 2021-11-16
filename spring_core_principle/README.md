@@ -8618,3 +8618,54 @@ public void doBefore(JoinPoint joinPoint) {
 다른 개발자도 이 코드를 보고 고민해야 하는 범위가 줄어들고 코드의 의도도 파악하기 쉽다. 
 
 </details>
+
+
+# [11. 스프링 AOP - 포인트컷](./11.spring-aop-pointcut)
+
+<details> <summary> 1. 포인트컷 지시자 </summary>
+
+</details>
+
+<details> <summary> 2. 예제 만들기 </summary>
+
+</details>
+
+<details> <summary> 3. execution - 1 </summary>
+
+</details>
+
+<details> <summary> 4. execution - 2 </summary>
+
+</details>
+
+<details> <summary> 5. within </summary>
+
+</details>
+
+<details> <summary> 6. args </summary>
+
+</details>
+
+<details> <summary> 7. @target, @within </summary>
+
+</details>
+
+<details> <summary> 8. @annotation, @args </summary>
+
+</details>
+
+<details> <summary> 9. bean </summary>
+
+</details>
+
+<details> <summary> 10. 매개변수 전달 </summary>
+
+</details>
+
+<details> <summary> 11. this, target </summary>
+
+</details>
+
+<details> <summary> 12. 정리 </summary>
+
+</details>
