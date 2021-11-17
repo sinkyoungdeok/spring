@@ -9737,3 +9737,21 @@ $EnhancerBySpringCGLIB$$7df96bd3
 
 
 </details>
+
+# [12. 스프링 AOP - 실전 예제](./12.spring-aop-practical-example)
+
+<details> <summary> 1. 예제 만들기 </summary>
+
+</details>
+
+<details> <summary> 2. 로그 출력 AOP </summary>
+
+</details>
+
+<details> <summary> 3. 재시도 AOP </summary>
+
+</details>
+
+<details> <summary> 4. 정리 </summary>
+
+</details>
