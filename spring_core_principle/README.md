@@ -10509,6 +10509,129 @@ CGLIB 동적 프록시는 대상 객체인 `MemberServieImpl`로 캐스팅 할 �
 
 <details> <summary> 6. 프록시 기술과 한계 - 의존관계 주입 </summary>
 
+## 6. 프록시 기술과 한계 - 의존관계 주입
+
+JDK 동적 프록시를 사용하면서 의존관계 주입을 할 때 어떤 문제가 발생하는지 코드로 알아보자.
+
+**ProxyDIAspect**  
+주의: 테스트 패키지에 위치한다.  
+```java
+package hello.aop.proxyvs.code;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+@Slf4j
+@Aspect
+public class ProxyDIAspect {
+ @Before("execution(* hello.aop..*.*(..))")
+ public void doTrace(JoinPoint joinPoint) {
+ log.info("[proxyDIAdvice] {}", joinPoint.getSignature());
+ }
+}
+```
+
+AOP 프록시 생성을 위해 간단한 `Aspect`를 만들자.
+
+**ProxyDITest**
+```java
+package hello.aop.proxyvs;
+import hello.aop.member.MemberService;
+import hello.aop.member.MemberServiceImpl;
+import hello.aop.proxyvs.code.ProxyDIAspect;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+@Slf4j
+@SpringBootTest(properties = {"spring.aop.proxy-target-class=false"}) //JDK 동적
+프록시, DI 예외 발생
+//@SpringBootTest(properties = {"spring.aop.proxy-target-class=true"}) //CGLIB
+프록시, 성공
+@Import(ProxyDIAspect.class)
+public class ProxyDITest {
+ @Autowired MemberService memberService; //JDK 동적 프록시 OK, CGLIB OK
+ @Autowired MemberServiceImpl memberServiceImpl; //JDK 동적 프록시 X, CGLIB OK
+ @Test
+ void go() {
+ log.info("memberService class={}", memberService.getClass());
+ log.info("memberServiceImpl class={}", memberServiceImpl.getClass());
+ memberServiceImpl.hello("hello");
+ }
+}
+```
+
+**코드 설명**  
+- `@SpringBootTest`: 내부에 컴포넌트 스캔을 포함하고 있다. `MemberServiceImpl`에 `@Component`가 붙어있으므로 스프링 빈 등록 대상이 된다.  
+- `properties = {"spring.aop.proxy-target-class=false"} : application.properties`에 설정하는 대신에 해당 테스트에서만 설정을 임시로 적용한다. 이렇게 하면 각 테스트마다 다른 설정을 손쉽게 적용할 수 있다.
+- `spring.aop.proxy-target-class=false`: 스프링 AOP 프록시를 생성할 때 JDK 동적 프록시를 우선 생성한다. 물론 인터페이스가 없다면 CGLIB를 사용한다.
+- `@Import(ProxyDIAspect.class)`: 앞서 만든 Aspect를 스프링 빈으로 등록한다.
+
+### JDK 동적 프록시에 구체 클래스 타입 주입  
+JDK 동적 프록시에 구체 클래스 타입을 주입할 때 어떤 문제가 발생하는지 지금부터 확인해보자.
+
+**실행**  
+먼저 `spring.aop.proxy-target-class=false`설정을 사용해서 스프링 AOP가 JDK동적 프록시를 사용하도록 했다.  
+이렇게 실행하면 다음과 같이 오류가 발생한다.
+
+**실행 결과**
+```
+BeanNotOfRequiredTypeException: Bean named 'memberServiceImpl' is expected to
+be of type 'hello.aop.member.MemberServiceImpl' but was actually of type
+'com.sun.proxy.$Proxy54'
+```
+
+타입과 관련된 예외가 발생한다. 자세히 읽어보면 `memberServiceImpl`에 주입되길 기대하는 타입은 `hello.aop.member.MemberServiceImpl`이지만 실제 넘어온 타입은 `com.sun.proxy.$Proxy54`이다.  
+따라서 타입 예외가 발생한다고 한다.
+
+![image](https://user-images.githubusercontent.com/28394879/142413004-92eace98-0484-4e49-9449-508b961c71fa.png)
+
+- `@Autowired MemberService memberService`: 이 부분은 문제가 없다. JDK Proxy는 `MemberService`인터페이스를 기반으로 만들어진다. 따라서 해당 타입으로 캐스팅 할 수 있따. 
+  - `MemberService = JDK Proxy`가 성립한다.
+- `@Autowired MemberServiceImpl memberServiceImpl`: 문제는 여기다. JDK Proxy는 `MemberService` 인터페이스를 기반으로 만들어진다. 따라서 `MemberServiceImpl` 타입이 뭔지 전혀 모른다. 그래서 해당 타입에 주입할 수 없다.  
+  - `MemberServiceImpl = JDK Proxy`가 성립하지 않는다.
+
+### CGLIB 프록시에 구체 클래스 타입 주입
+
+이번에는 JDK 동적 프록시 대신에 CGLIB를 사용해서 프록시를 적용해보자. 다음과 같이 주석을 반대로 걸어보자.
+
+```java
+//@SpringBootTest(properties = {"spring.aop.proxy-target-class=false"}) //JDK
+동적 프록시, DI 예외 발생
+@SpringBootTest(properties = {"spring.aop.proxy-target-class=true"}) //CGLIB
+프록시, 성공
+```
+
+실행해보면 정상 동작하는 것을 확인할 수 있다.
+
+![image](https://user-images.githubusercontent.com/28394879/142413390-641207d8-21de-4045-8c6b-574bf6ad005b.png)
+
+- `@Autowired MemberService memberService`: CGLIB Proxy는 `MemberServiceImpl` 구체 클래스를 기반으로 만들어진다. `MemberServiceImpl`은 `MemberService` 인터페이스를 구현했기 떄문에 해당 타입으로 캐스팅할 수 있다.
+  - `MemberService = CGLIB Proxy`가 성립한다.
+- `@Autowired MemberServiceImpl memberServiceImpl`: CGLIB Proxy는 `MemberServiceImpl` 구체 클래스를 기반으로 만들어진다. 따라서 해당 타입으로 캐스팅 할 수 있따.
+  - `MemberServiceImpl = CGLIB Proxy`가 성립한다.
+
+**정리**  
+JDK 동적 프록시는 대상 객체인 `MemberServiceImpl` 타입에 의존관계를 주입할 수 없다.  
+CGLIB 프록시는 대상 객체인 `MemberServiceImpl` 타입에 의존관계 주입을 할 수 있다.
+
+지금까지 JDK 동적 프록시가 가지는 한계점을 알아보았다.  
+실제로 개발할 때는 인터페이스가 있으면 인터페이스를 기반으로 의존관계 주입을 받는 것이 맞다.  
+DI의 장점이 무엇인가? DI 받는 클라이언트 코드의 변경 없이 구현 클래스를 변경할 수 있는 것이다.  
+이렇게 하려면 인터페이스를 기반으로 의존관계를 주입 받아야 한다.  
+`MemberServiceImpl` 타입으로 의존관계 주입을 받는 것 처럼 구현 클래스에 의존관계를 주입하면 향후 구현 클래스를 변경할 때 의존관계 주입을 받는 클라이언트의 코드도 함께 변경해야 한다.  
+따라서 올바르게 잘 설계된 애플리케이션이라면 이런 문제가 자주 발생하지 않는다.  
+그럼에도 불구하고 테스트, 또는 여러가지 이유로 AOP 프록시가 적용된 구체 클래스를 직접 의존관계 주입 받아야 하는 경우가 있을 수 있다.  
+이떄는 CGLIB를 통해 구체 클래스 기반으로 AOP 프록시를 적용하면 된다.  
+
+여기까지 듣고보면 CGLIB를 사용하는 것이 좋아보인다.  
+CGLIB를 사용하면 사실 이런 고민 자체를 하지 않아도 된다.  
+다음번에는 CGLIB의 단점을 알아보자.
+
+
+
+
 </details>
 
 <details> <summary> 7. 프록시 기술과 한계 - CGLIB </summary>
