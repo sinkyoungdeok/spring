@@ -10004,7 +10004,3 @@ public class ExamTest {
 
 
 </details>
-
-<details> <summary> 4. 정리 </summary>
-
-</details>
