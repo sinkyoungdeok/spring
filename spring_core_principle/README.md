@@ -9907,6 +9907,102 @@ public class ExamTest {
 
 <details> <summary> 3. 재시도 AOP </summary>
 
+## 3. 재시도 AOP
+
+이번에는 좀 더 의미있는 재시도 AOP를 만들어보자.  
+`@Retry` 애노테이션이 있으면 예외가 발생했을 때 다시 시도해서 문제를 복구한다.
+
+**Retry**
+```java
+package hello.aop.exam.annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Retry {
+ int value() default 3;
+}
+```
+이 애노테이션에는 재시도 횟수로 상요할 값이 있다. 기본적으로 `3`을 사용한다.
+
+**RetryAspect**
+```java
+package hello.aop.exam.aop;
+import hello.aop.exam.annotation.Retry;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+@Slf4j
+@Aspect
+public class RetryAspect {
+
+ @Around("@annotation(retry)")
+ public Object doRetry(ProceedingJoinPoint joinPoint, Retry retry) throws
+Throwable {
+ log.info("[retry] {} retry={}", joinPoint.getSignature(), retry);
+ int maxRetry = retry.value();
+ Exception exceptionHolder = null;
+ for (int retryCount = 1; retryCount <= maxRetry; retryCount++) {
+ try {
+ log.info("[retry] try count={}/{}", retryCount, maxRetry);
+ return joinPoint.proceed();
+ } catch (Exception e) {
+ exceptionHolder = e;
+ }
+ }
+ throw exceptionHolder;
+ }
+}
+```
+- 재시도 하는 애스펙트이다.
+- `@annotation(retry)`, `Retry retry`를 사용해서 어드바이스에 애노테이션을 파라미터로 전달한다.
+- `retry.value()`를 통해서 애노테이션에 지정한 값을 가져올 수 있다.
+- 예외가 발생해서 결과가 정상 반환되지 않으면 `retry.value()`만큼 재시도한다.
+
+**ExamRepository - @Retry 추가**
+```java
+package hello.aop.exam;
+import hello.aop.exam.annotation.Retry;
+import hello.aop.exam.annotation.Trace;
+import org.springframework.stereotype.Repository;
+@Repository
+public class ExamRepository {
+ @Trace
+ @Retry(value = 4)
+ public String save(String itemId) {
+ //...
+ }
+}
+```
+`ExamRepository.save()` 메서드에 `@Retry(value = 4)`를 적용했다. 이 메서드에서 문제가 발생하면 4번 재시도 한다.
+
+**ExamTest - 추가**
+```java
+@SpringBootTest
+//@Import(TraceAspect.class)
+@Import({TraceAspect.class, RetryAspect.class})
+public class ExamTest {
+}
+```
+- `@Import(TraceAspect.class)`는 주석처리하고 
+- `@Import(TraceAspect.class, RetryAspect.class})`를 스프링 빈으로 추가하자.
+
+**실행 결과**
+```
+...
+[retry] try count=1/5
+[retry] try count=2/5
+```
+
+실행 결과를 보면 5번쨰 문제가 발생했을 때 재시도 덕분에 문제가 복구 되고, 정상 응답되는 것을 확인할 수 있다.
+
+**참고**  
+스프링이 제공하는 `@Transactional`은 가장 대표적인 AOP이다.
+
+
 </details>
 
 <details> <summary> 4. 정리 </summary>
