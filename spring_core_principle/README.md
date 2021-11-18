@@ -10004,3 +10004,42 @@ public class ExamTest {
 
 
 </details>
+
+
+# [13. 스프링 AOP - 실무 주의사항](./13.spring-aop-practical-note)
+
+<details> <summary> 1. 프록시와 내부 호출 - 문제 </summary>
+
+</details>
+
+<details> <summary> 2. 프록시와 내부 호출 - 대안1 자기 자신 주입 </summary>
+
+</details>
+
+<details> <summary> 3. 프록시와 내부 호출 - 대안2 지연 조회 </summary>
+
+</details>
+
+<details> <summary> 4. 프록시와 내부 호출 - 대안3 구조 변경 </summary>
+
+</details>
+
+<details> <summary> 5. 프록시 기술과 한계 - 타입 캐스팅 </summary>
+
+</details>
+
+<details> <summary> 6. 프록시 기술과 한계 - 의존관계 주입 </summary>
+
+</details>
+
+<details> <summary> 7. 프록시 기술과 한계 - CGLIB </summary>
+
+</details>
+
+<details> <summary> 8. 프록시 기술과 한계 - 스프링의 해결책 </summary>
+
+</details>
+
+<details> <summary> 9. 정리 </summary>
+
+</details>
