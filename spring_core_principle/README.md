@@ -10752,6 +10752,3 @@ $EnhancerBySpringCGLIB$$83e257b3
 
 </details>
 
-<details> <summary> 9. 정리 </summary>
-
-</details>
