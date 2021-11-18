@@ -10144,6 +10144,77 @@ CallServiceV0 : call internal
 
 <details> <summary> 2. 프록시와 내부 호출 - 대안1 자기 자신 주입 </summary>
 
+## 2. 프록시와 내부 호출 - 대안1 자기 자신 주입
+
+내부 호출을 해결하는 가장 간단한 방법은 자기 자신을 의존관계 주입 받는 것이다.
+
+**CallServiceV1**
+```java
+package hello.aop.internalcall;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+/**
+ * 참고: 생성자 주입은 순환 사이클을 만들기 때문에 실패한다.
+ */
+@Slf4j
+@Component
+public class CallServiceV1 {
+ private CallServiceV1 callServiceV1;
+ @Autowired
+ public void setCallServiceV1(CallServiceV1 callServiceV1) {
+ this.callServiceV1 = callServiceV1;
+ }
+ public void external() {
+ log.info("call external");
+ callServiceV1.internal(); //외부 메서드 호출
+ }
+ public void internal() {
+ log.info("call internal");
+ }
+}
+```
+`callServiceV1`를 수정자를 통해서 주입 받는 것을 확인할 수 있다.  
+스프링에서 AOP가 적용된 대상을 의존관계 주입 받으면 주입 받은 대상은 실제 자신이 아니라 프록시 객체이다.  
+`external()`을 호출하면 `callServiceV1.internal()`를 호출하게 된다.  
+주입 받은 `callServiceV1`은 프록시이다.  
+따라서 프록시를 통해서 AOP를 적용할 수 있다.  
+
+참고로 이 경우 생성자 주입시 오류가 발생한다. 본인을 생성하면서 주입해야 하기 떄문에 순환 사이클이 만들어진다.  
+반면에 수정자 주입은 스프링이 생성된 이후에 주입할 수 있기 때문에 오류가 발생하지 않는다.
+
+**CallServiceV1Test**
+```java
+package hello.aop.internalcall;
+import hello.aop.internalcall.aop.CallLogAspect;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+@Import(CallLogAspect.class)
+@SpringBootTest
+class CallServiceV1Test {
+ @Autowired
+ CallServiceV1 callServiceV1;
+ @Test
+ void external() {
+ callServiceV1.external();
+ }
+}
+```
+
+**실행 결과**
+```
+CallLogAspect : aop=void hello.aop.internalcall.CallServiceV1.external()
+CallServiceV2 : call external
+CallLogAspect : aop=void hello.aop.internalcall.CallServiceV1.internal()
+CallServiceV2 : call internal
+```
+![image](https://user-images.githubusercontent.com/28394879/142402778-fafe4d84-f79f-4b40-a576-de39f3ec971f.png)
+
+실행 결과를 보면 이제는 `internal()`을 호출할 때 자기 자신의 인스턴스를 호출하는 것이 아니라 프록시 인스턴스를 통해서 호출하는 것을 확인할 수 있다.  
+당연히 AOP도 잘 적용된다.
+
 </details>
 
 <details> <summary> 3. 프록시와 내부 호출 - 대안2 지연 조회 </summary>
