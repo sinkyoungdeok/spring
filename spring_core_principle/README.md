@@ -10683,6 +10683,73 @@ JDK 동적 프록시는 대상 클래스 타입으로 주입할 떄 문제가 �
 
 <details> <summary> 8. 프록시 기술과 한계 - 스프링의 해결책 </summary>
 
+## 8. 프록시 기술과 한계 - 스프링의 해결책
+
+스프링은 AOP 프록시 생성을 편리하게 제공하기 위해 오랜 시간 고민하고 문제들을 해결해왔다.
+
+### 스프링의 기술 선택 변화 
+
+**스프링은 3.2 CGLIB를 스프링 내부에 함께 패키징**  
+ CGLIB를 사용하려면 CGLIB 라이브러리가 별도로 필요했다.  
+스프링은 CGLIB 라이브러리를 스프링 내부에 함께 패키징해서 별도의 라이브러리 추가 없이 CGLIB를 사용할 수 있게 되었다.  
+`CGLIB spring-core org.springframework`
+
+**CGLIB 기본 생성자 필수 문제 해결**  
+스프링 4.0부터 CGLIB의 기본 생성자가 필수인 문제가 해결되었다.  
+`objenesis`라는 특별한 라이브러리를 사용해서 기본 생성자 없이 객체 생성이 가능하다.  
+참고로 이 라이브러리는 생성자 호출 없이 객체를 생성할 수 있게 해준다.
+
+**생성자 2번 호출 문제**  
+스프링 4.0부터 CGLIB의 생성자 2번 호출 문제가 해결되었다.  
+이것도 역시 `objenesis`라는 특별한 라이브러리 덕분에 가능해졌다.  
+이제 생성자가 1번만 호출된다.
+
+**스프링 부트 2.0 - CGLIB 기본 사용**  
+스프링 부트 2.0 버전부터 CGLIB를 기본으로 사용하도록 했다.  
+이렇게 해서 구체 클래스 타입으로 의존관계를 주입하는 문제를 해결했다.  
+스프링 부트는 별도의 설정이 없다면 AOP를 적용할 때 기본적으로 `proxyTargetClass=true`로 설정해서 사용한다.  
+따라서 인터페이스가 있어도 JDK 동적 프록시를 사용하는 것이 아니라 항상 CGLIB를 사용해서 구체클래스를 기반으로 프록시를 생성한다.  
+물론 스프링은 우리에게 선택권을 열어주기 때문에 다음과 같이 설정하면 JDK 동적 프록시도 사용할 수 있다.
+
+`application.properties`
+```
+spring.aop.proxy-target-class=false
+```
+
+**정리**  
+스프링은 최종적으로 스프링 부트 2.0에서 CGLIB를 기본으로 사용하도록 결정했다.  
+CGLIB를 사용하면 JDK 동적 프록시에서 동작하지 않는 구체 클래스 주입이 가능하다.  
+여기에 추가로 CGLIB의 단점들이 이제는 많이 해결되었다.  
+CGLIB의 남은 문제라면 `final`클래스나 `final`메서드가 있는데, AOP를 적용할 대상에는 `final`클래스나 `final`메서드를 잘 사용하지는 않으므로 이 부분은 크게 문제가 되지는 않는다.
+
+개발자 입장에서 보면 사실 어떤 프록시 기술을 사용하든 상관이 없다.  
+JDK 동적 프록시든 CGLIB든 또는 어떤 새로운 프록시 기술을 사용해도 된다.   
+심지어 클라이언트 입장에서 어떤 프록시 기술을 사용하는지 모르고 잘 동작하는 것이 가장 좋다.  
+단지 문제 업속, 개발하기에 편리하면 되는 것이다.
+
+마지막으로 `ProxyDITest`를 다음과 같이 변경해서 아무런 설정 없이 싫애해보면 CGLIB가 기본으로 사용되는 것을 확인할 수 있다.
+
+```java
+@Slf4j
+//@SpringBootTest(properties = {"spring.aop.proxy-target-class=false"}) //JDK
+동적 프록시, DI 예외 발생
+//@SpringBootTest(properties = {"spring.aop.proxy-target-class=true"}) //CGLIB
+프록시, 성공
+@SpringBootTest //추가
+@Import(ProxyDIAspect.class)
+public class ProxyDITest {...}
+```
+
+`@SpringBootTest`이 부분을 추가해야 한다. `application.properties`에 `spring.aop.proxy-target-class`관련 설정이 없어야 한다.
+
+**실행 결과**
+```
+memberService class=class hello.aop.member.MemberServiceImpl$
+$EnhancerBySpringCGLIB$$83e257b3
+memberServiceImpl class=class hello.aop.member.MemberServiceImpl$
+$EnhancerBySpringCGLIB$$83e257b3
+```
+
 </details>
 
 <details> <summary> 9. 정리 </summary>
