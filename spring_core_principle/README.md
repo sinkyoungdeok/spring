@@ -9810,6 +9810,99 @@ public class ExamTest {
 
 <details> <summary> 2. 로그 출력 AOP </summary>
 
+## 2. 로그 출력 AOP
+
+먼저 로그 출력용 AOP를 만들어보자.  
+`@Trace`가 메서드에 붙어 있으면 호출 정보가 출력되는 편리한 기능이다.
+
+**@Trace**
+```java
+package hello.aop.exam.annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Trace {
+}
+```
+
+**TraceAspect**
+```java
+package hello.aop.exam.aop;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+@Slf4j
+@Aspect
+public class TraceAspect {
+ @Before("@annotation(hello.aop.exam.annotation.Trace)")
+ public void doTrace(JoinPoint joinPoint) {
+ Object[] args = joinPoint.getArgs();
+ log.info("[trace] {} args={}", joinPoint.getSignature(), args);
+ }
+}
+```
+`@annotation(hello.aop.exam.annotation.Trace)` 포인트컷을 사용해서 `@Trace`가 붙은 메서드에 어드바이스를 적용한다.
+
+**ExamService - @Trace 추가**
+```java
+package hello.aop.exam;
+import hello.aop.exam.annotation.Trace;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+@Service
+@RequiredArgsConstructor
+public class ExamService {
+ private final ExamRepository examRepository;
+ @Trace
+ public void request(String itemId) {
+ examRepository.save(itemId);
+ }
+}
+```
+
+`request()`에 `@Trace`를 붙였다. 이제 메서드 호출 정보를 AOP를 사용해서 로그로 남길 수 있따.
+
+**ExamRepository - @Trace 추가**
+```java
+package hello.aop.exam;
+import hello.aop.exam.annotation.Trace;
+import org.springframework.stereotype.Repository;
+@Repository
+public class ExamRepository {
+ @Trace
+ public String save(String itemId) {
+ //...
+ }
+}
+```
+
+`save()`에 `@Trace`를 붙였다.
+
+**ExamTest - 추가**
+```java
+@Import(TraceAspect.class)
+@SpringBootTest
+public class ExamTest {
+}
+```
+
+`@Import(TraceAspect.class)`를 사용해서 `@TraceAspect`를 스프링 빈으로 추가하자. 이제 애스펙트가 적용된다.
+
+**실행 결과**
+```
+[trace] void hello.aop.exam.ExamService.request(String) args=[data0]
+[trace] String hello.aop.exam.ExamRepository.save(String) args=[data0]
+[trace] void hello.aop.exam.ExamService.request(String) args=[data1]
+[trace] String hello.aop.exam.ExamRepository.save(String) args=[data1]
+...
+```
+
+실행해보면 `@Trace`가 붙은 `request()`, `save()` 호출 시 로그가 잘 남는 것을 확인할 수 있다. 
+
 </details>
 
 <details> <summary> 3. 재시도 AOP </summary>
