@@ -9742,6 +9742,70 @@ $EnhancerBySpringCGLIB$$7df96bd3
 
 <details> <summary> 1. 예제 만들기 </summary>
 
+## 1. 예제 만들기
+
+지금까지 학습한 내용을 활용해서 유용한 스프링 AOP를 만들어보자.  
+- `@Trace` 애노테이션으로 로그 출력하기
+- `@Retry` 애노테이션으로 예외 발생시 재시도 하기
+
+먼저 AOP를 적용할 예제를 만들자.
+
+**ExamRepository**
+```java
+package hello.aop.exam;
+import org.springframework.stereotype.Repository;
+@Repository
+public class ExamRepository {
+ private static int seq = 0;
+ /**
+ * 5번에 1번 실패하는 요청
+ */
+ public String save(String itemId) {
+ seq++;
+ if (seq % 5 == 0) {
+ throw new IllegalStateException("예외 발생");
+ }
+ return "ok";
+ }
+}
+```
+5번에 1번 정도는 실패하는 저장소이다. 이렇게 간헐적으로 실패할 경우 재시도 하는 AOP가 있으면 편리하다.
+
+**ExamService**
+```java
+package hello.aop.exam;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+@Service
+@RequiredArgsConstructor
+public class ExamService {
+ private final ExamRepository examRepository;
+ public void request(String itemId) {
+ examRepository.save(itemId);
+ }
+}
+```
+
+**ExamTest**
+```java
+package hello.aop.exam;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+@SpringBootTest
+public class ExamTest {
+ @Autowired
+ ExamService examService;
+ @Test
+ void test() {
+ for (int i = 0; i < 5; i++) {
+ examService.request("data" + i);
+ }
+ }
+}
+```
+실행해보면 테스트가 5번째 루프를 실행할 때 리포지토리 위치에서 예외가 발생하면서 실패하는 것을 확인할 수 있다. 
+
 </details>
 
 <details> <summary> 2. 로그 출력 AOP </summary>
