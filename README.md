@@ -1,14 +1,15 @@
 ## 스프링 공부 하면서 정리
-1. [스프링 핵심 원리 - 기본편](./spring_basic)
-2. [스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술](./spring_mvc1)
-3. [자바 ORM 표준 JPA 프로그래밍 - 기본편](./spring_jpa_basic)
-4. [실전! 스프링 부트와 JPA 활용1 - 웹 애플리케이션 개발](./spring_boot_jpa1)
-5. [실전! 스프링 부트와 JPA 활용2 - API 개발과 성능 최적화](./spring_boot_jpa2)
-6. [실전! 스프링 데이터 JPA](./spring_data_jpa)
-7. [실전! Querydsl](./spring_querydsl)
-8. [스프링 핵심 원리 - 고급편](./spring_core_principle)
-9. [스프링 시큐리티 - Spring Boot 기반으로 개발하는 Spring Security](./spring_security)
-10. [Spring Cloud로 개발하는 마이크로 애플리케이션(MSA)](./spring_cloud)
+1. [Spring Boot JWT Tutorial](./spring-boot-jwt-tutorial)
+2. [스프링 핵심 원리 - 기본편](./spring_basic)
+3. [스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술](./spring_mvc1)
+4. [자바 ORM 표준 JPA 프로그래밍 - 기본편](./spring_jpa_basic)
+5. [실전! 스프링 부트와 JPA 활용1 - 웹 애플리케이션 개발](./spring_boot_jpa1)
+6. [실전! 스프링 부트와 JPA 활용2 - API 개발과 성능 최적화](./spring_boot_jpa2)
+7. [실전! 스프링 데이터 JPA](./spring_data_jpa)
+8. [실전! Querydsl](./spring_querydsl)
+9. [스프링 핵심 원리 - 고급편](./spring_core_principle)
+10. [스프링 시큐리티 - Spring Boot 기반으로 개발하는 Spring Security](./spring_security)
+11. [Spring Cloud로 개발하는 마이크로 애플리케이션(MSA)](./spring_cloud)
 
 # 스프링 용어 및 개념 정리 
 ## REST란
