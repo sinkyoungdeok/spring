@@ -4,6 +4,7 @@ import java.util.Collections;
 import kd.jwt.tutorial.dto.UserDto;
 import kd.jwt.tutorial.entity.Authority;
 import kd.jwt.tutorial.entity.User;
+import kd.jwt.tutorial.exception.DuplicateMemberException;
 import kd.jwt.tutorial.repository.UserRepository;
 import kd.jwt.tutorial.util.SecurityUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,9 +22,9 @@ public class UserService {
   }
 
   @Transactional
-  public User signup(UserDto userDto) {
+  public UserDto signup(UserDto userDto) {
     if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
-      throw new RuntimeException("이미 가입되어 있는 유저입니다.");
+      throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
     }
 
     Authority authority = Authority.builder()
@@ -38,18 +39,19 @@ public class UserService {
         .activated(true)
         .build();
 
-    return userRepository.save(user);
+    return UserDto.from(userRepository.save(user));
   }
 
   // username 으로 유저객체와 권한정보를 가져오는 메소드
   @Transactional(readOnly = true)
-  public User getUserWithAuthorities(String username) {
-    return userRepository.findOneWithAuthoritiesByUsername(username).orElse(null);
+  public UserDto getUserWithAuthorities(String username) {
+    return UserDto.from(userRepository.findOneWithAuthoritiesByUsername(username).orElse(null));
   }
+
   // 현재 SecurityContext에 저장된 유저정보와 권한정보를 가져오는 메소드
   @Transactional(readOnly = true)
-  public User getMyUserWithAuthorities() {
-    return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername).orElse(null);
+  public UserDto getMyUserWithAuthorities() {
+    return UserDto.from(SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername).orElse(null));
   }
 
 }
