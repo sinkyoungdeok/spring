@@ -1,3 +1,7 @@
+# 출처
+- url: https://www.inflearn.com/course/Querydsl-%EC%8B%A4%EC%A0%84
+- 강사: 김영한님
+
 # [1. 프로젝트 환경설정](./1.project-setting)
 
 <details> <summary> 1. 프로젝트 생성 </summary>

@@ -1,3 +1,7 @@
+# 출처 
+- url: https://www.inflearn.com/course/ORM-JPA-Basic
+- 강사: 김영한님
+
 # 목표1 - 객체와 테이블 설계 매핑
 - 객체와 테이블을 제대로 설계하고 매핑하는 방법
 - 기본 키와 외래 키 매핑
