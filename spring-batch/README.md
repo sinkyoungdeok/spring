@@ -50,4 +50,8 @@
 
 <details><summary> 3. Hello, Spring Batch </summary>
 
+## 3. Hello, Spring Batch
+
+- program argument: `--job.name=helloJob`
+
 </details>
