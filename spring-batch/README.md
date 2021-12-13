@@ -55,3 +55,20 @@
 - program argument: `--job.name=helloJob`
 
 </details>
+
+## 2. 스프링 배치 아키텍쳐 
+
+<details> <summary> 1. 스프링 배치 기본 구조 </summary>
+
+</details>
+
+<details> <summary> 2. 스프링 배치 테이블 구조와 이해 </summary>
+
+</details>
+
+<details> <summary> 3. Job, JobInstance, JobExecution, Step, StepExecution 이해 </summary>
+
+</details>
+<details> <summary> 4. 데이터 공유 ExecutionContext 이해 </summary>
+
+</details>
