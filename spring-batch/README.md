@@ -31,6 +31,21 @@
 
 <details><summary> 2. 환경 설정 및 준비 </summary>
 
+## 2. 환경 설정 및 준비
+
+- 개발 환경
+  - Intellij IDEA
+  - Mac OS
+- 프로젝트 생성
+  - Java8 +
+  - Gradle
+  - Spring Boot 2.x + 
+    - Spring Batch, Spring JDBC, Spring Data JPA, Lombok, etc...
+  - H2 DB
+  - MySQL DB 
+- DB 생성
+  - `create database spring_batch;`
+
 </details>
 
 <details><summary> 3. Hello, Spring Batch </summary>
