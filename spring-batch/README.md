@@ -93,6 +93,45 @@
 
 <details> <summary> 2. 스프링 배치 테이블 구조와 이해 </summary>
 
+## 2. 스프링 배치 테이블 구조와 이해
+
+![image](https://user-images.githubusercontent.com/28394879/145981331-83e78de6-9ab9-4f65-a61a-311bc411fad9.png)
+- 배치 실행을 위한 메타 데이터가 저장되는 테이블 
+- BATCH_JOB_INSTANCE
+  - Job이 실행되며 생성되는 최상위 계층의 테이블
+  - job_name과 job_key를 기준으로 하나의 row가 생성되며, 같은 job_name과 job_key가 저장될 수 없다.
+  - job_key는 BATCH_JOB_EXECUTION_PARAMS에 저장되는 Parameter를 나열해 암호화해 저장한다
+- BATCH_JOB_EXECUTION
+  - Job이 실행되는 동안 시작/종료 시간, job 상태 등을 관리
+  - 하나의 BATCH_JOB_INSTANCE는 N개의 BATCH_JOB_EXECUTION를 갖는다. 
+- BATCH_JOB_EXECUTION_PARAMS
+  - Job을 실행하기 위해 주입된 parameter 정보 저장
+- BATCH_JOB_EXECUTION_CONTEXT
+  - Job이 실행되며 공유해야할 데이터를 직렬화해 저장
+- BATCH_STEP_EXECUTION
+  - Step이 실행되는 동안 필요한 데이터 또는 실행된 결과 저장
+- BATCH_STEP_EXECUTION_CONTEXT
+  - Step이 실행되며 공유해야할 데이터를 직렬화해 저장 
+  - Step끼리는 공유하지 않고, 하나의 Step에 대한 정보만 저장한다. 
+  - Step끼리 공유하려면, BATCH_JOB_EXECUTION에 저장해야 한다. 
+
+![image](https://user-images.githubusercontent.com/28394879/145983093-dd3a763d-198d-4c67-9e91-ea009fab6bd6.png)
+- 메타 테이블의 스크립트 
+- spring-batch-core/org.springframework/batch/core/* 에 위치
+- 스프링 배치를 실행하고 관리하기 위한 테이블
+- schema.sql 설정
+  - schema-**.sql의 실행 구분은
+    - DB 종류별로 script가 구분
+  - spring.batch.initialize-schema config로 구분한다
+  - ALWAYS, EMBEDDED, NEVER로 구분한다
+    - ALWAYS: 항상 실행
+    - EMBEDDED: 내장 DB 일 때 만 실행
+    - NEVER: 항상 실행 안함
+  - 기본 값은 EMBEDDED이다.
+
+
+
+
 </details>
 
 <details> <summary> 3. Job, JobInstance, JobExecution, Step, StepExecution 이해 </summary>
