@@ -6,6 +6,17 @@
 
 <details><summary> 1. 강의 소개 </summary>
 
+## 1. 강의 소개
+
+### Why Kotlin?
+- JVM 언어/ Java와 100% 호환
+- 현대 언어 지향
+- 안정적인 null point 대응
+- Java에 비해서 간결한 코드, Kotlin만의 표준함수 지원
+- (지금은 Java10 이상 지원) 타입추론의 편리함 
+
+
+
 </details>
 
 <details><summary> 2. 강사 소개 </summary>
