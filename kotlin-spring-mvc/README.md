@@ -19,4 +19,9 @@
 
 <details><summary> 2. 개발환경 설치 </summary>
 
+## 2. 개발환경 설치
+
+- java8
+- intellij
+
 </details>
