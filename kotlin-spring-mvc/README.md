@@ -195,7 +195,9 @@ REST를 구현하기 위한 인터페이스이니 알아둬야 한다.
 
 # 4. REST-API
 
-<details><summary> 1. GET</summary>
+<details><summary> 1. GET </summary>
+
+## 1. GET
 
 </details>
 
