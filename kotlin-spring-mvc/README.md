@@ -192,3 +192,25 @@ REST를 구현하기 위한 인터페이스이니 알아둬야 한다.
   ![image](https://user-images.githubusercontent.com/28394879/146873135-6bf089bf-caed-4da4-ac77-9152b9065074.png)
 
 </details>
+
+# 4. REST-API
+
+<details><summary> 1. GET</summary>
+
+</details>
+
+<details><summary> 2. POST</summary>
+
+</details>
+
+<details><summary> 3. PUT과 ObjectMapper</summary>
+
+</details>
+
+<details><summary> 4. DELETE</summary>
+
+</details>
+
+<details><summary> 5. ResponseEntity</summary>
+
+</details>
