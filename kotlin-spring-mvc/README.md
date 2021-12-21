@@ -104,5 +104,91 @@
 - 그중에서는 HTML, XML, JSON, TEXT 등 다양한 방법이 있다
 - 이 중에서 리소스의 타입을 알려주기 위해서 header 부분에 content-type를 통해서 어떠한 타입인지를 지정할 수 있다. 
 
+### 자기서술적 메시지
+- 요청하는 데이터가 어떻게 처리 되어져야 하는지 충분한 데이터를 포함 할 수 있어야 한다.
+- HTTP 기반의 REST에서는 HTTP Method와 Header의 정보로 이를 표현할 수 있다 
+
+### 애플리케이션 상태에 대한 엔진으로서 하이퍼미디어
+- REST API를 개발할 떄에도 단순히 Client 요청에 대한 데이터만 내리는 것이 아닌 관련된 리소스에 대한 Link 정보까지 같이 포함되어야 한다
+- 이러한 조건들을 잘 갖춘 경우 **REST Ful**하다고 말하고 이를 **REST API**라고 부른다
+
+
+### URI
+1. URI(Uniform Resource Identifier)
+   - 인터넷에서 특정 자원을 나타내는 주소값
+   - 해당 값은 유일하다
+   - ex: https://www.foo.co.kr/resource/sample/1
+   - response: sample1.pdf, sample2.pdf, sample.doc
+2. URL(Uniform Resource Locator)
+   - 인터넷 상에서의 자원, 특정 파일이 어디에 위치하는지 식별 하는 주소
+   - ex: https://woo.foo.co.kr/sample1.pdf
+- URL은 URI의 하위 개념이다.
+
+### URI 설계
+
+URI 설계 원칙 (RFC-3986)
+- 슬래시 구분자 (/)는 계층 관계를 나타내는 데 사용한다
+  - https://foo.co.kr/vehicles/suv/q6
+- URI 마지막 문자로 (/)는 포함하지 않는다
+- 하이픈(-)은 URI가독성을 높이는데 사용한다
+  - https:/foo.co.kr/vehicles/suv/q-series/6 (o)
+- 밑줄(_)은 사용하지 않는다
+  - https://foo.co.kr/vehicles/suv/q_series/6 (x)
+- URI 경로에는 소문자가 적합하다.
+  - https://foo.co.kr/vehicles/suv/q6 (O)
+  - https://Foo.co.kr/Vehicles/SUV/Q6 (X)
+- 파일 확장자는 URI에 포함하지 않는다
+  - https://foo.co.kr/vehicles/suv/q6.jsp
+- 프로그래밍 언어에 의존적인 확장자를 사용하지 않는다
+  - https://foo.co.kr/vehicles/suv/q6.do
+- 구현에 의존적인 경로를 사용하지 않는다
+  - https://foo.co.kr/servlet/vehicles/suv/q6
+- 세션 ID를 포함하지 않는다
+  - https://foo.co.kr/vehicles/suv/q6?session-id=abcdef
+- 프로그래밍 언어의 Method명을 이용하지 않는다
+  - https://foo.co.kr/vehicles/suv/q6?action=intro
+- 명사에 단수형 보다는 복수형을 사용해야 한다. 컬렉션에 대한 표현은 복수로 사용
+  - https://foo.co.kr/vehicles/suv/q6
+- 컨트롤러 이름으로는 동사나 동사구를 사용한다
+  - https://foo.co.kr/vehicles/suv/q6/re-order
+- 경로 부분 중 변하는 부분은 유일한 값으로 대체 한다
+  - https://foo.co.kr/vehicles/suv/q7/{car-id}/users/{user-id}/release
+  - https://foo.co.kr/vehicles/suv/q7/117/users/steve/release
+- CRUD 기능을 나타내는것은 URI에 사용하지 않는다
+  - GET : https://foo.co.kr/vehicles/q7/delete/{car-id} ( X )
+  - DELETE : https://foo.co.kr/vehicles/q7/{car-id} ( O )
+- URI Query Parameter 디자인
+  - URI 쿼리 부분으로 컬렉션 결과에 대해서 필터링 할 수 있다.
+    https://foo.co.kr/vehicles/suv?model=q7
+  - URI 쿼리는 컬렉션의 결과를 페이지로 구분하여 나타내는데
+    사용한다.
+    https://foo.co.kr/vehicles/suv?page=0&size=10&sort=asc
+- API에 있어서 서브 도메인은 일관성 있게 사용해야 한다.
+  - https://foo.co.kr
+  - https://api.foo.co.kr
+- 클라이언트 개발자 포탈 서브 도메인은 일관성 있게 만든다.
+  - https://dev-api.foo.co.kr/vehicles/suv/q6
+  - https://developer-api.foo.co.kr/vehicles/suv/q6
+
+### HTTP
+1. HTTP (Hyper Text Transfer Protocol) 로 RFC 2616에서 규정된 Web에서 데이터를 주고 받는 프로토콜
+2. 이름에는 하이퍼텍스트 전송용 프로토콜로 정의되어 있지만 실제로는 HTML, XML, JSON, Image, Voice, Video, Javascript, PDF 등 다양한 컴퓨터에서 다룰 수 있는 것은 모두 전송 할 수 있다 
+3. HTTP는 TCP를 기반으로한 REST의 특징을 모두 구현하고있는 Web기반의 프로토콜
+
+- HTTP는 메시지를 주고(Request) 받는(Response)의 형태의 통신 방식이다.
+
+
+### HTTP Method
+HTTP의 요청을 특정하는 Method는 8가지가 있다.  
+REST를 구현하기 위한 인터페이스이니 알아둬야 한다.
+
+![image](https://user-images.githubusercontent.com/28394879/146872853-5f43a393-45e8-4cf3-b5e2-a58bffdd5859.png)
+
+### HTTP Status Code
+- 응답의 상태를 나타내는 코드
+![image](https://user-images.githubusercontent.com/28394879/146873042-0ae4737a-47db-4239-a1a4-99fa37ffc393.png)
+
+- 자주 사용되는 Code
+  ![image](https://user-images.githubusercontent.com/28394879/146873135-6bf089bf-caed-4da4-ac77-9152b9065074.png)
 
 </details>
