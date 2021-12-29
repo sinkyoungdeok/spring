@@ -471,7 +471,7 @@
 자동 주입 대상을 옵션으로 처리하는 방법은 다음과 같다.
     - `@Auwired(required=false)`: 자동 주입할 대상이 없으면 수정자 에서도 자체가 호출 안됨
     - `org.springframwork.lang.@Nullable`: 자동 주입할 대상이 없으면 null이 입력된다.
-    - `Optional<>`: 자동 주입할 댓아이 없으면 `Optional.empty`가 입력된다.
+    - `Optional<>`: 자동 주입할 이 없으면 `Optional.empty`가 입력된다.
 - @Nullable, Optional은 스프링 전반에 걸쳐서 지원된다. 예를 들어서 생성자 자동 주입에서 특정 필드에만 사용해도 된다.
   
 
