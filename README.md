@@ -12,6 +12,7 @@
 11. [Spring Cloud로 개발하는 마이크로 애플리케이션(MSA)](./spring_cloud)
 12. [대규모 서비스를 위한 스프링 Cloud와 Batch - 스프링 배치](./spring-batch)
 13. [Kotlin으로 개발하는 Spring Boot Web MVC](./kotlin-spring-mvc)
+14. [코틀린 마이크로서비스 개발](./kotlin-microservice-development)
 
 # 스프링 용어 및 개념 정리 
 ## REST란
