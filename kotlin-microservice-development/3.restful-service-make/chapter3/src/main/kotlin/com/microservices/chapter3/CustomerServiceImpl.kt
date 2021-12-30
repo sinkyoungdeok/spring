@@ -9,7 +9,7 @@ class CustomerServiceImpl : CustomerService {
         val initialCustomers = arrayOf(
             Customer(1, "Kotlin"),
             Customer(2, "Spring"),
-            Customer(3, "Microservice")
+            Customer(3, "Microservice", Customer.Telephone("+44", "7123456789"))
         )
     }
 
