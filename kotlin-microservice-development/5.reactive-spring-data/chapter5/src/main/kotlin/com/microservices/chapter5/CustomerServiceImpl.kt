@@ -10,4 +10,7 @@ class CustomerServiceImpl : CustomerService {
     lateinit var customerRepository: CustomerRepository
 
     override fun getCustomer(id: Int) = customerRepository.findById(id)
+
+    override fun createCustomer(customer: Mono<Customer>): Mono<Customer> =
+        customerRepository.create(customer)
 }
