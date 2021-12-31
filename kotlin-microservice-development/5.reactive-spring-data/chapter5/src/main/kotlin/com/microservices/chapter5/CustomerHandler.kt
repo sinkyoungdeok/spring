@@ -21,9 +21,13 @@ class CustomerHandler(val customerService: CustomerService) {
         }
 
     fun delete(serverRequest: ServerRequest) =
-        customerService.deleteCustomer(serverRequest.pathVariable("id").toInt())
-            .flatMap {
+        customerService.deleteCustomer(serverRequest.pathVariable("id").toInt()).flatMap {
                 if (it) ok().build()
                 else status(HttpStatus.NOT_FOUND).build()
             }
+
+    fun search(serverRequest: ServerRequest) = ok().body(
+        customerService.searchCustomers(serverRequest.queryParam("nameFilter").orElse("")),
+        Customer::class.java
+    )
 }
