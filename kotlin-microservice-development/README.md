@@ -25,4 +25,12 @@
 - 모노
 - 플럭스
 - 함수형 프로그래밍
-- 리액티브 오류 처리 
+- 리액티브 오류 처리
+
+## 5. 리액티브 스프링 데이터
+- NoSQL
+- 몽고DB
+- 스프링 데이터
+- ReactiveCrudRepository
+- ReactiveMongoOperations
+- ReactiveMongoTemplate
