@@ -52,3 +52,11 @@
 - 확장 가능한 아키텍처
 - 도커 스웜
 - 서비스
+
+## 9. 스프링 마이크로서비스 테스트
+- 스프링 부트 테스트
+- JUnit
+- MockMvc
+- Mockito
+- MockBean
+- Kluent
