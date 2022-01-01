@@ -5,3 +5,5 @@ eureka:
   client:
     healthcheck:
       enabled: true
+server:
+  port: 0
