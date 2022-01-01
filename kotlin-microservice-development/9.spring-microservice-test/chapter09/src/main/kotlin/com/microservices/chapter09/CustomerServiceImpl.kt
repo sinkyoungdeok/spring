@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap
 @Service
 class CustomerServiceImpl : CustomerService {
     companion object {
-        private val initialCustomers = arrayOf(Customer(1, "kotlin"),
+        private val initialCustomers = arrayOf(Customer(1, "Kotlin"),
         Customer(2, "Spring"),
         Customer(3, "Microservice"))
     }
