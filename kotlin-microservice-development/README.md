@@ -60,3 +60,11 @@
 - Mockito
 - MockBean
 - Kluent
+
+## 10. 마이크로서비스 모니터링
+- 모니터링
+- 스프링 부트 액추에이터
+- 계측기
+- JMX
+- jconsole
+- 관리 빈
