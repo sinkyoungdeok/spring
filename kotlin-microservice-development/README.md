@@ -47,3 +47,8 @@
 - Dockerfiles
 - 도커 명령줄
 - Docker-Maven-plugin
+
+## 8. 마이크로서비스 확장
+- 확장 가능한 아키텍처
+- 도커 스웜
+- 서비스
