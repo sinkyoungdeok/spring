@@ -1,10 +1,10 @@
-package com.rxjava.chapter01;
+package com.rxjava;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Chapter01ApplicationTests {
+class RxjavaApplicationTests {
 
 	@Test
 	void contextLoads() {

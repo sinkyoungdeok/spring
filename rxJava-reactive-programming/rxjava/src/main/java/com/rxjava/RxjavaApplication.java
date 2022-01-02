@@ -1,13 +1,13 @@
-package com.rxjava.chapter01;
+package com.rxjava;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Chapter01Application {
+public class RxjavaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Chapter01Application.class, args);
+		SpringApplication.run(RxjavaApplication.class, args);
 	}
 
 }
