@@ -1,10 +1,8 @@
 package com.rxjava.chapter01;
 
-import com.rxjava.RxjavaApplication;
 import io.reactivex.Flowable;
-import org.springframework.boot.SpringApplication;
 
-public class Rxjava {
+public class _L01_HelloWorldSample {
 
   public static void main(String[] args) {
     Flowable<String> flowable = Flowable.just("Hello","World");
