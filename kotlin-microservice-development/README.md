@@ -75,3 +75,11 @@
 - 깃허브
 - Deployments
 - 웹훅
+
+## 12. 모범 사례
+- 코틀린 관용구
+- 스프링 컨텍스트
+- 계층화
+- 테스팅
+- 지속적인 통합(Continuous Integration)
+- 지속적인 배포(Continuous Delivery)
