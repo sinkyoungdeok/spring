@@ -3,11 +3,11 @@ package com.rxjava.chapter02;
 public class _L05_Counter {
   private volatile int count;
 
-  void increment() {
+  public void increment() {
     count ++;
   }
 
-  int get() {
+  public int get() {
     return count;
   }
 }
