@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class _45_ToMultimapSample {
+public class _L45_ToMultimapSample {
 
   public static void main(String[] args) throws InterruptedException {
     Single<Map<String, Collection<Long>>> single =
