@@ -35,3 +35,10 @@
 4. ReplayProcessor/ReplaySubject
 5. AsyncProcessor/AsyncSubject
 6. UnicastProcessor/UnicastSubject
+
+## 6. RxJava의 디버깅과 테스트
+1. 디버깅과 테스트
+2. 'do'로 시작하는 메서드
+3. 'blocking'으로 시작하는 메서드
+4. TestSubscriber/TestObserver
+5. TestScheduler
