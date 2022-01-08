@@ -27,3 +27,11 @@
 5. Flowable/Observable 상태를 통지하는 연산자
 6. Flowable/Observable 데이터를 집계하는 연산자
 7. 유틸리지 연산자 
+
+## 5. Processor와 Subject
+1. Processor/Subject
+2. PublishProcessor/PublishSubject
+3. BehaviorProcessor/BehaviorSubject
+4. ReplayProcessor/ReplaySubject
+5. AsyncProcessor/AsyncSubject
+6. UnicastProcessor/UnicastSubject
