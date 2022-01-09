@@ -25,9 +25,24 @@
 - component scanning을 사용하여 애플리케이션의 classpath에 지정된 컴포넌트를 찾은 후 스프링 애플리케이션 컨텍스트의 빈으로 생성 
 - autowiring을 사용하여 의존 관계가 있는 컴포넌트를 자동으로 다른 빈에 주입(연결) 한다.
 
-
-
 ### 1.2 스프링 애플리케이션 초기 설정하기
+
+**@SpringBootApplication**
+- @SpringBootConfiguration, @EnableAutoConfiguration, @ComponentScan 으로 구성
+
+**@SpringBootConfiguration**
+- 지정한 클래스를 구성클래스로 지정
+- @Configuration 애노테이션의 특화된 형태
+
+**@EnableAutoConfiguration**
+- 스프링 부트 autoconfiguration을 활성화 한다.
+- 우리가 필요로 하는 컴포넌트들을 자동으로 구성하도록 스프링 부트에 알려준다
+
+**@ComponentScan**
+- 컴포넌트 검색을 활성화
+- @Component, @Controller, @Service등의 애노테이션과 함께 클래스를 선언할 수 있게 해줌
+- 자동으로 위 클래스들을 찾아 스프링 애플리케이션 컨텍스트에 컴포넌트로 등록한다.
+
 
 ### 1.3 스프링 애플리케이션 작성하기
 
