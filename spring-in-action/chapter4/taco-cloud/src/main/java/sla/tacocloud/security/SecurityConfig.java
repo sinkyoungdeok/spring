@@ -28,10 +28,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http
         .authorizeRequests()
         .antMatchers("/design", "/orders")
-        .access("hasRole('ROLE_USER')")
-        .antMatchers("/", "/**").access("permitAll")
+        .hasRole("ROLE_USER")
+        .antMatchers("/", "/**").permitAll()
         .and()
-          .httpBasic();
+        .formLogin()
+        .loginPage("/login")
+        .and()
+        .logout()
+        .logoutSuccessUrl("/")
+        .and()
+        .csrf();
   }
 
   @Override
