@@ -9,9 +9,14 @@
 
 <body>
 <h1>Design your taco!</h1>
+<h2>Feelin' hungry, <span th:text="${user.fullname}">NAME</span>?</h2>
 <img th:src="@{/images/TacoCloud.png}" />
 
-<form method="POST" th:object="${taco}">
+<form method="POST" th:action="@{/logout}" id="logoutForm">
+  <input type="submit" value="Logout"/>
+</form>
+
+<form method="POST" th:object="${taco}" th:action="@{/design}" id="tacoForm">
 		<span class="validationError"
           th:if="${#fields.hasErrors('ingredients')}"
           th:errors="*{ingredients}">Ingredient Error</span>
@@ -67,9 +72,8 @@
   <div>
     <h3>Name your taco creation:</h3>
     <input type="text" th:field="*{name}" />
-    <span
-        class="validationError" th:if="${#fields.hasErrors('name')}"
-        th:errors="*{name}">Name Error</span>
+    <span class="validationError" th:if="${#fields.hasErrors('name')}"
+          th:errors="*{name}">Name Error</span>
     <br />
     <button>Submit your taco</button>
   </div>
