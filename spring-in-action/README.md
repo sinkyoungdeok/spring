@@ -128,7 +128,17 @@
 
 </details>
 
-# Part2. 
+# Part2. 통합된 스프링 
+
+<details><summary> 6. REST 서비스 생성하기 </summary>
+
+## 6.1 REST 컨트롤러 작성하기
+
+## 6.2 하이퍼미디어 사용하기
+
+## 6.3 데이터 기반 서비스 활성화하기
+
+</details>
 
 
 
