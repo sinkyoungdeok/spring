@@ -1,12 +1,16 @@
 //tag::recents[]
 package tacos.web.api;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.EntityLinks;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,16 +18,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 //end::recents[]
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 //tag::recents[]
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import tacos.Order;
 import tacos.Taco;
-import tacos.data.OrderRepository;
 import tacos.data.TacoRepository;
 
 @RestController
@@ -41,10 +42,19 @@ public class DesignTacoController {
   }
 
   @GetMapping("/recent")
-  public Iterable<Taco> recentTacos() {                 //<3>
+  public Resources<TacoResource> recentTacos() {                 //<3>
     PageRequest page = PageRequest.of(
             0, 12, Sort.by("createdAt").descending());
-    return tacoRepo.findAll(page).getContent();
+
+    List<Taco> tacos = tacoRepo.findAll(page).getContent();
+
+    List<TacoResource> tacoResources = new TacoResourceAssembler().toResources(tacos);
+    Resources<TacoResource> recentResources = new Resources<TacoResource>(tacoResources);
+    recentResources.add(
+        linkTo(methodOn(DesignTacoController.class).recentTacos())
+            .withRel("recents"));
+
+    return recentResources;
   }
 
   @PostMapping(consumes="application/json")
