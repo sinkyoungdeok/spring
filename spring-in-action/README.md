@@ -154,6 +154,17 @@
 
 ### 7.2 Traverson으로 REST API 사용하기
 
+**Traverson**
+- HATEOAS가 활성화된 API를 이동하면서 리소스를 쉽게 가져올 수 있다.
+- 리소스를 쓰거나 삭제하는 메서드가 없다.
+
+**RestTemplate**
+- 리소스를 쓰거나 삭제할 수 있다.
+- API를 이동하면서 리소스를 가져오는게 쉽지 않다
+
+**API 이동과 리소스 변경이나 삭제를 모두 해야 하는경우**
+- RestTemplate, Traverson을 함께 사용
+
 ### 7.3 REST API 클라이언트가 추가된 타코 클라우드 애플리케이션 빌드 및 실행하기
 
 </details>

@@ -26,6 +26,7 @@ import tacos.Taco;
 public class TacoCloudClient {
 
   private final RestTemplate restTemplate;
+  private final Traverson traverson;
 
   public Ingredient getIngredientById(String ingredientId) {
     return restTemplate.getForObject("http://localhost:8080/ingredients/{id}",
@@ -89,5 +90,42 @@ public class TacoCloudClient {
         responseEntity.getHeaders().getLocation());
 
     return responseEntity.getBody();
+  }
+
+  public Iterable<Ingredient> getAllIngredeitnsWithTraverson() {
+    ParameterizedTypeReference<Resources<Ingredient>> ingredientType =
+        new ParameterizedTypeReference<Resources<Ingredient>>() {};
+
+    Resources<Ingredient> ingredientRes =
+        traverson
+            .follow("ingredients")
+            .toObject(ingredientType);
+
+    Collection<Ingredient> ingredients = ingredientRes.getContent();
+
+    return ingredients;
+  }
+
+  public Ingredient addIngredient(Ingredient ingredient) {
+    String ingredientUrl = traverson
+        .follow("ingredients")
+        .asLink()
+        .getHref();
+    return restTemplate.postForObject(ingredientUrl,
+        ingredient,
+        Ingredient.class);
+  }
+
+  public Iterable<Taco> getRecentTacosWithTraverson() {
+    ParameterizedTypeReference<Resources<Taco>> tacoType =
+        new ParameterizedTypeReference<Resources<Taco>>() {};
+
+    Resources<Taco> tacoRes =
+        traverson
+            .follow("tacos")
+            .follow("recents")
+            .toObject(tacoType);
+
+    return tacoRes.getContent();
   }
 }
