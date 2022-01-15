@@ -132,6 +132,8 @@
 
 <details><summary> 6. REST 서비스 생성하기 </summary>
 
+## 6. REST 서비스 생성하기
+
 ## 6.1 REST 컨트롤러 작성하기
 
 ## 6.2 하이퍼미디어 사용하기
@@ -139,6 +141,19 @@
 ## 6.3 데이터 기반 서비스 활성화하기
 
 </details>
+
+<details><summary> 7. REST 서비스 사용하기 </summary>
+
+## 7. REST 서비스 사용하기
+
+### 7.1 RestTemplate으로 REST 엔드포인트 사용하기
+
+### 7.2 Traverson으로 REST API 사용하기
+
+### 7.3 REST API 클라이언트가 추가된 타코 클라우드 애플리케이션 빌드 및 실행하기
+
+</details>
+
 
 
 
