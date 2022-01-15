@@ -165,7 +165,121 @@
 **API 이동과 리소스 변경이나 삭제를 모두 해야 하는경우**
 - RestTemplate, Traverson을 함께 사용
 
-### 7.3 REST API 클라이언트가 추가된 타코 클라우드 애플리케이션 빌드 및 실행하기
+**Traverson 동작**
+
+1. Traverson 경로 설정
+    ```java
+    @Bean 
+    public Traverson traverson() {
+    Traverson traverson = new Traverson(
+        URI.create("http://localhost:8080/api"), MediaTypes.HAL_JSON);
+    return traverson;
+    }
+    ```
+
+2. 8080/api의 결과 
+    ```json
+    {
+        "_links": {
+            "ingredients": {
+                "href": "http://localhost:8080/api/ingredients"
+            },
+            "users": {
+                "href": "http://localhost:8080/api/users"
+            },
+            "orders": {
+                "href": "http://localhost:8080/api/orders"
+            },
+            "tacos": {
+                "href": "http://localhost:8080/api/tacos{?page,size,sort}",
+                "templated": true
+            },
+            "profile": {
+                "href": "http://localhost:8080/api/profile"
+            }
+        }
+    }
+    ```
+
+3. traverson.follow("tacos") 했을 때 
+   - localhost:8080/api 의 결과 json에서 tacos의 href의 string값으로 api요청 
+   - 결과:
+    ```json
+    {
+        "_embedded": {
+            "tacos": [
+                {
+                    "name": "Carnivore",
+                    "createdAt": "2022-01-15T06:23:23.700+0000",
+                    "_links": {
+                        "self": {
+                            "href": "http://localhost:8080/api/tacos/2"
+                        },
+                        "taco": {
+                            "href": "http://localhost:8080/api/tacos/2"
+                        },
+                        "ingredients": {
+                            "href": "http://localhost:8080/api/tacos/2/ingredients"
+                        }
+                    }
+                },
+                {
+                    "name": "Bovine Bounty",
+                    "createdAt": "2022-01-15T06:23:23.718+0000",
+                    "_links": {
+                        "self": {
+                            "href": "http://localhost:8080/api/tacos/3"
+                        },
+                        "taco": {
+                            "href": "http://localhost:8080/api/tacos/3"
+                        },
+                        "ingredients": {
+                            "href": "http://localhost:8080/api/tacos/3/ingredients"
+                        }
+                    }
+                },
+                {
+                    "name": "Veg-Out",
+                    "createdAt": "2022-01-15T06:23:23.722+0000",
+                    "_links": {
+                        "self": {
+                            "href": "http://localhost:8080/api/tacos/4"
+                        },
+                        "taco": {
+                            "href": "http://localhost:8080/api/tacos/4"
+                        },
+                        "ingredients": {
+                            "href": "http://localhost:8080/api/tacos/4/ingredients"
+                        }
+                    }
+                }
+            ]
+        },
+        "_links": {
+            "self": {
+                "href": "http://localhost:8080/api/tacos{?page,size,sort}",
+                "templated": true
+            },
+            "profile": {
+                "href": "http://localhost:8080/api/profile/tacos"
+            },
+            "recents": {
+                "href": "http://localhost:8080/api/tacos/recent"
+            }
+        },
+        "page": {
+            "size": 20,
+            "totalElements": 3,
+            "totalPages": 1,
+            "number": 0
+        }
+    }
+    ```
+
+4. traverson.follow("tacos","recents")
+   - 위의 3번 작업 후,
+   - "http://localhost:8080/api/tacos{?page,size,sort}" 요청의 recents의 href값으로 api 요청 
+   
 
 </details>
 

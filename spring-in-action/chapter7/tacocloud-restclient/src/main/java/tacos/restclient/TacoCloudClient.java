@@ -59,6 +59,12 @@ public class TacoCloudClient {
     return responseEntity.getBody();
   }
 
+  public List<Ingredient> getAllIngredients() {
+    return restTemplate.exchange("http://localhost:8080/ingredients",
+            HttpMethod.GET, null, new ParameterizedTypeReference<List<Ingredient>>() {})
+        .getBody();
+  }
+
   public void updateIngredient(Ingredient ingredient) {
     restTemplate.put("http://localhost:8080/ingredients/{id}",
         ingredient,
@@ -92,7 +98,7 @@ public class TacoCloudClient {
     return responseEntity.getBody();
   }
 
-  public Iterable<Ingredient> getAllIngredeitnsWithTraverson() {
+  public Iterable<Ingredient> getAllIngredientsWithTraverson() {
     ParameterizedTypeReference<Resources<Ingredient>> ingredientType =
         new ParameterizedTypeReference<Resources<Ingredient>>() {};
 
