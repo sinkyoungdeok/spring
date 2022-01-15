@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>sia</groupId>
   	<artifactId>taco-cloud-parent</artifactId>
-		<version>0.0.6-SNAPSHOT</version>
+		<version>0.0.7-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -49,8 +49,6 @@
 			<artifactId>tacocloud-ui</artifactId>
 			<version>${tacocloud.version}</version>
 		</dependency>
-		<dependency> <groupId>org.javassist</groupId> <artifactId>javassist</artifactId> <version>3.23.1-GA</version> </dependency>
-
 
 		<!-- Run against embedded H2 database by default -->
 		<dependency>

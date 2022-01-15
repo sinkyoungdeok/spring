@@ -29,7 +29,7 @@ export class DesignComponent implements OnInit {
 
   // tag::ngOnInit[]
   ngOnInit() {
-    this.httpClient.get('http://localhost:8080/ingredientsx')
+    this.httpClient.get('http://localhost:8080/ingredients')
         .subscribe(data => {
           this.allIngredients = data;
           this.wraps = this.allIngredients.filter(w => w.type === 'WRAP');

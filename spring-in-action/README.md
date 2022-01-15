@@ -146,6 +146,10 @@
 
 ## 7. REST 서비스 사용하기
 
+- RestTemplate: 스프링 프레임워크에서 제공하는 간단하고 동기화된 REST 클라이언트
+- Traverson: 스프링 HATEOAS에서 제공하는 하이퍼링크를 인식하는 동기화 REST 클라이언트
+- WebClient: 스프링5에서 소개된 반응형 비동기 REST 클라이언트
+
 ### 7.1 RestTemplate으로 REST 엔드포인트 사용하기
 
 ### 7.2 Traverson으로 REST API 사용하기
