@@ -289,6 +289,61 @@
 
 ### 8.1 JMS로 메시지 전송하기
 
+**메시지 수신 방식**
+- 풀 모델: 코드에서 메시지를 요청하고 도착할 때까지 기다림 
+- 푸시 모델: 메시지가 수신 가능하게 되면 코드로 자동 전달 
+
+**풀 모델**
+- Receiver를 가져다가 사용 (요청하고나서 도착할 때까지 기다린다)
+- 애플리케이션 코드에서 Receiver를 호출
+   ```java
+   @Profile("jms-template")
+   @Component("templateOrderReceiver")
+   public class JmsOrderReceiver implements OrderReceiver {
+   
+     private JmsTemplate jms;
+   
+     public JmsOrderReceiver(JmsTemplate jms) {
+       this.jms = jms;
+     }
+     
+     @Override
+     public Order receiveOrder() {
+       return (Order) jms.receiveAndConvert("tacocloud.order.queue");
+     }
+     
+   }
+   ```
+
+**푸시 모델**
+- 리스너를 통해서 메시지 수신이 가능할 때 처리 
+- 애플리케이션 코드에서 호출하지 않는다. 
+   ```java
+   @Profile("jms-listener")
+   @Component
+   public class OrderListener {
+     
+     private KitchenUI ui;
+   
+     @Autowired
+     public OrderListener(KitchenUI ui) {
+       this.ui = ui;
+     }
+   
+     @JmsListener(destination = "tacocloud.order.queue")
+     public void receiveOrder(Order order) {
+       ui.displayOrder(order);
+     }
+     
+   }
+   ```
+**JMS**
+- 표준 자바 명세에 정의되어 있다
+- 여러 브로커에서 지원되므로 자바의 메시징에 많이 사용됨
+- 자바 명세이므로 자바 애플리케이션에서만 사용할 수 있다는 단점이 있다 
+- RabbitMQ와 카프카 같은 메시징 시스템은 위의 단점을 해결하였다 (다른 언어와 JVM 외의 다른 플랫폼에서 사용 가능)
+
+
 ### 8.2 RabbitMQ와 AMQP 사용하기
 
 ### 8.3 카프카 사용하기
