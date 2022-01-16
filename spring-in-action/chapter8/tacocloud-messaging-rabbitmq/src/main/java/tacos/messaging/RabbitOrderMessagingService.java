@@ -20,17 +20,14 @@ public class RabbitOrderMessagingService
   public RabbitOrderMessagingService(RabbitTemplate rabbit) {
     this.rabbit = rabbit;
   }
-  
+
+  @Override
   public void sendOrder(Order order) {
     rabbit.convertAndSend("tacocloud.order.queue", order,
-        new MessagePostProcessor() {
-          @Override
-          public Message postProcessMessage(Message message)
-              throws AmqpException {
-            MessageProperties props = message.getMessageProperties();
-            props.setHeader("X_ORDER_SOURCE", "WEB");
-            return message;
-          } 
+        message -> {
+          MessageProperties props = message.getMessageProperties();
+          props.setHeader("X_ORDER_SOURCE", "WEB");
+          return message;
         });
   }
   
