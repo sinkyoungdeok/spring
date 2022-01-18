@@ -456,6 +456,8 @@
 
 ### 11.1 스프링 WebFlux 사용하기
 
+![image](https://user-images.githubusercontent.com/28394879/149870970-fbb886e1-83ad-4859-99bb-89592e6c6df5.png)
+
 ### 11.2 함수형 요청 핸들러 정의하기
 
 ### 11.3 리액티브 컨트롤러 테스트하기
