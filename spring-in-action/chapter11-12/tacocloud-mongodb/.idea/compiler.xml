@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="tacocloud-domain-mongodb" />
+        <module name="tacocloud-restclient" />
+        <module name="tacocloud-messaging-jms" />
+        <module name="taco-cloud" />
+        <module name="tacocloud-email" />
+        <module name="tacocloud-data-mongodb" />
+        <module name="tacocloud-kitchen" />
+        <module name="tacocloud-ui" />
+        <module name="tacocloud-security" />
+        <module name="tacocloud-api" />
+        <module name="tacocloud-messaging-kafka" />
+        <module name="tacocloud-messaging-rabbitmq" />
+        <module name="tacocloud-web" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="taco-cloud" options="-parameters" />
+      <module name="tacocloud-api" options="-parameters" />
+      <module name="tacocloud-data-mongodb" options="-parameters" />
+      <module name="tacocloud-domain-mongodb" options="-parameters" />
+      <module name="tacocloud-email" options="-parameters" />
+      <module name="tacocloud-kitchen" options="-parameters" />
+      <module name="tacocloud-messaging-jms" options="-parameters" />
+      <module name="tacocloud-messaging-kafka" options="-parameters" />
+      <module name="tacocloud-messaging-rabbitmq" options="-parameters" />
+      <module name="tacocloud-restclient" options="-parameters" />
+      <module name="tacocloud-security" options="-parameters" />
+      <module name="tacocloud-ui" options="-parameters" />
+      <module name="tacocloud-web" options="-parameters" />
+    </option>
+  </component>
+</project>
