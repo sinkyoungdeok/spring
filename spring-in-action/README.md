@@ -716,6 +716,68 @@ public ReactiveUserDetailService userDetailsService(UserRepositroy userRepo) {
 
 ### 12.3 리액티브 몽고DB 리퍼지터리 작성하기
 
+**MongoDB**
+- 잘 알려진 NoSQL
+- 카산드라가 테이블의 행으로 데이터를 저장, 몽고DB는 문서형 데이터베이스이다.
+- BSON(Binary JSON)형식의 문서로 데이터를 저장하며, 다른 데이터베이스에서 데이터를 쿼리하는 것과 거의 유사한 방법으로 문서를 쿼리하거나 검색 할 수 있다
+- NoSQL이므로 관계형 DB랑 다르게 데이터 모델링 및 관리가 필요하다.
+- 스프링 데이터로 사용하는 방법은 JPA나 카산드라랑 비슷하다
+- 도메인 타입을 문서 구조로 매핑하는 애노테이션을 도메인 클래스에 지정한다.
+
+**Spring Data MongoDB**
+- 리액티브가 아닌 몽고 DB, 리액티브 몽고DB 각각 다른 의존성을 빌드해야 한다.
+- 기본포트: 27017
+- 테스트와 개발에 편리하도록 내장된 몽고DB를 대신 사용할 수 있는데, 이 때는 Flapdoodle 의존성을 빌드에 추가하면 됨
+  - Flapdoodle 내장 데이터베이스는 인메모리 몽고 DB 데이터베이스를 사용하는 것과 동일한 편의성을 제공한다.
+  - 애플리케이션을 다시 시작하면 모든 데이터가 없어지고 데이터베이스가 초기화된다
+
+**도메인 타입을 문서로 매핑**
+- 몽고DB에 저장되는 문서 구조로 도메인 타입을 매핑하는데 유용한 애노테이션 6개를 제공한다.
+- 그 중 3개만을 대부분 사용한다
+  - @Id: 문서 ID로 지정
+  - @Document: 문서로 선언
+  - @Field: 문서에 속성을 저장하기 위해 필드이름을 지정(지정 하지 않으면, 필드이름 과 속성이름이 같은 것으로 간주한다)
+- 카산드라는 별도의 UDT를 지정해야 됐지만, 몽고DB는 UDT지정 없이 간단하게 구성할 수 있다.
+  ```java
+  @Data
+  @RestResource(rel="tacos", path="tacos")
+  @Document
+  public class Taco {
+  
+    @Id
+    private String id;
+  
+    @NotNull
+    @Size(min=5, message="Name must be at least 5 chracters long")
+    private String name;
+  
+    private Date createdAt = new Date();
+  
+    @Size(min=1, message="You must choose at least 1 ingredient")
+    private List<Ingredient> ingredients; // UDT필요없다!
+  }
+  ``` 
+- ID로 String 타입의 속성을 사용하면 몽고DB가 자동으로 ID값을 값을 지정해준다 ( null일 경우만 )
+- List<Ingredient>는 JPA버전과 다르게 별도의 몽고 DB 컬렉션에 저장되지 않고, 카산드라 버전과 매우 유사하게 비정규화된 상태로 타코 문서에 직접 저장한다.
+  - 그러나 카산드라와는 다르게 몽고DB에는 사용자 정의 타입을 만들 필요없이 어떤 타입도 사용할 수 있다.
+  - @Document가 지정된 또 다른 타입이나 단순한 POJO 모두 가능하다 
+
+**리액티브 몽고DB 리퍼지터리 인터페이스 작성**
+- ReactiveCrudRepository나 ReactiveMongoRepository를 선택 
+  - ReactiveCrudRepository: 새로운 문서나 기존 문서의 save() 메서드에 의존 
+  - ReactivemongoRepository: 새로운 문서의 저장에 최적화된 소수의 특별한 insert() 메서드를 제공
+  - 리액티브가 아닌 경우 CrudRepositroy나 MongoRepository를 사용하면 된다 
+- ReactiveCrudRepository는 카산드라나 몽고DB둘다 지원하므로, ReactiveMongoRepository나 ReactiveCasandraRepository가 제공하는 기능을 써야하는 상황을 제외해선 ReactiveCrudRepository를 사용하면, 나중에 DB를 변경할 때 좋은 이점을 가져갈 수 있을 것 이다.
+- 문서를 자주 생성해야 하는 상황이면 ReactiveMongoRepositroy를 선택하는것이 좋다. (최적화된 insert()메서드 사용을 위해)
+  - 단점은 다른 DB로 변경이 힘들다는점. (다른 DB로전환하지 않으면 써도 된다)
+- 카산드라와 마찬가지로 PagingAndSortingRepository는 리액티브 리퍼지터리에 적합하지 않다 ( take로 처리가능 )
+  - `repo.findByOrderByCreatedAtDesc().take(12)` 로 대체가능
+
+
 ### 요약
+- 스프링 데이터는 카산드라, 몽고DB, 카우치베이스, 레디스 데이터베이스의 리액티브 리퍼지터리를 지원
+- 스프링 데이터의 리액티브 리퍼지터리는 리액티브가 아닌 리퍼지터리와 동일한 프로그래밍 모델을 따른다. 단, Flux나 Mono와 같은 리액티브 타입을 사용한다
+- JPA 리퍼지터리와 같은 리액티브가 아닌 리퍼지터리는 Mono나 Flux를 사용하도록 조정할 수 있지만, 데이터를 가져오거나 저장할 때 여전히 블로킹이 생긴다
+- 관계형이 아닌 데이터베이스를 사용하려면 해당 데이터베이스에서 데이터를 저장하는 방법에 맞게 데이터를 모델링하는 방법을 알아야 한다
 
 </details>
