@@ -646,6 +646,74 @@ public ReactiveUserDetailService userDetailsService(UserRepositroy userRepo) {
 
 ### 12.2 리액티브 카산드라 리퍼지터리 사용하기
 
+**카산드라**
+- 분산처리, 고성능, 상시 가용, 궁극적인 일관성을 갖는 NoSQL
+- 데이터를 테이블에 저장된 행으로 처리 
+- 각 행은 일대다 관계의 많은 분산 노드에 걸쳐 분할된다.
+- 한 노드가 모든 데이터를 갖지는 않지만, 특정 행은 다수의 노드에 걸쳐 복제될 수 있으므로 단일 장애점(한 노드에 문제가 생기면 전체가 사용 불가능)을 없애준다.
+
+**스프링 데이터 카산드라**
+- 리액티브가 아닌 리퍼지터리와 리액티브 리퍼지터리는 각각 다른 의존성을 빌드에 추가해야한다.
+- 키 공간을 자동으로 생성하도록 스프링 데이터 카산드라를 구성할 수 있지만, 우리가 직접 생성 또는 기존키 공간을 사용하는것이 훨씬 쉽다. 
+  - CQL셸에서 다음과 같이 명령을 사용하면 타코 클라우드 애플리케이션의 키 공간을 생성할 수 있다
+  - ```
+    cqlsh> create keyspace tacocloud
+    ... with replication={'class':'SimpleStrategy', 'replication_factor':1}
+    ... and durable_writes=true;
+    ```
+- 로컬에서 카산드라 데이터베이스를 사용할 때 필요한 속성
+  ```
+  spring:
+    data:
+        cassandra:
+            keyspace-name: tacocloud
+            shcema-action: recreate-drop-unused
+  ``` 
+
+**카산드라 데이터 모델링 이해하기**
+- 관계형 데이터베이스에 저장하기 위해 데이터를 모델링하는 것과 다르다.
+- 카산드라 테이블은 얼마든지 많은 열을 가질 수 있다.
+- 그러나 모든 행이 같은 열을 갖지 않고, 행마다 서로 다른 열을 가질 수 있다
+- 파티션키와 클러스터링 키 두 종류의 키를 갖는다
+  - 파티션키: 각 행이 유지 관리되는 파티션을 결정하기 위해 사용, 해시 오퍼레이션이 각 행의 파티션 키에 수행됨
+  - 클러스터링 키: 각 행이 파티션 내부에서 행의 순서를 결정하기 위해 사용
+- 읽기 오퍼레이션에 최적화되어 있다.
+  - 테이블이 비정규화되고 데이터가 다수의 테이블에 걸쳐 중복되는 경우가 흔하다
+  - 예) 고객 정보는 고객 테이블에 저장되지만, 각 고객의 주문 정보를 포함하는 테이블에도 중복 저장될 수 있다
+- JPA 애노테이션을 단순히 카산드라 애노테이션으로 변경한다고 해서 카산드라에 적용할 수 있는 것은 아니다 
+  - 데이터를 어떻게 모델링 할 것인지 다시 생각해야 한다 
+- 데이터의 컬렉션을 포함하는 열은 네이티브 타입(정수, 문자열등)의 컬렉션이거나, 사용자 정의 타입(UDT)의 컬렉션이어야 한다. 
+
+**도메인 타입 매핑 JPA vs 카산드라**
+- @Entity <--> @Table("ingredients")
+- @Id <--> @PrimaryKey
+
+![image](https://user-images.githubusercontent.com/28394879/150081388-73c1bd35-9a41-4472-8819-18b06904392b.png)
+
+![image](https://user-images.githubusercontent.com/28394879/150081766-cec7e811-7a20-47e1-92ec-595b17c8cbe4.png)
+
+**리액티브 카산드라 리퍼지터리 작성**
+- ReactiveCassandraRepository나 ReactiveCrudRepository를 선택 가능
+  - 어떻게 리퍼지터리를 사용하느냐에 따라 선택해야됨
+  - ReactiveCassandraRepository: ReactiveCrudRepository를 확장하여 새 객체가 저장될 때 사용되는 insert()메서드의 몇가지 변형 버전을 제공
+    - 이외에는 ReactiveCrudRepository와 동일한 메서드를 제공
+  - 만일 많은 데이터를 추가한다면 ReactiveCassandraRepository를 선택, 그렇지 않을 땐 ReactiveCrudRepository를 선택하는 것이 좋다 
+- 리액티브가 아닌 리퍼지터리를 사용할 때
+  - CrudRepository나 CassandraRepository 인터페이스를 우리 리퍼지터리 인터페이스에서 확장하면 됨 
+  - 그다음 Flux나 Mono대신, 카산드라 애노테이션이 지정된 도메인 타입이나 이 도메인 타입이 저장된 컬렉션을 우리 리퍼지터리 메서드에서 반환하면 된다 
+- 카산드라의 특성상 관계형 데이터베이스에서 SQL로 하듯이 테이블을 단순하게 where절로 쿼리할 수 없다. 
+  - 카산드라가 데이터 읽기에 최적화되어 있지만, where절을 사용한 필터링 결과는 빠른 쿼리와는 달리 너무 느리게 처리될 수 있다.
+  - 그렇지만 결과가 하나 이상의 열로 필터링되는 테이블 쿼리에는 매우 유용하므로 where절을 사용할 필요가 있다.
+
+**@AllowFiltering**
+- @AllowFiltering을 지정하지 않을 경우
+  - `select * from users where username='검색할 사용자 이름';`
+- @AllowFiltering을 지정한 경우
+  - `select * from users where username='검색할 사용자 이름' allow filtering;`
+- allow filtering 절은 '쿼리 성능에 잠재적인 영향을 준다는 것을 알고 있지만, 어쨌든 수행해야 한다'는 것을 카산드라에게 알려준다
+- 
+
+
 ### 12.3 리액티브 몽고DB 리퍼지터리 작성하기
 
 ### 요약
