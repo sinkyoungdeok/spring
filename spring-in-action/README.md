@@ -496,4 +496,100 @@
 
 ### 11.5 리액티브 웹 API 보안
 
+**서블릿 필터**
+- 스프링 시큐리티의 웹 보안 모델
+- 요청자가 올바른 권한을 갖고 있는지 확인하기 위해 서블릿 기반 웹 프레임워크의 요청 바운드를 가로채야 할 때 사용
+- WebFlux에서는 이런 방법이 곤랂하다.
+- 스프링 WebFlux로 웹애플리케이션을 작성할 때는 서블릿이 개입된다는 보장이 없다.
+- 리액티브 웹 애플리케이션은 Netty나 일부 다른 non-서블릿 서버에 구축될 가능성이 많다.
+
+**WebFlux 애플리케이션의 보안**
+- 서블릿 필터를 사용할 수 없다.
+- 5.0.0 버전부터 스프링 시큐리티는 서블릿 기반의 스프링 MVC와 리액티브 스프링 WebFlux 애플리케이션 모두의 보안에 사용될 수 있다.
+  - 스프링의 WebFilter가 이 일을 해준다.
+  - WebFilter는 서블릿 API에 의존하지 않는 스프링 특유의 서블릿 필터 같은 것이다. 
+- 리액티브 스프링 시큐리티의 구성 모델과 4장에서 알아본 스프링 시큐리티와 비슷하다.
+- 스프링 MVC와 스프링 WebFlux는 다른 의존성을 갖지만, 스프링 시큐리티는 MVC, WebFlux 둘다 동일한 스프링 부트 보안 스타터를 사용한다.
+- 하지만, 리액티브 구성 모델과 리액티브가 아닌 구성 모델 간에는 사소한 차이가 있다. 
+
+**웹 애플리케이션의 보안 구성**
+1. MVC
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/design", "/orders").hasAuthority("USER")
+                .antMatchers("/**").permitAll();
+    }
+}
+```
+
+2. WebFlux
+```java
+@Configuration
+@EnableWebFluxSecurity
+public class SecurityConfig {
+    
+    @Bean
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        return http 
+                .authorizeExchange()
+                .pathMatchers("/design", "/orders").hasAuthority("USER")
+                .anyExchange().permitAll()
+                .and()
+                .build();
+    }
+}
+```
+
+**UserDetails 객체로 정의하는 인증 로직**
+1. MVC
+```java
+@Autowired
+UserRepository userRepo;
+
+@Override
+protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth
+        .userDetailsService(new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                User user = userRepo.findByUsername(username);
+                if (user == null) {
+                    throw new UsernameNotFoundException( username + " not found")
+                }
+                return user.toUserDetails();
+            }
+        });    
+}
+```
+
+2. WebFlux
+```java
+@Service
+public ReactiveUserDetailService userDetailsService(UserRepositroy userRepo) {
+    return new ReactiveUserDetailsService() {
+        @Override
+        public Mono<UserDetails> findByUsername(String username) {
+            return userRepo.findByUsername(username)
+                .map(user -> {
+                   return user.toUserDetails(); 
+                });
+        }
+    }
+}
+```
+
+### 요약 
+- 스프링 WebFlux는 리액티브 웹 프레임워크를 제공한다. 이 프레임워크의 프로그래밍 모델은 스프링 MVC가 많이 반영되었다. 심지어는 애노테이션도 많은 것을 공유한다.
+- 스프링 5는 또한 스프링 WebFlux의 대안으로 함수형 프로그래밍 모델을 제공한다
+- 리액티브 컨트롤러는 WebTestClient를 사용해서 테스트할 수 있다
+- 클라이언트 측에는 스프링 5가 스프링 RestTemplate의 리액티브 버전인 WebClient를 제공한다
+- 스프링 시큐리티 5는 리액티브 보안을 지원하며, 이것의 프로그래밍 모델은 리액티브가 아닌 스프링 MVC 애플리케이션의 것과 크게 다르지 않다
+
 </details>
