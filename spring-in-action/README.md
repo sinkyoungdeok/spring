@@ -593,3 +593,17 @@ public ReactiveUserDetailService userDetailsService(UserRepositroy userRepo) {
 - 스프링 시큐리티 5는 리액티브 보안을 지원하며, 이것의 프로그래밍 모델은 리액티브가 아닌 스프링 MVC 애플리케이션의 것과 크게 다르지 않다
 
 </details>
+
+<details><summary> 12. 리액티브 데이터 퍼시스턴스 </summary>
+
+## 12. 리액티브 데이터 퍼시스턴스
+
+### 12.1 스프링 데이터의 리액티브 개념 이해하기
+
+### 12.2 리액티브 카산드라 리퍼지터리 사용하기
+
+### 12.3 리액티브 몽고DB 리퍼지터리 작성하기
+
+### 요약
+
+</details>
