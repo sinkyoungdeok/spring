@@ -781,3 +781,18 @@ public ReactiveUserDetailService userDetailsService(UserRepositroy userRepo) {
 - 관계형이 아닌 데이터베이스를 사용하려면 해당 데이터베이스에서 데이터를 저장하는 방법에 맞게 데이터를 모델링하는 방법을 알아야 한다
 
 </details>
+
+# Part4. 클라우드 네이티브 스프링
+<details> <summary> 13. 서비스 탐구하기 </summary>
+
+## 13. 서비스 탐구하기
+
+### 13.1 마이크로서비스 이해하기
+
+### 13.2 서비스 레지스트리 설정하기
+
+### 13.3 서비스 등록하고 찾기
+
+### 요약
+
+</details>
