@@ -600,6 +600,50 @@ public ReactiveUserDetailService userDetailsService(UserRepositroy userRepo) {
 
 ### 12.1 스프링 데이터의 리액티브 개념 이해하기
 
+**스프링 데이터 리액티브 개요**
+- 스프링 데이터 리액티브의 핵심은 리액티브 리퍼지터리는 도메인 타입이나 컬렉션 대신 Mono나 Flux를 인자로 받거나 반환하는 메서드를 갖는다
+- 예)
+  - `Flux<Ingredient> findByType(Ingredient.Type type);`
+  - `Flux<Taco> saveAll(Publisher<Taco> tacoPublisher);`
+- 리액티브가 아닌 리퍼지터리와 거의 동일한 프로그래밍 모델을 공유한다.
+- 단, 리액티브 리퍼지터리는 Mono나 Flux를 인자로 받거나 반환하는 메서드를 갖는다는것만 다르다. 
+
+**리액티브와 리액티브가 아닌 타입 간의 변환**
+- 관계형 데이터베이스에서는 아직 리액티브 프로그래밍 모델에서 지원하지 않는다. (카산드라, 몽고DB, 카우치베이스, 레디스 만 지원하고 있다)
+- 다른 DB로는 전환이 불가능하고, 관계형 DB를 사용하고 있는 상황에서 리액티브 프로그래밍을 적용할 수 없을까? ==> 할 수 있다.
+- 클라이언트부터 데이터베이스까지 리액티브 모델을 가질 때 리액티브 프로그래밍의 장점이 완전히 발휘된다.
+- 데이터베이스가 리액티브가 아닌 경우에는 일부 장점을 살릴 수 있다. 
+  - 데이터베이스가 블로킹 쿼리를 사용하더라도, 블로킹 되는 방식으로 데이터를 가져와서 가능한 빨리 리액티브 타입으로 변환하여 상위 컴포넌트들이 리액티브의 장점을 활용하게 할 수 있다.
+- 예) 리퍼지터리의 리액티브가 아닌 블로킹 코드를 격리시키고 애플리케이션의 어디서든 리액티브 타입으로 처리하게 하는 방법
+  - `List<Order> findByUser(User user);`
+  - ```java
+    List<Order> orders = repo.findByUser(someUser);
+    Flux<Order> orderFlux = Flux.fromIterable(orders);
+    ```
+  - ```java
+    Order order = repo.findById(Long id);
+    Mono<Order>
+    ```
+- 예) Mono나 Flux를 사용하면서 리액티브가 아닌 JPA 리퍼지터리에 save()를 호출해서 저장해야 할 경우
+  - ```java
+    Taco taco = tacoMono.block(); // 추출작업을 수행하기 위해 블로킹 오퍼레이션을 실행
+    tacoRepo.save(taco);
+    ```
+  - ```java
+    Iterable<Taco> tacos = tacoFlux.toIterable(); // Flux가 발행하는 모든 객체를 모아서 Iterable 타입으로 추출한다. 
+    tacoRepo.saveAll(tacos);
+    ```
+  - Mono.block()이나, Flux.toIterable()은 추출 작업을 할 때 블로킹이 되므로 리액티브 프로그래밍 모델을 벗어난다. 그러므로 이런 식의 Mono나 Flux 사용은 가급적 적게 사용하는 것이 좋다
+- 예) 블로킹되는 추출 오퍼레이션을 피하는 더 리액티브한 방법(Mono나 Flux를 구독하면서 발생되는 요소 각각에 대해 원하는 오퍼레이션을 수행)
+  - ```java
+    tacoFlux.subscribe(taco -> {
+        tacoRepo.save(taco); 
+    });
+    ```
+  - save()메서드는 여전히 리액티브가 아닌 블로킹 오퍼레이션이다.
+  - 그러나, Flux나 Mono가 발행하는 데이터를 소비하고 처리하는 리액티브 방식의 subscribe()를 사용하므로 블로킹 방식의 일괄처리보다는 더 바람직하다. 
+
+
 ### 12.2 리액티브 카산드라 리퍼지터리 사용하기
 
 ### 12.3 리액티브 몽고DB 리퍼지터리 작성하기
