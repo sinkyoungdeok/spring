@@ -481,6 +481,19 @@
 
 ### 11.4 REST API를 리액티브하게 사용하기
 
+**WebClient**
+- RestTemplate에서는 리액티브 타입을 지원하지 않는다.
+- RestTemplate의 리액티브 대안으로 Webclient가 있다
+- 외부 API로 요청할 때 리액티브 타입의 전송과 수신 모두를 한다
+- WebClient를 사용하는 것은 RestTemplate과 많이 다르다
+  - 다수의 메서드로 서로 다른 종류의 요청을 처리하는 대신 WebClient는 요청을 나타내고 전송하게 해주는 빌더 방식의 인터페이스를 사용한다.
+  - WebClient를 사용하는 일반적인 패턴은 다음과 같다
+    - WebClient의 인스턴스를 생성한다(또는 WebClient 빈을 주입한다)
+    - 요청을 전송할 HTTP 메서드를 지정한다
+    - 요청에 필요한 URI와 헤더를 지정한다
+    - 요청을 제출한다
+    - 응답을 사용한다.
+
 ### 11.5 리액티브 웹 API 보안
 
 </details>
